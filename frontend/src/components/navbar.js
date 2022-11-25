@@ -7,9 +7,11 @@ import {
   makeStyles,
   useTheme,
   useMediaQuery,
+  Button,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import DrawerComponent from "./drawer";
+import SearchBar from "material-ui-search-bar";
 
 const useStyles = makeStyles((theme) => ({
   navlinks: {
@@ -24,7 +26,8 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: "none",
     color: "white",
     fontSize: "20px",
-    marginLeft: theme.spacing(20),
+    marginLeft: theme.spacing(10),
+    marginTop: theme.spacing(1),
     "&:hover": {
       color: "yellow",
       borderBottom: "1px solid white",
@@ -59,6 +62,10 @@ function Navbar() {
             </Link>
             <Link to="/collegefinder" className={classes.link}>
               College Finder
+            </Link>
+            <SearchBar style={{marginLeft:"20px",height:"45px",width:"400px"}} placeholder="Search for a college..."/>
+            <Link to="/" className={classes.link}>
+            <Button style={{marginLeft:"-4em",borderRadius: 15,backgroundColor: "#ffa726"}} variant="contained" href="#contained-buttons"> Login</Button>
             </Link>
           </div>
         )}

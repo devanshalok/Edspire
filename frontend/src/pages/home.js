@@ -3,10 +3,7 @@ import "./page.css"
 function Home() {
   return (
     <section id='homeContainer' style={{backgroundColor:'#fff3e0'}}>
-    <img
-      src={require('./dream.png')}
-      alt='unsplash-img'
-    />
+    <img src={require('./dream.png')} alt='unsplash-img'/>
     <div >
       <h1>If studying abroad is your dream, making it simple is ours!</h1>
       <p style={{fontSize:"20px"}}>Connect with thousands of students who will answer your questions</p>
