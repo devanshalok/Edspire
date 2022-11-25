@@ -63,8 +63,9 @@ function Navbar() {
             <Link to="/collegefinder" className={classes.link}>
               College Finder
             </Link>
+            
             <SearchBar style={{marginLeft:"20px",height:"45px",width:"400px"}} placeholder="Search for a college..."/>
-            <Link to="/" className={classes.link}>
+            <Link to="/login" className={classes.link}>
             <Button style={{marginLeft:"-4em",borderRadius: 15,backgroundColor: "#ffa726"}} variant="contained" href="#contained-buttons"> Login</Button>
             </Link>
           </div>

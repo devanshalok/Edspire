@@ -6,6 +6,8 @@ import Explore from "./pages/explore";
 import Connect from "./pages/connect";
 import CollegeFinder from "./pages/collegefinder";
 import { Button } from "@material-ui/core";
+import Login from './components/login'
+import SignUp from './components/signup'
 function App() {
   return (
     <Router>
@@ -16,6 +18,7 @@ function App() {
         <Route path="/connect" element={<Connect/>} />
         <Route path="/collegefinder" element={<CollegeFinder/>} />
         <Route path="/" element={<Button variant="contained" href="#contained-buttons">Login</Button>} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </Router>
   );
