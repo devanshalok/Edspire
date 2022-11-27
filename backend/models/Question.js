@@ -19,6 +19,10 @@ const questionSchema = new mongoose.Schema({
 		type: Number,
 		default: 0,
 	},
+	space:{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Space',
+	},
 	// tags: [{
 	// 	type: mongoose.Schema.Types.ObjectId,
 	// 	ref: 'Tag',
@@ -37,6 +41,7 @@ const questionSchema = new mongoose.Schema({
 		imageUrl: {
 			type: String,
 			maxLength: 500,
+			default:""
 		},
 	},
 	createdOn: {
@@ -55,9 +60,11 @@ const questionSchema = new mongoose.Schema({
 		type: String,
 		enum: ['pending', 'approved', 'rejected'],
 		required: true,
+		default: 'approved'
 	},
 	imageUrls: [{
 		type: String,
+		default:""
 	}],
 });
 

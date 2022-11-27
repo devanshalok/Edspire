@@ -16,7 +16,7 @@ const answerSchema = new mongoose.Schema({
 		imageUrl: {
 			type: String,
 			maxLength: 100,
-			required: true,
+			default:""
 		},
 	},
 	createdOn: {

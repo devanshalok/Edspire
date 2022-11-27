@@ -3,38 +3,6 @@ const {
 	Schema,
 } = require('./mongooseConnection');
 
-// const tagsInformationSchema = new mongoose.Schema({
-// 	name: {
-// 		type: String,
-// 	},
-// 	descr: {
-// 		type: String,
-// 	},
-// 	score: {
-// 		type: Number,
-// 		default: 0,
-// 	},
-// 	posts: {
-// 		type: Number,
-// 		default: 0,
-// 	},
-// });
-
-// const badgeSchema = new mongoose.Schema({
-// 	type: {
-// 		type: String,
-// 		default: 0,
-// 	},
-// 	name: {
-// 		type: String,
-// 		maxLength: 20,
-// 	},
-// 	level: {
-// 		type: String,
-// 		maxLength: 10,
-// 	},
-// });
-
 const userSchema = new mongoose.Schema({
 	name: {
 		type: String,
@@ -72,9 +40,21 @@ const userSchema = new mongoose.Schema({
 		type: Number,
 		default: 0,
 	},
-	tagsInformation: {
+	greScore: {
 		type: Schema.Types.Mixed,
 	},
+	ieltsScore: {
+		type: Schema.Types.Mixed,
+	},
+	underGradPercent: {
+		type: Number
+	},
+	location: {
+		type: String,
+	},
+	// tagsInformation: {
+	// 	type: Schema.Types.Mixed,
+	// },
 	questionsAsked: {
 		type: Number,
 		default: 0,
@@ -107,18 +87,23 @@ const userSchema = new mongoose.Schema({
 		type: String,
 		maxLength: 20,
 	},
-	badges: {
-		type: Schema.Types.Mixed,
-	},
-	bookmarks: [{
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Question',
-		default: [],
-	}],
+	// badges: {
+	// 	type: Schema.Types.Mixed,
+	// },
+	// bookmarks: [{
+	// 	type: mongoose.Schema.Types.ObjectId,
+	// 	ref: 'Question',
+	// 	default: [],
+	// }],
 	isAdmin: {
 		type: Boolean,
 		default: false,
 	},
+	followedSpaces: [{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Space',
+		default: [],
+	}]
 }, {
 	minimize: false,
 });

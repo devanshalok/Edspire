@@ -6,12 +6,7 @@ const UserModel = require('../models/User');
 const AnswerModel = require('../models/Answer');
 const QuestionsModel = require('../models/Question');
 
-async function login(data) {
-	const {
-		body,
-		params,
-		query,
-	} = data;
+async function login(body) {
 	const emailId = body.email;
 	const {
 		password,
@@ -22,7 +17,7 @@ async function login(data) {
 	try {
 		const user = await UserModel.findOne({
 			emailId,
-		}).populate('bookmarks');
+		});//.populate('bookmarks');
 		console.log('#### users :', user, emailId);
 		if (user) {
 			delete user.password;
@@ -30,38 +25,38 @@ async function login(data) {
 			const userId = userObj._id;
 			const isValidPassword = bcrypt.compareSync(password, userObj.password); // true
 			if (isValidPassword == false) {
-				response = {
+				error = {
 					msg: 'Login failed',
 				};
 				statusCode = 401;
 				return {
-					response,
+					error,
 					statusCode,
 				};
 			}
 			user.userId = user._id;
 			const token = jwt.sign({
 				data: user,
-			}, 'my-secret-key-0001xx01212032432', {
+			}, '280-token', {
 				expiresIn: '24h',
 			});
-			response = {
+			msg = {
 				token,
 				msg: 'LoggedIn successfully',
 				data: user,
 			};
 			statusCode = 200;
 			return {
-				response,
+				data:msg,
 				statusCode,
 			};
 		}
-		response = {
+		error = {
 			msg: 'Invalid user name or password',
 		};
 		statusCode = 400;
 		return {
-			response,
+			error,
 			statusCode,
 		};
 	} catch (err) {
@@ -71,7 +66,7 @@ async function login(data) {
 		};
 		statusCode = 400;
 		return {
-			response,
+			error:response,
 			statusCode,
 		};
 	}

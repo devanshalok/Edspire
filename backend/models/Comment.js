@@ -11,6 +11,7 @@
 // 		imageUrl: {
 // 			type: String,
 // 			required: true,
+//             default:""
 // 		},
 // 	},
 //     createdOn: { type: Date, default: Date.now },
