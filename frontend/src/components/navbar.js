@@ -60,7 +60,7 @@ function Navbar() {
             <Link to="/connect" className={classes.link}>
               Connect
             </Link>
-            <Link to="/collegefinder" className={classes.link}>
+            <Link to="/profile" className={classes.link}>
               College Finder
             </Link>
             
