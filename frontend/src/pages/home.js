@@ -1,5 +1,12 @@
 import { Button } from "@material-ui/core";
-import "./page.css"
+import "./page.css";
+import { Container } from '../components/container';
+const triggerText = 'Ask A Question';
+  const onSubmit = (event) => {
+    event.preventDefault(event);
+    console.log(event.target.name.value);
+    console.log("hello")
+  };
 function Home() {
   return (
     <section id='homeContainer' style={{backgroundColor:'#fff3e0'}}>
@@ -14,6 +21,7 @@ function Home() {
         fontSize: "18px"
     }}
  variant="contained" href="#contained-buttons"> Get Started</Button>
+ <Container triggerText={triggerText} onSubmit={onSubmit} />
     </div>
   </section>);
 }
