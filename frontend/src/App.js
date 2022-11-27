@@ -5,6 +5,7 @@ import Home from "./pages/home";
 import Explore from "./pages/explore";
 import Connect from "./pages/connect";
 import CollegeFinder from "./pages/collegefinder";
+import Profile from "./components/profile";
 import { Button } from "@material-ui/core";
 import Login from './components/login'
 import SignUp from './components/signup'
@@ -16,9 +17,10 @@ function App() {
         <Route exact path="/" element={<Home/>}  />
         <Route path="/explore" element={<Explore/>} />
         <Route path="/connect" element={<Connect/>} />
-        <Route path="/collegefinder" element={<CollegeFinder/>} />
+        <Route path="/profile" element={<Profile/>} />
         <Route path="/" element={<Button variant="contained" href="#contained-buttons">Login</Button>} />
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
       </Routes>
     </Router>
   );
