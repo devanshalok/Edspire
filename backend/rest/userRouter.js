@@ -22,13 +22,28 @@ router.get('/profile', authenticateToken, async (req, res, next) => {
     res.json(response)
 ;});
 
-router.post('/profile',authenticateToken, async (req, res, next) => {
+router.put('/profile',authenticateToken, async (req, res, next) => {
     const response = await userService.updateUserProfile({...req.body,userId:req.user._id});
     res.json(response)
 ;});
 
 router.post('/follow-space',authenticateToken, async (req, res, next) => {
     const response = await userService.followSpace({...req.body},req.user._id);
+    res.json(response)
+;});
+
+router.get('/universities', authenticateToken, async (req, res, next) => {
+    const response = await userService.getUniversities(req.user._id);
+    res.json(response)
+;});
+
+router.get('/branches', authenticateToken, async (req, res, next) => {
+    const response = await userService.getBranches(req.user._id);
+    res.json(response)
+;});
+
+router.get('/find-colleges', authenticateToken, async (req, res, next) => {
+    const response = await userService.findColleges(req.user._id);
     res.json(response)
 ;});
 //get all question, get all answers, update profile, get tags used

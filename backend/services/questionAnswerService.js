@@ -21,20 +21,26 @@ async function postQuestion(body, _id) {
 		$set: space,
 	}).exec();
 	console.log('newquestion', newQuestion);
-	return { 'statusCode': 200, response: { msg: "Question successfully created" } };
+	return { 'statusCode': 200, data: { msg: "Question successfully created" } };
 }
 
 async function getQuestion(_id) {
-	const question = await Question.findOne({ _id });
+	const question = await Question.findOne({ _id }).populate('answers');
 	console.log('question', question);
-	return { 'statusCode': 200, response: { question } };
+	return { 'statusCode': 200, data: { question } };
 }
 
-async function getAllQuestions() {
-	const questions = await Question.find();
+async function getAllQuestions(space) {
+	let questions;
+	if (space) {
+		questions = await Question.find({ space });
+	} else {
+		questions = await Question.find();
+	}
 	console.log('all questions', questions);
-	return { 'statusCode': 200, response: { questions } };
+	return { 'statusCode': 200, data: { questions } };
 }
+
 const getAnswersByQuestionId = async (params) => {
 	console.log('Entering answerService.getAnswersByResourceId');
 	try {
@@ -42,7 +48,7 @@ const getAnswersByQuestionId = async (params) => {
 			questionId: params.questionId,
 		}).lean();
 		console.log(`get answer response :${answers}`);
-		return { 'statusCode': 200, response: { answers } };
+		return { 'statusCode': 200, data: { answers } };
 	} catch (e) {
 		console.error('Exception occurred while getting answers', e);
 		return {
@@ -70,19 +76,21 @@ const addAnswer = async (body, _id) => {
 			$set: question,
 		}).exec();
 		if (answerResponse && questionResponse) {
-			return answerResponse
+			return { statusCode: 200, data: { msg: 'Answer added successfully' } }
 		}
 		return {
 			error: {
-				message: 'Some error occured while creating answer',
+				msg: 'Some error occured while creating answer',
 			},
+			statusCode: 400
 		};
 	} catch (e) {
 		console.error('Exception occurred while creating answer', e);
 		return {
 			error: {
-				message: e.message,
+				msg: e.message,
 			},
+			statusCode: 400
 		};
 	}
 };
@@ -103,20 +111,20 @@ const updateAnswer = async ({
 		if (answerResponse) {
 			return {
 				data: {
-					message: 'Answer updated Successfully',
+					msg: 'Answer updated Successfully',
 				},
 			};
 		}
 		return {
 			error: {
-				message: 'Some error occured while updating answer',
+				msg: 'Some error occured while updating answer',
 			},
 		};
 	} catch (e) {
 		console.error('Exception occurred while updating answer', e);
 		return {
 			error: {
-				message: e.message,
+				msg: e.message,
 			},
 		};
 	}
@@ -156,7 +164,7 @@ const bestAnswer = async ({
 			if (answerResponse) {
 				return {
 					data: {
-						message: 'Best Answer marked Successfully',
+						msg: 'Best Answer marked Successfully',
 					},
 				};
 			}
@@ -202,26 +210,26 @@ const bestAnswer = async ({
 			if (answerResponse && markBestAnswerResponse) {
 				return {
 					data: {
-						message: 'Updated new Best Answer Successfully',
+						msg: 'Updated new Best Answer Successfully',
 					},
 				};
 			}
 			return {
 				error: {
-					message: 'Some error occured while marking best answer',
+					msg: 'Some error occured while marking best answer',
 				},
 			};
 		}
 		return {
 			error: {
-				message: 'Some error occured while marking best answer',
+				msg: 'Some error occured while marking best answer',
 			},
 		};
 	} catch (e) {
 		console.error('Exception occurred while marking best answer', e);
 		return {
 			error: {
-				message: e.message,
+				msg: e.message,
 			},
 		};
 	}

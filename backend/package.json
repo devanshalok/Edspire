@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "devstart": "nodemon ./src/bin/www",
+    "devstart": "cls && nodemon ./src/bin/www",
     "test": "mocha --timeout 10000"
   },
   "dependencies": {

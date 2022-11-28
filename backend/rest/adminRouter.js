@@ -9,4 +9,13 @@ router.post('/create-space', authenticateAdminToken,async (req, res, next) => {
     res.json(response);
 });
 
+router.post('/create-university', authenticateAdminToken,async (req, res, next) => {
+    const response = await adminService.createUniversity(req.body);
+    res.json(response);
+});
+
+router.post('/create-branch', authenticateAdminToken,async (req, res, next) => {
+    const response = await adminService.createBranch(req.body);
+    res.json(response);
+});
 module.exports = router;

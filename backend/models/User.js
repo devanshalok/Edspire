@@ -4,17 +4,17 @@ const {
 } = require('./mongooseConnection');
 
 const userSchema = new mongoose.Schema({
-	name: {
+	firstName: {
+		type: String,
+		maxLength: 50,
+	},
+	lastName: {
 		type: String,
 		maxLength: 50,
 	},
 	emailId: {
 		type: String,
 		maxLength: 50,
-	},
-	role: {
-		type: String,
-		enum: ['admin', 'user'],
 	},
 	password: {
 		type: String,
@@ -36,10 +36,6 @@ const userSchema = new mongoose.Schema({
 		type: Date,
 		default: Date.now,
 	},
-	reputation: {
-		type: Number,
-		default: 0,
-	},
 	greScore: {
 		type: Schema.Types.Mixed,
 	},
@@ -52,9 +48,29 @@ const userSchema = new mongoose.Schema({
 	location: {
 		type: String,
 	},
-	// tagsInformation: {
-	// 	type: Schema.Types.Mixed,
-	// },
+	university: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'University',
+		default: "",
+	},
+	backlogs: {
+		type: Number,
+		default: 0,
+	},
+	workExperienceYears: {
+		type: Number,
+		default: 0,
+	},
+	branch: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Branch',
+		default: "",
+	},
+	desiredGraduateBranch: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Branch',
+		default: "",
+	},
 	questionsAsked: {
 		type: Number,
 		default: 0,
@@ -79,17 +95,10 @@ const userSchema = new mongoose.Schema({
 		type: Date,
 		default: Date.now,
 	},
-	reach: {
-		type: Number,
-		default: 0,
-	},
 	about: {
 		type: String,
 		maxLength: 20,
 	},
-	// badges: {
-	// 	type: Schema.Types.Mixed,
-	// },
 	// bookmarks: [{
 	// 	type: mongoose.Schema.Types.ObjectId,
 	// 	ref: 'Question',

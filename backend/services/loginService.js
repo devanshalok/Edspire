@@ -22,7 +22,6 @@ async function login(body) {
 		if (user) {
 			delete user.password;
 			const userObj = user;
-			const userId = userObj._id;
 			const isValidPassword = bcrypt.compareSync(password, userObj.password); // true
 			if (isValidPassword == false) {
 				error = {
@@ -43,7 +42,7 @@ async function login(body) {
 			msg = {
 				token,
 				msg: 'LoggedIn successfully',
-				data: user,
+				userDetails: user,
 			};
 			statusCode = 200;
 			return {

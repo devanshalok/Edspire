@@ -19,6 +19,12 @@ router.get('/questions',authenticateToken, async (req, res, next) => {
     res.json(response);
 });
 
+router.get('/questions-for-space',authenticateToken, async (req, res, next) => {
+    console.log('space is ',req.query.space);
+    const response = await questionAnswerService.getAllQuestions(req.query.space)
+    res.json(response);
+});
+
 router.post('/answer',authenticateToken, async (req, res, next) => {
     const response = await questionAnswerService.addAnswer(req.body,req.user._id)
     res.json(response);

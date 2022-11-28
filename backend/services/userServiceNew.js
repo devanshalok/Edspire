@@ -7,9 +7,10 @@ const User = require('../models/User');
 // const Event = require('../models/Event');
 // const utils = require('../utils');
 const Space = require('../models/Space');
+const University = require('../models/University');
+const Branch = require('../models/Branch');
 
 const updateUserProfile = async (body) => {
-    console.log('body is', body.greScore, body.ieltsScore, body.underGradPercent)
     try {
         const userDetails = await User.updateOne({
             "_id": body.userId
@@ -19,6 +20,9 @@ const updateUserProfile = async (body) => {
                 ieltsScore: body.ieltsScore,
                 underGradPercent: body.underGradPercent,
                 location: body.location,
+                university: body.university,
+                backlogs: body.backlogs,
+                branch: body.branch
             },
         });
         console.log('userdetails', userDetails.matchedCount, userDetails.modifiedCount);
@@ -73,7 +77,7 @@ const getUserProfile = async (userId) => {
         console.error('Error while fetching getUserProfile', e);
         return {
             error: {
-                message: e.message,
+                msg: e.message,
             },
         };
     }
@@ -88,7 +92,7 @@ async function followSpace(body, _id) {
             followers: _id
         }
     });
-    const user = await User.updateOne({_id:_id},{
+    const user = await User.updateOne({ _id: _id }, {
         $push: {
             followedSpaces: body.space
         }
@@ -96,6 +100,98 @@ async function followSpace(body, _id) {
     return { statusCode: 200, data: { msg: "Space followed successfully" } };
 }
 
+const getUniversities = async () => {
+    // console.log("######## IN getUserProfile #######")
+    try {
+        const universities = await University.find().lean();
+        return { statusCode: 200, data: { universities } };
+    } catch (e) {
+        console.error('Error while fetching getUserProfile', e);
+        return {
+            error: {
+                msg: e.message,
+            },
+        };
+    }
+};
+
+const getBranches = async () => {
+    // console.log("######## IN getUserProfile #######")
+    try {
+        const branches = await Branch.find().lean();
+        return { statusCode: 200, data: { branches } };
+    } catch (e) {
+        console.error('Error while fetching getUserProfile', e);
+        return {
+            error: {
+                msg: e.message,
+            },
+        };
+    }
+};
+
+const findColleges = async (userId) => {
+    // console.log("######## IN getUserProfile #######")
+    try {
+        const userDetails = await User.findOne({
+            _id: userId,
+        }, { password: 0, __v: 0 }).lean();
+        const colleges = await University.find({
+            $and: [{
+                minGre: {
+                    $lte: userDetails.greScore.overall
+                }
+            },
+            {
+                maxGre: {
+                    $gte: userDetails.greScore.overall
+                }
+            },
+            {
+                minIelts: {
+                    $lte: userDetails.ieltsScore.overall
+                }
+            },
+            {
+                maxIelts: {
+                    $gte: userDetails.ieltsScore.overall
+                }
+            },
+            {
+                minPercent: {
+                    $lte: userDetails.underGradPercent
+                }
+            },
+            {
+                maxPercent: {
+                    $gte: userDetails.underGradPercent
+                }
+            },
+            {
+                workExperienceYears: {
+                    $lte: userDetails.workExperienceYears
+                }
+            },
+            {
+                backlogs: {
+                    $gte: userDetails.backlogs
+                }
+            }
+            ]
+        });
+        console.log('colleges are', colleges);
+        console.log('userdetails are', userDetails);
+        // const branches = await Branch.find().lean();
+        return { statusCode: 200, data: { colleges } };
+    } catch (e) {
+        console.error('Error while fetching getUserProfile', e);
+        return {
+            error: {
+                message: e.message,
+            },
+        };
+    }
+};
 module.exports = {
-    updateUserProfile, getUserProfile, followSpace
+    updateUserProfile, getUserProfile, followSpace, getUniversities, getBranches, findColleges
 };

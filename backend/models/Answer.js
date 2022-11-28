@@ -16,7 +16,7 @@ const answerSchema = new mongoose.Schema({
 		imageUrl: {
 			type: String,
 			maxLength: 100,
-			default:""
+			default: ""
 		},
 	},
 	createdOn: {
@@ -26,10 +26,6 @@ const answerSchema = new mongoose.Schema({
 	answer: {
 		type: String,
 		required: true,
-	},
-	score: {
-		type: Number,
-		default: 0,
 	},
 	votes: {
 		type: Number,
