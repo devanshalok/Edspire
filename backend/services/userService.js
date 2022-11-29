@@ -2,7 +2,7 @@
 /* eslint-disable no-param-reassign */
 const _ = require('lodash');
 const mongoose = require('mongoose');
-const Tag = require('../models/Tag');
+// const Tag = require('../models/Tag');
 const Question = require('../models/Question');
 const Answer = require('../models/Answer');
 const User = require('../models/User');
@@ -322,6 +322,9 @@ const updateUserProfile = async (data) => {
 	}
 };
 
+function followSpace(body,_id){
+	
+}
 module.exports = {
 	getTagsUsedInQuestions,
 	getBookmarks,

@@ -3,50 +3,18 @@ const {
 	Schema,
 } = require('./mongooseConnection');
 
-// const tagsInformationSchema = new mongoose.Schema({
-// 	name: {
-// 		type: String,
-// 	},
-// 	descr: {
-// 		type: String,
-// 	},
-// 	score: {
-// 		type: Number,
-// 		default: 0,
-// 	},
-// 	posts: {
-// 		type: Number,
-// 		default: 0,
-// 	},
-// });
-
-// const badgeSchema = new mongoose.Schema({
-// 	type: {
-// 		type: String,
-// 		default: 0,
-// 	},
-// 	name: {
-// 		type: String,
-// 		maxLength: 20,
-// 	},
-// 	level: {
-// 		type: String,
-// 		maxLength: 10,
-// 	},
-// });
-
 const userSchema = new mongoose.Schema({
-	name: {
+	firstName: {
+		type: String,
+		maxLength: 50,
+	},
+	lastName: {
 		type: String,
 		maxLength: 50,
 	},
 	emailId: {
 		type: String,
 		maxLength: 50,
-	},
-	role: {
-		type: String,
-		enum: ['admin', 'user'],
 	},
 	password: {
 		type: String,
@@ -68,12 +36,40 @@ const userSchema = new mongoose.Schema({
 		type: Date,
 		default: Date.now,
 	},
-	reputation: {
+	greScore: {
+		type: Schema.Types.Mixed,
+	},
+	ieltsScore: {
+		type: Schema.Types.Mixed,
+	},
+	underGradPercent: {
+		type: Number
+	},
+	location: {
+		type: String,
+	},
+	university: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'University',
+		default: "",
+	},
+	backlogs: {
 		type: Number,
 		default: 0,
 	},
-	tagsInformation: {
-		type: Schema.Types.Mixed,
+	workExperienceYears: {
+		type: Number,
+		default: 0,
+	},
+	branch: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Branch',
+		default: "",
+	},
+	desiredGraduateBranch: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Branch',
+		default: "",
 	},
 	questionsAsked: {
 		type: Number,
@@ -99,26 +95,24 @@ const userSchema = new mongoose.Schema({
 		type: Date,
 		default: Date.now,
 	},
-	reach: {
-		type: Number,
-		default: 0,
-	},
 	about: {
 		type: String,
 		maxLength: 20,
 	},
-	badges: {
-		type: Schema.Types.Mixed,
-	},
-	bookmarks: [{
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Question',
-		default: [],
-	}],
+	// bookmarks: [{
+	// 	type: mongoose.Schema.Types.ObjectId,
+	// 	ref: 'Question',
+	// 	default: [],
+	// }],
 	isAdmin: {
 		type: Boolean,
 		default: false,
 	},
+	followedSpaces: [{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Space',
+		default: [],
+	}]
 }, {
 	minimize: false,
 });

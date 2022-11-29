@@ -3,17 +3,9 @@ const logger = require('morgan');
 const redis = require('redis')
 
 require('dotenv').config();
-require('./kafka/adminConsumer');
-require('./kafka/answerConsumer');
-require('./kafka/commentConsumer');
-require('./kafka/messageConsumer');
-require('./kafka/questionConsumer');
-require('./kafka/tagConsumer');
-require('./kafka/userConsumer');
-require('./kafka/voteConsumer');
-require('./kafka/postConsumer');
-require('./kafka/producer');
-
+const userRouter = require('./rest/userRouter');
+const questionAnswerRouter = require('./rest/questionAnswerRouter');
+const adminRouter = require("./rest/adminRouter");
 const app = express();
 
 app.use(logger('dev'));
@@ -22,7 +14,9 @@ app.use(express.urlencoded({
   extended: false,
 }));
 
-
+app.use('/',userRouter);
+app.use('/qa',questionAnswerRouter);
+app.use('/admin',adminRouter);
 app.use((err, req, res, next) => {
   console.error('in error handler');
   // set locals, only providing error in development
@@ -37,5 +31,20 @@ app.use((err, req, res, next) => {
     },
   });
 });
+function authenticateToken(req, res, next) {
+  const authHeader = req.headers['authorization']
+  const token = authHeader && authHeader.split(' ')[1]
 
+  if (token == null) return res.sendStatus(401)
+
+  jwt.verify(token, "280-token", (err, user) => {
+    console.log(err)
+
+    if (err) return res.sendStatus(403)
+
+    req.user = user
+
+    next()
+  })
+}
 module.exports = app;

@@ -19,11 +19,10 @@ const questionSchema = new mongoose.Schema({
 		type: Number,
 		default: 0,
 	},
-	// tags: [{
-	// 	type: mongoose.Schema.Types.ObjectId,
-	// 	ref: 'Tag',
-	// 	default: [],
-	// }],
+	space: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Space',
+	},
 	answers: [{
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Answer',
@@ -37,6 +36,7 @@ const questionSchema = new mongoose.Schema({
 		imageUrl: {
 			type: String,
 			maxLength: 500,
+			default: ""
 		},
 	},
 	createdOn: {
@@ -47,17 +47,15 @@ const questionSchema = new mongoose.Schema({
 		type: Date,
 		default: Date.now,
 	},
-	score: {
-		type: Number,
-		default: 0,
-	},
 	reviewStatus: {
 		type: String,
 		enum: ['pending', 'approved', 'rejected'],
 		required: true,
+		default: 'approved'
 	},
 	imageUrls: [{
 		type: String,
+		default: ""
 	}],
 });
 
