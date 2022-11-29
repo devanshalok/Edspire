@@ -1,0 +1,59 @@
+[
+    {
+      "id": 1,
+      "title": "Harvard University ",
+      "description": "Harvard University is a private Ivy League research university in Cambridge, Massachusetts, established in 1636, whose history, influence, and wealth have made it one of the world's most prestigious universities. ",
+      "image": "https://cdn.sstatic.net/Img/home/ask-a-question.svg?v=f4f2050b0297",
+      "cols": 2
+    },
+    {
+      "id": 2,
+      "title": "carnegie mellon university",
+      "description": "Carnegie Mellon University is a private research university in Pittsburgh, Pennsylvania. Founded in 1900 by Andrew Carnegie as the Carnegie Technical Schools, the university became the Carnegie Institute of Technology in 1912 and began granting four-year degrees. ",
+      "image": "https://cdn.sstatic.net/Img/home/votes.svg?v=748a8f48a8e2"
+    },
+    {
+      "id": 3,
+      "title": "stanford university",
+      "description": "Stanford University is a private research university in Stanford, California. Stanford is known for its academic strength, wealth, proximity to Silicon Valley, and ranking as one of the world's top universities. ",
+      "image": "https://cdn.sstatic.net/Img/home/answer.svg?v=4cd8048a676c",
+      "cols": 3
+    },
+    {
+      "id": 4,
+      "title": "pennsylvania state university",
+      "description": "The Pennsylvania State University is a public, land-grant, research-intensive university with campuses and facilities throughout Pennsylvania. ",
+      "image": "https://cdn.sstatic.net/Img/home/advocate.svg?v=4b03cfb93502"
+    },
+    {
+      "id": 5,
+      "title": "san jose state university",
+      "description": "San José State University is a public comprehensive university located in San Jose, California, United States. SJSU is the oldest public institution of higher learning in California and the founding campus of the California State University system. ",
+      "image": "https://cdn.sstatic.net/Img/home/tags.svg?v=913379eb09eb",
+      "cols": 2
+    },
+    {
+      "id": 6,
+      "title": "brown university",
+      "description": "Brown University is a private Ivy League research university in Providence, Rhode Island, United States. Founded in 1764 as the College in the English Colony of Rhode Island and Providence Plantations, it is the seventh-oldest institution of higher education in the United States and one of the nine colonial colleges chartered before the American Revolution. ",
+      "image": "https://cdn.sstatic.net/Img/home/accept.svg?v=27d5be078970"
+    },
+    {
+      "id": 7,
+      "title": "kelly school of business",
+      "description": "The Kelley School of Business is the business school of Indiana University Bloomington. It was founded in 1920 and is one of the oldest business schools in the United States. ",
+      "image": "https://cdn.sstatic.net/Img/home/get-recognized.svg?v=3b339d9aa10c"
+    },
+    {
+      "id": 8,
+      "title": "University of California, Berkeley",
+      "description": "The University of California, Berkeley, is a public research university located in Berkeley, California. Founded in 1868, Berkeley is the flagship institution of the ten research universities affiliated with the University of California system. ",
+      "image": "https://cdn.sstatic.net/Img/home/developer.svg?v=b930de7967a7"
+    },
+    {
+      "id": 9,
+      "title": "University of California, Los Angeles",
+      "description": "The University of California, Los Angeles is a public research university in the Westwood district of Los Angeles, California, United States. It became the Southern Branch of the University of California in 1919 and achieved full autonomy in 1920. ",
+      "image": "https://cdn.sstatic.net/Img/home/open-source.svg?v=847b604fd2ab"
+    }
+  ]

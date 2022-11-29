@@ -4,11 +4,12 @@ import Navbar from "./components/navbar";
 import Home from "./pages/home";
 import Explore from "./pages/explore";
 import Connect from "./pages/connect";
-// import CollegeFinder from "./pages/collegefinder";
+import CollegeFinder from "./pages/collegefinder";
 import Profile from "./components/profile";
 import { Button } from "@material-ui/core";
 import Login from './components/login'
 import SignUp from './components/signup'
+import Answer from "./pages/answer";
 function App() {
   return (
     <Router>
@@ -21,6 +22,8 @@ function App() {
         <Route path="/" element={<Button variant="contained" href="#contained-buttons">Login</Button>} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} /> 
+        <Route path="/collegefinder" element={<CollegeFinder/>} />
+        <Route path="/answer" element={<Answer/>} />
       </Routes>
     </Router>
   );

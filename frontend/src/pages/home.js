@@ -1,6 +1,7 @@
 import { Button } from "@material-ui/core";
 import "./page.css";
 import { Container } from '../components/container';
+import { Link } from "react-router-dom";
 const triggerText = 'Ask A Question';
   const onSubmit = (event) => {
     event.preventDefault(event);
@@ -22,6 +23,8 @@ function Home() {
     }}
  variant="contained" href="#contained-buttons"> Get Started</Button>
  <Container triggerText={triggerText} onSubmit={onSubmit} />
+ <Button style={{marginTop:20}}variant="contained" ><Link to="./collegefinder"> College Finder</Link></Button>
+
     </div>
   </section>);
 }

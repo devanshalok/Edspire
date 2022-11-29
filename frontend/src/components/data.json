@@ -1,0 +1,59 @@
+[
+    {
+      "id": 1,
+      "title": "GRE",
+      "description": "Discussion About GRE",
+      "image": "https://cdn.sstatic.net/Img/home/ask-a-question.svg?v=f4f2050b0297",
+      "cols": 2
+    },
+    {
+      "id": 2,
+      "title": "IELTS",
+      "description": "Discussion About IELTS",
+      "image": "https://cdn.sstatic.net/Img/home/votes.svg?v=748a8f48a8e2"
+    },
+    {
+      "id": 3,
+      "title": "College Housing",
+      "description": "Discussion About College Housing",
+      "image": "https://cdn.sstatic.net/Img/home/answer.svg?v=4cd8048a676c",
+      "cols": 3
+    },
+    {
+      "id": 4,
+      "title": "Visa Slots",
+      "description": "Discussion About Visa Slots",
+      "image": "https://cdn.sstatic.net/Img/home/advocate.svg?v=4b03cfb93502"
+    },
+    {
+      "id": 5,
+      "title": "Scholarships",
+      "description": "Discussion About Scholarships",
+      "image": "https://cdn.sstatic.net/Img/home/tags.svg?v=913379eb09eb",
+      "cols": 2
+    },
+    {
+      "id": 6,
+      "title": "Study Abroad",
+      "description": "Discussion About Study Abroad",
+      "image": "https://cdn.sstatic.net/Img/home/accept.svg?v=27d5be078970"
+    },
+    {
+      "id": 7,
+      "title": "Subjects",
+      "description": "Discussion About Subjects",
+      "image": "https://cdn.sstatic.net/Img/home/get-recognized.svg?v=3b339d9aa10c"
+    },
+    {
+      "id": 8,
+      "title": "Professors",
+      "description": "Discussion About Professors",
+      "image": "https://cdn.sstatic.net/Img/home/developer.svg?v=b930de7967a7"
+    },
+    {
+      "id": 9,
+      "title": "Universities",
+      "description": "Discussion About Universities",
+      "image": "https://cdn.sstatic.net/Img/home/open-source.svg?v=847b604fd2ab"
+    }
+  ]

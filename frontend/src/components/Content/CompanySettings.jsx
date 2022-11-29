@@ -9,7 +9,7 @@ import {
 function CompanySettings() {
   return (
     <>
-    <p style={{marginBottom:"20px",fontSize:"20px",fontFamily:"sans-serif"}}>GRE SCORE</p>
+    <p style={{marginBottom:"20px",fontSize:"20px",fontFamily:"sans-serif"}}>GRE Score</p>
     <Grid
       templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' }}
       gap={6}
@@ -43,7 +43,7 @@ function CompanySettings() {
       </FormControl>
     </Grid>
     
-    <p style={{marginTop:"20px",marginBottom:"20px",fontSize:"20px",fontFamily:"sans-serif"}}>IELTS SCORE</p>
+    <p style={{marginTop:"20px",marginBottom:"20px",fontSize:"20px",fontFamily:"sans-serif"}}>IELTS Score</p>
     <Grid 
       templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' }}
       gap={6}
@@ -75,7 +75,42 @@ function CompanySettings() {
             type="text"
             placeholder="7.0" />
         </FormControl>
-      </Grid></>
+      </Grid>
+
+      <p style={{marginTop:"20px",marginBottom:"20px",fontSize:"20px",fontFamily:"sans-serif"}}>College Information</p>
+    <Grid 
+      templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' }}
+      gap={6}
+    >
+        <FormControl id="companyId">
+          <FormLabel>College Name</FormLabel>
+          <InputGroup>
+            <Input
+              focusBorderColor="brand.blue"
+              type="text"
+              placeholder="IIT Delhi" />
+          </InputGroup>
+        </FormControl>
+        <FormControl id="Percentage">
+          <FormLabel>Percentage</FormLabel>
+          <Input focusBorderColor="brand.blue" type="text" placeholder="80%" />
+        </FormControl>
+        <FormControl id="emailCompany">
+          <FormLabel>Backlogs</FormLabel>
+          <Input
+            focusBorderColor="brand.blue"
+            type="text"
+            placeholder="0" />
+        </FormControl>
+        <FormControl>
+          <FormLabel>Branch</FormLabel>
+          <Input
+            focusBorderColor="brand.blue"
+            type="text"
+            placeholder="Computer Science" />
+        </FormControl>
+      </Grid>
+      </>
     
   )
 }

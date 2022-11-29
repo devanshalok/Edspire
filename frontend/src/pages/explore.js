@@ -1,6 +1,8 @@
-import { Typography } from "@material-ui/core";
+import  Tiles from "../components/tiles";
 
 function Explore() {
-  return <Typography>Hello</Typography>;
+  return (
+  <Tiles />
+  );
 }
 export default Explore;
