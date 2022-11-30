@@ -51,9 +51,9 @@ function Answer() {
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [question, setQuestion] = useState([]);
+  const [question, setQuestion] = useState({});
 
-  const questionId = location.questionId
+  const questionId = location.state
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -87,7 +87,7 @@ function Answer() {
             <CardHeader
               avatar={
                 <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                  {question.createdBy.firstname[0] + question.createdBy.lastname[0] || ""}
+                  {question.createdBy && question.createdBy.firstname[0] + question.createdBy.lastname[0]}
                 </Avatar>
               }
               action={
@@ -95,12 +95,12 @@ function Answer() {
                   <MoreVertIcon />
                 </IconButton>
               }
-              title={question.createdBy.firstname + " " + question.createdBy.lastname}
+              title={question.createdBy && question.createdBy.firstname + " " + question.createdBy.lastname}
               subheader={moment(question.modifiedOn, config.DATE_FORMAT).fromNow() || ""}
             />
 
             <CardContent>
-              <Typography variant="body2" color="text.primary">
+              <Typography variant="body1" color="text.primary" style={{ fontSize: "25px"}}>
                 {question.title}
               </Typography>
             </CardContent>
@@ -128,9 +128,9 @@ function Answer() {
           </Card>
           <Item style={{ marginTop: "30px" }}>
             <p style={{ fontSize: "20px", marginTop: "10px", marginLeft: "20px" }}>Answers</p>
-            <GridListTile > <RecipeReviewCard /></GridListTile>
-            <GridListTile > <RecipeReviewCard /></GridListTile>
-            <GridListTile > <RecipeReviewCard /></GridListTile>
+            {question.answers && question.answers.map(answer =>
+              <GridListTile > <RecipeReviewCard key={answer._id} answer={answer} /></GridListTile>
+            )}
           </Item>
         </Grid>
         <Grid item xs={3}>

@@ -19,6 +19,8 @@ import { Link } from 'react-router-dom';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import CommentIcon from '@mui/icons-material/Comment';
 import { blue } from '@material-ui/core/colors';
+import moment from 'moment';
+import config from '../config';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -31,19 +33,20 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function RecipeReviewCard() {
+export default function RecipeReviewCard(props) {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+  console.log('props are',props)
 
   return (
     <Card style={{margin:"10px"}} sx={{ maxWidth: 1000 }}>
         <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: blue[500] }} aria-label="recipe">
-            AH
+                  {props.answer.createdBy.firstname[0] + props.answer.createdBy.lastname[0]}
           </Avatar>
         }
         action={
@@ -51,11 +54,11 @@ export default function RecipeReviewCard() {
             <MoreVertIcon />
           </IconButton>
         }
-        title="Abul Hasan"
-        subheader="October 19, 2016"
+        title={props.answer.createdBy.firstname+" "+ props.answer.createdBy.lastname}
+        subheader={moment(props.answer.createdOn, config.DATE_FORMAT).fromNow() || ""}
       />
       <CardContent>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" color="text.primary">
         You must be aware of the fact that admission to a university is based on the holistic approach i.e. your overall profile. Since you are aiming for the top-notch universities then certainly you need to have a super-strong profile and for that, you require the best scores in the academics as well as your GRE and TOEFL/IELTS exam along with strong recommendations, etc.
 
 When it comes to the GRE, I would say, anything above 320 is considered as a good score. However, if you get 330+ then you’ll have a bit leverage in the other parameter of your profile.
