@@ -100,12 +100,6 @@ export default function AccountMenu() {
     },}} to='/profile'>Profile</Link>
         </MenuItem>
         <Divider />
-        <MenuItem>
-          <ListItemIcon>
-            <Settings fontSize="small" />
-          </ListItemIcon>
-          Settings
-        </MenuItem>
         <MenuItem onClick={logoutNow}>
           <ListItemIcon>
             <Logout fontSize="small" />

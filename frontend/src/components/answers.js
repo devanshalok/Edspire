@@ -65,12 +65,17 @@ When it comes to the GRE, I would say, anything above 320 is considered as a goo
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
+      <div style={{ margin:"10px",display: "flex", flexDirection: "row",justifyContent: "space-between", width: "100%" }}>
         <IconButton aria-label="add to favorites">
-           <ThumbUpIcon/> <p style={{fontSize:"15px",marginLeft:5, marginTop:"15px"}}>Upvote</p>
+           <ThumbUpIcon style={{fontSize:25}}/> <p style={{fontSize:"20px",marginLeft:5, marginTop:"15px"}}>Upvote</p>
         </IconButton>
         <IconButton aria-label="share">
-          <CommentIcon /> <p style={{fontSize:"15px", marginTop:"15px",marginLeft:5}}>Comment</p>
+          <CommentIcon style={{marginLeft:20,fontSize:25}}/> <p style={{fontSize:"20px", marginTop:"15px",marginLeft:5}}>Comment</p>
         </IconButton>
+        <IconButton aria-label="share">
+          <ShareIcon style={{marginLeft:20,fontSize:25}}/> <p style={{fontSize:"20px", marginTop:"15px",marginLeft:5}}>Share</p>
+        </IconButton>
+        </div>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>

@@ -25,6 +25,9 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import OpenInFullIcon from '@mui/icons-material/OpenInFull';
+import BasicModalAnswer from "../components/basicmodalanswer";
+import FollowTheSignsIcon from '@mui/icons-material/FollowTheSigns';
 import axios from "axios";
 import config from "../config";
 import moment from "moment";
@@ -100,17 +103,26 @@ function Answer() {
             />
 
             <CardContent>
-              <Typography variant="body1" color="text.primary" style={{ fontSize: "25px"}}>
+              <Typography variant="body1" color="text.primary" style={{ fontSize: "20px"}}>
                 {question.title}
               </Typography>
             </CardContent>
             <CardActions disableSpacing>
-              <IconButton aria-label="add to favorites">
-                <Link to='/answer'> <ModeEditIcon /> </Link> <p style={{ fontSize: "15px", marginTop: "15px" }}>Answer</p>
-              </IconButton>
-              <IconButton aria-label="share">
-                <ShareIcon /> <p style={{ fontSize: "15px", marginTop: "15px" }}>Share</p>
-              </IconButton>
+            <div style={{ margin:"10px",display: "flex", flexDirection: "row", justifyContent: "space-between", width: "100%" }}>
+            <IconButton style={{marginTop:"-0.2em"}} aria-label="share">
+         <BasicModalAnswer/>
+          </IconButton>
+        <IconButton  aria-label="share">
+          <Link style={{
+            textDecoration: "none", color: "black",
+            fontSize: "15px",
+            "&:hover": {
+              color: "yellow",
+              borderBottom: "1px solid white",
+            },
+          }}>
+          <FollowTheSignsIcon style={{ fontSize: 20 }} /> Follow Question</Link>
+        </IconButton>
               <ExpandMore
                 expand={expanded}
                 onClick={handleExpandClick}
@@ -119,6 +131,7 @@ function Answer() {
               >
                 <ExpandMoreIcon />
               </ExpandMore>
+              </div>
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
               <CardContent>

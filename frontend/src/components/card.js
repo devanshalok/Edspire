@@ -15,6 +15,8 @@ import FollowTheSignsIcon from '@mui/icons-material/FollowTheSigns';
 import { Link } from 'react-router-dom';
 import moment from 'moment'
 import config from '../config';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import BasicModalAnswer from './basicmodalanswer';
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -45,34 +47,26 @@ export default function RecipeReviewCard(props) {
         subheader={moment(props.question.modifiedOn,config.DATE_FORMAT).fromNow()}
       />
       <CardContent>
-        <Typography variant="body2" color="text.primary" style={{ fontSize: "24px" }}>
+        <Typography variant="body2" color="text.primary" style={{ fontSize: "20px" }}>
           {props.question.title}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <div style={{ borderTop:"1px solid gray",borderBottom:"1px solid black",margin:"10px",display: "flex", flexDirection: "row", justifyContent: "space-between", width: "100%" }}>
+        <div style={{margin:"10px",display: "flex", flexDirection: "row", justifyContent: "space-between", width: "100%" }}>
         <IconButton  aria-label="add to favorites">
           <Link style={{
             textDecoration: "none", color: "black", 
-            fontSize: "18px" 
+            fontSize: "15px", marginTop:12,
           }} state={props.question._id} to='/answer'> 
-          <OpenInFullIcon style={{fontSize: 20}} /> Go to question</Link>
+          <OpenInNewIcon style={{fontSize: 20}} /> Go to question</Link>
         </IconButton>
         <IconButton aria-label="share">
-          <Link style={{
-            textDecoration: "none", color: "black",
-            fontSize: "18px",
-            "&:hover": {
-              color: "yellow",
-              borderBottom: "1px solid white",
-            },
-          }} >
-         <ModeEditIcon style={{ fontSize: 20, }} /> Answer Question</Link>
-        </IconButton>
+         <BasicModalAnswer/>
+          </IconButton>
         <IconButton  aria-label="share">
           <Link style={{
             textDecoration: "none", color: "black",
-            fontSize: "18px",
+            fontSize: "15px",
             "&:hover": {
               color: "yellow",
               borderBottom: "1px solid white",
