@@ -17,7 +17,7 @@ async function login(body) {
 	try {
 		const user = await UserModel.findOne({
 			emailId,
-		});//.populate('bookmarks');
+		}).populate('university');
 		console.log('#### users :', user, emailId);
 		if (user) {
 			const userObj = user;

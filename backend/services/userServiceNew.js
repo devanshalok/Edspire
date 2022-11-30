@@ -9,28 +9,48 @@ const User = require('../models/User');
 const Space = require('../models/Space');
 const University = require('../models/University');
 const Branch = require('../models/Branch');
+const jwt = require('jsonwebtoken');
 
 const updateUserProfile = async (body) => {
+    console.log('body is ', body)
     try {
         const userDetails = await User.updateOne({
             "_id": body.userId
         }, {
             $set: {
-                greScore: body.greScore,
-                ieltsScore: body.ieltsScore,
-                underGradPercent: body.underGradPercent,
-                location: body.location,
-                university: body.university,
-                backlogs: body.backlogs,
-                branch: body.branch
+                firstName: body.firstName || undefined,
+                lastName: body.lastName || undefined,
+                // password:body.password|| undefined,
+                street: body.street || undefined,
+                city: body.city || undefined,
+                state: body.state || undefined,
+                country: body.country || undefined,
+                greScore: body.greScore || undefined,
+                ieltsScore: body.ieltsScore || undefined,
+                university: body.university || undefined,
+                branch: body.branch || undefined,
+                underGradPercent: body.underGradPercent || undefined,
+                backlogs: body.backlogs || undefined,
+                workExperienceYears: body.workExperienceYears || undefined
             },
         });
-        console.log('userdetails', userDetails.matchedCount, userDetails.modifiedCount);
+        console.log('userdetails', userDetails);
         if (userDetails) {
+            let returnDetails = await User.findOne({
+                "_id": body.userId
+            });
+            const token = jwt.sign({
+				data: returnDetails,
+			}, '280-token', {
+				expiresIn: '24h',
+			});
+            console.log('returnDetails', returnDetails);
             return {
                 statusCode: 200,
                 data: {
                     msg: 'UserProfile updated Successfully',
+                    profile:returnDetails,
+                    token:token
                 },
             };
         }
@@ -56,7 +76,7 @@ const getUserProfile = async (userId) => {
     try {
         const userDetails = await User.findOne({
             _id: userId,
-        }, { password: 0, __v: 0 }).lean();
+        }, { password: 0, __v: 0 }).populate('university').lean();
         // const questionsAsked = await Question.count({
         //     'createdBy._id': userId,
         // }).lean();

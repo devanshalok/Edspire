@@ -37,22 +37,29 @@ const userSchema = new mongoose.Schema({
 		default: Date.now,
 	},
 	greScore: {
-		type: Schema.Types.Mixed,
+		type: Number
 	},
 	ieltsScore: {
-		type: Schema.Types.Mixed,
+		type: Number
 	},
 	underGradPercent: {
 		type: Number
 	},
-	location: {
+	city: {
+		type: String,
+	},
+	state: {
+		type: String,
+	},
+	country: {
 		type: String,
 	},
 	university: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'University',
-		// default: "",
+		type: String,
 	},
+	followedUniversities: [{
+		type: String,
+	}],
 	backlogs: {
 		type: Number,
 		default: 0,
@@ -62,14 +69,10 @@ const userSchema = new mongoose.Schema({
 		default: 0,
 	},
 	branch: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Branch',
-		// default: "",
+		type: String
 	},
 	desiredGraduateBranch: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Branch',
-		// default: "",
+		type: String
 	},
 	questionsAsked: {
 		type: Number,
@@ -99,18 +102,15 @@ const userSchema = new mongoose.Schema({
 		type: String,
 		maxLength: 20,
 	},
-	// bookmarks: [{
-	// 	type: mongoose.Schema.Types.ObjectId,
-	// 	ref: 'Question',
-	// 	default: [],
-	// }],
 	isAdmin: {
 		type: Boolean,
 		default: false,
 	},
-	followedSpaces: [{
+	followedSpaces: [{ type: String }
+	],
+	followedQuestions: [{
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Space',
+		ref: 'Question',
 		default: [],
 	}]
 }, {

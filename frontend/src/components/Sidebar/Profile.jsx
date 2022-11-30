@@ -17,10 +17,18 @@ import {
   useDisclosure,
   VStack,
 } from '@chakra-ui/react'
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function Profile() {
-  const [userProfile, setUserProfile] = useState(null)
-
+  const [userProfile,setUserProfile] = useState("");
+  const profile = useSelector(state => {
+    if (state.userSlice.profile) {
+      console.log('state is ', state.userSlice)
+      return state.userSlice.profile
+    } return undefined
+  });
+  
   const { isOpen, onOpen, onClose } = useDisclosure()
   const profileImage = useRef(null)
 
@@ -45,7 +53,7 @@ function Profile() {
     <VStack spacing={3} py={5} borderBottomWidth={1} borderColor="brand.light">
       <Avatar
         size="2xl"
-        name="Devansh Alok"
+        name={profile.firstName + " " +profile.lastName}
         cursor="pointer"
         onClick={openChooseImage}
         src={userProfile ? userProfile : '/img/tim-cook.jpg'}
@@ -90,10 +98,10 @@ function Profile() {
       </Modal>
       <VStack spacing={1}>
         <Heading as="h3" fontSize="xl" color="brand.dark">
-          Devansh Alok
+        {profile.firstName + " " +profile.lastName}
         </Heading>
         <Text color="brand.gray" fontSize="sm">
-          Edspire Inc.
+        {profile.firstName + " " +profile.lastName}
         </Text>
       </VStack>
     </VStack>

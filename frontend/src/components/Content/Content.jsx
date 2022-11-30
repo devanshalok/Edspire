@@ -1,11 +1,10 @@
 import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
 
 import AccountSettings from './AccountSettings'
-import Actions from './Actions'
 import CompanySettings from './CompanySettings'
 
 
-const Content = () => {
+const Content = (profile) => {
   const tabs = ['Account Information', 'Score Information']
 
   return (
@@ -43,14 +42,13 @@ const Content = () => {
 
         <TabPanels px={3} mt={5}>
           <TabPanel>
-            <AccountSettings />
+            <AccountSettings profile={profile.profile}/>
           </TabPanel>
           <TabPanel>
-            <CompanySettings />
+            <CompanySettings profile={profile.profile}/>
           </TabPanel>
         </TabPanels>
       </Tabs>
-      <Actions />
     </Box>
   )
 }
