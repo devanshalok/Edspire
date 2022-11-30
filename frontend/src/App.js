@@ -13,6 +13,7 @@ import Answer from "./pages/answer";
 import { Provider } from 'react-redux';
 import store from './redux/store';
 // import {PersistGate} from 'redux-persist/es/integration/react'
+import CollegeFinderForm from "./components/collegefinderform";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} /> 
         <Route path="/collegefinder" element={<CollegeFinder/>} />
         <Route path="/answer" element={<Answer/>} />
+        <Route path="/collegefinderform" element={<CollegeFinderForm/>} />
       </Routes>
     </Router>
     {/* </PersistGate> */}
