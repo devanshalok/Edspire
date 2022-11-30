@@ -61,7 +61,12 @@ export default function RecipeReviewCard() {
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
-          <Link to='/answer'> <ModeEditIcon/> </Link> <p style={{fontSize:"15px", marginTop:"15px"}}>Answer</p>
+          <Link style={{textDecoration:"none", color: "gray",
+    fontSize: "20px",
+    "&:hover": {
+      color: "yellow",
+      borderBottom: "1px solid white",
+    },}} to='/answer'> <ModeEditIcon style={{fontSize:30}}/> Answer</Link>
         </IconButton>
         <IconButton aria-label="share">
           <ShareIcon /> <p style={{fontSize:"15px", marginTop:"15px"}}>Share</p>

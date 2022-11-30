@@ -13,6 +13,7 @@ import SearchBar from "material-ui-search-bar";
 import { useDispatch, useSelector,shallowEqual } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../redux/userSlice";
+import AccountMenu from "./accountmenu";
 const useStyles = makeStyles((theme) => ({
   navlinks: {
     marginLeft: theme.spacing(5),
