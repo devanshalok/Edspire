@@ -16,9 +16,7 @@ function Home() {
         fontSize: "18px"
     }}
  variant="contained" href="./login"> Get Started</Button>
- <BasicModal/>
- <Button style={{marginTop:20}}variant="contained" ><Link to="./collegefinder"> College Finder</Link></Button>
-    </div>
+ </div>
   </section>);
 }
 export default Home;

@@ -2,19 +2,16 @@ import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
-import Collapse from '@mui/material/Collapse';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import OpenInFullIcon from '@mui/icons-material/OpenInFull';
+import FollowTheSignsIcon from '@mui/icons-material/FollowTheSigns';
 import { Link } from 'react-router-dom';
 import moment from 'moment'
 import config from '../config';
@@ -47,26 +44,43 @@ export default function RecipeReviewCard(props) {
         title={props.question.createdBy.firstname + " " + props.question.createdBy.lastname}
         subheader={moment(props.question.modifiedOn,config.DATE_FORMAT).fromNow()}
       />
-
       <CardContent>
         <Typography variant="body2" color="text.primary" style={{ fontSize: "24px" }}>
           {props.question.title}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
+        <div style={{ borderTop:"1px solid gray",borderBottom:"1px solid black",margin:"10px",display: "flex", flexDirection: "row", justifyContent: "space-between", width: "100%" }}>
+        <IconButton  aria-label="add to favorites">
           <Link style={{
-            textDecoration: "none", color: "gray",
-            fontSize: "20px",
+            textDecoration: "none", color: "black", 
+            fontSize: "18px" 
+          }} state={props.question._id} to='/answer'> 
+          <OpenInFullIcon style={{fontSize: 20}} /> Go to question</Link>
+        </IconButton>
+        <IconButton aria-label="share">
+          <Link style={{
+            textDecoration: "none", color: "black",
+            fontSize: "18px",
             "&:hover": {
               color: "yellow",
               borderBottom: "1px solid white",
             },
-          }} state={props.question._id} to='/answer'> <ModeEditIcon style={{ fontSize: 30 }} /> Answer</Link>
+          }} >
+         <ModeEditIcon style={{ fontSize: 20, }} /> Answer Question</Link>
         </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon /> <p style={{ fontSize: "15px", marginTop: "15px" }}>Share</p>
+        <IconButton  aria-label="share">
+          <Link style={{
+            textDecoration: "none", color: "black",
+            fontSize: "18px",
+            "&:hover": {
+              color: "yellow",
+              borderBottom: "1px solid white",
+            },
+          }}>
+          <FollowTheSignsIcon style={{ fontSize: 20 }} /> Follow Question</Link>
         </IconButton>
+        </div>
         {/* <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}

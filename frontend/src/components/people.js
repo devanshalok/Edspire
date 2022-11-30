@@ -4,16 +4,17 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
+import MailIcon from '@mui/icons-material/Mail';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import Typography from '@mui/material/Typography';
-import InfoIcon from '@mui/icons-material/Info';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import dataList from "./colleges.json"
+import TwitterIcon from '@mui/icons-material/Twitter';
+import dataList from "./data.json"
 
-export default function ImgMediaCard() {
+export default function People() {
   return (
-    <div style={{maxWidth:"100%",margin:"30px",display:"flex",flexWrap:"wrap"}}>
+    <div style={{maxWidth:"100%",marginLeft:"130px",display:"flex",flexWrap:"wrap"}}>
        {dataList.map((data) => ( 
-    <Card style={{marginLeft:125,marginTop:20}}sx={{ maxWidth: 500 }}>   
+    <Card style={{marginLeft:40,marginTop:50,width:350,boxShadow:"10px 5px 5px gray"}}sx={{ maxWidth: 500 }}>   
       <>
       <CardMedia
                 component="img"
@@ -28,9 +29,10 @@ export default function ImgMediaCard() {
                        {data.description}
                     </Typography>
                 </CardContent>
-                <CardActions style={{marginTop:10,display: "flex", flexDirection: "row", width: "100%" }}>
-                    <Button size="small"><InfoIcon />About the University</Button>
-                    <Button size="small"><FavoriteIcon/>Add to Favorites</Button>
+                <CardActions style={{marginTop:10,display: "flex", flexDirection: "row", justifyContent: "space-between", width: "100%" }}>
+                    <Button size="small"><MailIcon/>Mail</Button>
+                    <Button size="small"><LinkedInIcon/>LinkedIn</Button>
+                    <Button size="small"><TwitterIcon/>Twitter</Button>
                 </CardActions></>
       
     </Card>

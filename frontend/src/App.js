@@ -11,6 +11,7 @@ import Login from './components/login'
 import SignUp from './components/signup'
 import Answer from "./pages/answer";
 import { Provider } from 'react-redux';
+import Connect from "./pages/connect";
 import store from './redux/store';
 // import {PersistGate} from 'redux-persist/es/integration/react'
 import CollegeFinderForm from "./components/collegefinderform";
@@ -22,7 +23,7 @@ function App() {
     <Router>
       <Navbar />
       <Routes>
-        <Route exact path="/logout" element={<Home/>}  />
+        <Route exact path="/" element={<Home/>}  />
         <Route path="/explore" element={<Explore/>} />
         <Route path="/home" element={<HomeFeed/>} />
         <Route path="/profile" element={<Profile/>} />
@@ -32,6 +33,7 @@ function App() {
         <Route path="/collegefinder" element={<CollegeFinder/>} />
         <Route path="/answer" element={<Answer/>} />
         <Route path="/collegefinderform" element={<CollegeFinderForm/>} />
+        <Route path="/connect" element={<Connect/>} />
       </Routes>
     </Router>
     {/* </PersistGate> */}

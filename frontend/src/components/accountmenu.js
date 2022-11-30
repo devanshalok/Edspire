@@ -11,10 +11,11 @@ import Tooltip from '@mui/material/Tooltip';
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
-import { red } from '@material-ui/core/colors';
 import { Link } from 'react-router-dom';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-
+import { useDispatch, useSelector,shallowEqual } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { logout } from "../redux/userSlice";
 export default function AccountMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -24,9 +25,16 @@ export default function AccountMenu() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const dispatch = useDispatch();
+  const navigate=useNavigate();
+  function logoutNow() {
+    dispatch(logout());
+    navigate('/login');
+    console.log('logging out')
+  };
   return (
     <React.Fragment>
-      <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+      <Box sx={{ marginTop:"-0.3em",marginLeft:"-0.1em",display: 'flex', alignItems: 'center', textAlign: 'center' }}>
         <Tooltip title="Account settings">
           <IconButton
             onClick={handleClick}
@@ -98,7 +106,7 @@ export default function AccountMenu() {
           </ListItemIcon>
           Settings
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={logoutNow}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>

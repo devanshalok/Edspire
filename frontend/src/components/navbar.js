@@ -14,6 +14,7 @@ import { useDispatch, useSelector,shallowEqual } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../redux/userSlice";
 import AccountMenu from "./accountmenu";
+import BasicModal from "./basicmodal";
 const useStyles = makeStyles((theme) => ({
   navlinks: {
     marginLeft: theme.spacing(5),
@@ -22,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
   logo: {
     flexGrow: "1",
     cursor: "pointer",
+    marginTop:"-0.5em"
   },
   link: {
     textDecoration: "none",
@@ -31,7 +33,6 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
     "&:hover": {
       color: "yellow",
-      borderBottom: "1px solid white",
     },
   },
 }));
@@ -47,7 +48,6 @@ function Navbar() {
     } return undefined
   })
 
-
   function logoutNow() {
     dispatch(logout());
     console.log('logging out')
@@ -56,9 +56,9 @@ function Navbar() {
   return (
     <AppBar position="static" style={{ background: '#2E3B55' }}>
       <CssBaseline />
-      <Toolbar>
+      <Toolbar style={{marginTop:10,display: "flex", flexDirection: "row", width: "100%" }}>
         <Typography variant="h4" className={classes.logo}>
-          Edspire
+          <Link style={{ textDecoration:"none",color:"white"}} to='./'>Edspire</Link>
         </Typography>
         {token ?
           (<div className={classes.navlinks}>
@@ -71,12 +71,13 @@ function Navbar() {
             <Link to="/connect" className={classes.link}>
               Connect
             </Link>
-            <Link to="/profile" className={classes.link}>
+            <Link style={{width:150}}to="/collegefinder" className={classes.link}>
               College Finder
             </Link>
-            <SearchBar style={{ marginLeft: "20px", height: "45px", width: "400px" }} placeholder="Search for a college..." />
-            <Link to="/login" className={classes.link}>
-              <Button style={{ marginLeft: "-4em", borderRadius: 15, backgroundColor: "#ffa726" }} onClick={logoutNow} variant="contained"> Logout</Button>
+            <SearchBar style={{ marginBottom: "10px", height: "45px", width: "400px" }} placeholder="Search for a college..." />
+            <AccountMenu />
+            <Link to="/home" className={classes.link}>
+              <Button style={{marginLeft: "-5.5em",marginTop:"-0.3em", borderRadius: 15, backgroundColor: "#ffa726" }}><BasicModal/></Button> 
             </Link>
           </div>) : (<div className={classes.navlinks}> <Link to="/login" className={classes.link}>
             <Button style={{ marginLeft: "-4em", borderRadius: 15, backgroundColor: "#ffa726" }} variant="contained" href="#contained-buttons"> Login</Button></Link>

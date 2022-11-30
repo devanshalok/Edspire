@@ -32,7 +32,7 @@ export default function BasicModal() {
 
   return (
     <div>
-      <Button onClick={handleOpen}>Ask a question</Button>
+      <Button style={{ textDecoration:"none", color:"white",height:30,width:140,"&:hover": {color: "black"},}} onClick={handleOpen}>Ask a question</Button>
       <Modal
         open={open}
         onClose={handleClose}

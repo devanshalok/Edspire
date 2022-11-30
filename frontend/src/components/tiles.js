@@ -9,9 +9,9 @@ import dataList from "./data.json"
 
 export default function Tiles() {
   return (
-    <div style={{maxWidth:"100%",margin:"30px",display:"flex",flexWrap:"wrap"}}>
+    <div style={{maxWidth:"100%",marginLeft:"130px",display:"flex",flexWrap:"wrap"}}>
        {dataList.map((data) => ( 
-    <Card style={{marginLeft:80,marginTop:20,width:300}}sx={{ maxWidth: 500 }}>   
+    <Card style={{marginLeft:40,marginTop:50,width:350,boxShadow:"10px 5px 5px gray"}}sx={{ maxWidth: 500 }}>   
       <>
       <CardMedia
                 component="img"
@@ -26,8 +26,8 @@ export default function Tiles() {
                        {data.description}
                     </Typography>
                 </CardContent><CardActions>
-                    <Button size="small">Share</Button>
-                    <Button size="small">Learn More</Button>
+                    <Button size="small">Go to space</Button>
+                    <Button size="small">Follow space</Button>
                 </CardActions></>
       
     </Card>

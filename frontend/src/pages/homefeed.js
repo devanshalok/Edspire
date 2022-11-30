@@ -13,7 +13,7 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import axios from 'axios';
 import { getAllQuestions } from "../redux/questionSlice";
@@ -64,21 +64,21 @@ function HomeFeed() {
       <Grid container spacing={2}>
         <Grid item xs={3}>
           <p style={{ fontWeight: "bold", marginTop: "20px", marginLeft: 10, fontSize: 20 }}>Questions</p><br></br>
-          <Item style={{ marginTop: "-5px", marginLeft: 10, fontSize: 15 }}>
+          <Item style={{ marginTop: "-18px", marginLeft: 10, fontSize: 15 }}>
 
-            <p style={{ marginLeft: 20, marginTop: 10 }}>Questions for you</p><br></br>
-            <p style={{ marginLeft: 20 }}>Answer requests</p><br></br>
-            <p style={{ marginLeft: 20 }}>Answers given</p><br></br>
+            <Link style={{textDecoration:"none",color:"black"}}><p style={{ marginLeft: 20, marginTop: 10 }}>All Questions</p><br></br></Link>
+            <Link style={{textDecoration:"none",color:"black"}}><p style={{ marginLeft: 20 }}>Unanswered Questions</p><br></br></Link>
+            <Link style={{textDecoration:"none",color:"black"}}><p style={{ marginLeft: 20 }}>Followed Questions</p><br></br></Link>
           </Item>
         </Grid>
-        <Grid item xs={6}> <p style={{ marginTop: "20px", fontSize: 20 }}><StarIcon style={{ marginLeft: 20 }} />Questions for you</p>
+        <Grid item xs={6}> <p style={{ marginLeft:"20px",marginTop: "20px", fontSize: 20 }}>Questions for you</p>
           {/* <Item style={{ marginTop: "30px" }}><ImageListItem > </ImageListItem>
             <ImageListItem > <RecipeReviewCard /></ImageListItem>
             <ImageListItem > <RecipeReviewCard /></ImageListItem></Item> */}
           {questions.map(question =>  <RecipeReviewCard key={question._id} question={question} />)}
         </Grid>
         <Grid item xs={3}>
-          <p style={{ marginTop: "20px", marginLeft: 10, fontSize: 20 }}>Topics You Know About</p><br></br>
+          <p style={{ marginTop: "20px", marginLeft: 10, fontSize: 20,marginBottom:"22px" }}>Spaces Followed by you</p>
           <Item style={{ marginTop: "-5px", marginLeft: 10, fontSize: 15 }}>
 
             <p style={{ marginLeft: 20, marginTop: 10 }}>Housing In USA</p><br></br>
