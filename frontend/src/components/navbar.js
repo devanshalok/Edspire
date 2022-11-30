@@ -12,6 +12,7 @@ import {
 import { Link } from "react-router-dom";
 import DrawerComponent from "./drawer";
 import SearchBar from "material-ui-search-bar";
+import AccountMenu from "./accountmenu";
 
 const useStyles = makeStyles((theme) => ({
   navlinks: {
@@ -65,6 +66,7 @@ function Navbar() {
             </Link>
             
             <SearchBar style={{marginLeft:"20px",height:"45px",width:"400px"}} placeholder="Search for a college..."/>
+            <AccountMenu/>
             <Link to="/login" className={classes.link}>
             <Button style={{marginLeft:"-4em",borderRadius: 15,backgroundColor: "#ffa726"}} variant="contained" href="#contained-buttons"> Login</Button>
             </Link>
