@@ -1,7 +1,7 @@
 const express = require('express');
 const logger = require('morgan');
 const redis = require('redis')
-
+const cors = require('cors');
 require('dotenv').config();
 const userRouter = require('./rest/userRouter');
 const questionAnswerRouter = require('./rest/questionAnswerRouter');
@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({
   extended: false,
 }));
-
+app.use(cors());
 app.use('/',userRouter);
 app.use('/qa',questionAnswerRouter);
 app.use('/admin',adminRouter);

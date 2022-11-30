@@ -3,7 +3,7 @@ import RecipeReviewCard from "../components/card";
 import StarIcon from '@mui/icons-material/Star';
 import {
   GridList,
-  GridListTile,
+  ImageListItem,
   ListSubheader,
 } from "@material-ui/core";
 import "../App.css";
@@ -20,7 +20,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 
-function Connect() {
+function HomeFeed() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
@@ -34,9 +34,9 @@ function Connect() {
           </Item>
         </Grid>
         <Grid item xs={6}> <p style={{marginTop:"20px", fontSize:20}}><StarIcon style={{marginLeft:20}}/>Questions for you</p>
-          <Item style={{marginTop:"30px"}}><GridListTile > <RecipeReviewCard/></GridListTile>
-        <GridListTile > <RecipeReviewCard/></GridListTile>
-        <GridListTile > <RecipeReviewCard/></GridListTile></Item>
+          <Item style={{marginTop:"30px"}}><ImageListItem > <RecipeReviewCard/></ImageListItem>
+        <ImageListItem > <RecipeReviewCard/></ImageListItem>
+        <ImageListItem > <RecipeReviewCard/></ImageListItem></Item>
         </Grid>
         <Grid item xs={3}>
       <p style={{marginTop:"20px",marginLeft:10, fontSize:20}}>Topics You Know About</p><br></br>
@@ -52,4 +52,4 @@ function Connect() {
     </Box>
   );
 }
-export default Connect;
+export default HomeFeed;

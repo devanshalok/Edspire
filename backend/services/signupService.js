@@ -34,7 +34,9 @@ async function signUp(body) {
             }, '280-token', {
                 expiresIn: '24h',
             });
-            return { data: { token, email, msg: 'User Created Successfully' }, statusCode: 200 };
+            delete newUserObj.password;
+            newUserObj.token = token;
+            return { data: { userDetails:newUserObj, msg: 'User Created Successfully' }, statusCode: 200 };
         }
     } catch (err) {
         console.log("##### err : ", err)
