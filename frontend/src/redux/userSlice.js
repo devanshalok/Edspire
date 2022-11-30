@@ -17,7 +17,7 @@ export const userSlice = createSlice({
     logout: (state, action) => {
         console.log('logout now',action);
       state.profile = undefined;
-      localStorage.removeItem('profile');
+      localStorage.clear();
     },
   },
 });

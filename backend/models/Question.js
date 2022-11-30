@@ -33,6 +33,14 @@ const questionSchema = new mongoose.Schema({
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'User',
 		},
+		firstname:{
+			type:String,
+			default:"Anonymous"
+		},
+		lastname:{
+			type:String,
+			default:"Mozart"
+		},
 		imageUrl: {
 			type: String,
 			maxLength: 500,

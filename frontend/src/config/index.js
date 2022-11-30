@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 const config = {
     BASE_URL: process.env.REACT_APP_API_URL,
+    DATE_FORMAT:'YYYY-MM-DDTHH:mm:ss.SSSZ'
   }
   
   if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {

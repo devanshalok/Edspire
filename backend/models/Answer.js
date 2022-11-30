@@ -13,6 +13,15 @@ const answerSchema = new mongoose.Schema({
 			ref: 'User',
 			required: true,
 		},
+		
+		firstname:{
+			type:String,
+			default:"Anonymous"
+		},
+		lastname:{
+			type:String,
+			default:"Mozart"
+		},
 		imageUrl: {
 			type: String,
 			maxLength: 100,

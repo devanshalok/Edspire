@@ -36,6 +36,7 @@ export default function Login() {
   const classes = useStyles();
   const token = useSelector(state => {
     if (state.userSlice.profile && state.userSlice.profile.token) {
+      console.log('state is ',state.userSlice)
       return state.userSlice.profile.token
     } return undefined
   })
@@ -66,7 +67,7 @@ export default function Login() {
   }
   return (
     <div className="Login">
-      {/* {token && navigate("/home")} */}
+      {token && navigate("/home")}
       <Form onSubmit={handleSubmit}>
         <Form.Group size="lg" controlId="email">
           <Form.Label>Email</Form.Label>

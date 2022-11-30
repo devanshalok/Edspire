@@ -30,7 +30,7 @@ async function signUp(body) {
             var newUserCreatedRes = await UserModel.create(newUserObj);
             console.log("### newUserCreatedRes :", newUserCreatedRes);
             const token = jwt.sign({
-                data: user,
+                data: newUserObj,
             }, '280-token', {
                 expiresIn: '24h',
             });

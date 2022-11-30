@@ -16,7 +16,8 @@ import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Link } from 'react-router-dom';
-
+import moment from 'moment'
+import config from '../config';
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -28,59 +29,54 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function RecipeReviewCard() {
-  const [expanded, setExpanded] = React.useState(false);
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
+export default function RecipeReviewCard(props) {
 
   return (
-    <Card style={{margin:"10px"}} sx={{ maxWidth: 1000 }}>
+    <Card style={{ margin: "10px" }} sx={{ maxWidth: 1000 }}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            R
+            {props.question.createdBy.firstname[0] + props.question.createdBy.lastname[0]}
           </Avatar>
         }
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
-        title="Shrimp and Chorizo Paella"
-        subheader="September 14, 2016"
+        // action={
+        //   <IconButton aria-label="settings">
+        //     <MoreVertIcon />
+        //   </IconButton>
+        // }
+        title={props.question.createdBy.firstname + " " + props.question.createdBy.lastname}
+        subheader={moment(props.question.modifiedOn,config.DATE_FORMAT).fromNow()}
       />
-     
+
       <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the mussels,
-          if you like.
+        <Typography variant="body2" color="text.primary" style={{ fontSize: "24px" }}>
+          {props.question.title}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
-          <Link style={{textDecoration:"none", color: "gray",
-    fontSize: "20px",
-    "&:hover": {
-      color: "yellow",
-      borderBottom: "1px solid white",
-    },}} to='/answer'> <ModeEditIcon style={{fontSize:30}}/> Answer</Link>
+          <Link style={{
+            textDecoration: "none", color: "gray",
+            fontSize: "20px",
+            "&:hover": {
+              color: "yellow",
+              borderBottom: "1px solid white",
+            },
+          }} state={props.question._id} to='/answer'> <ModeEditIcon style={{ fontSize: 30 }} /> Answer</Link>
         </IconButton>
         <IconButton aria-label="share">
-          <ShareIcon /> <p style={{fontSize:"15px", marginTop:"15px"}}>Share</p>
+          <ShareIcon /> <p style={{ fontSize: "15px", marginTop: "15px" }}>Share</p>
         </IconButton>
-        <ExpandMore
+        {/* <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
           aria-expanded={expanded}
           aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </ExpandMore>
+        > */}
+        {/* <ExpandMoreIcon /> */}
+        {/* </ExpandMore> */}
       </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
+      {/* <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Typography paragraph>Method:</Typography>
           <Typography paragraph>
@@ -108,7 +104,7 @@ export default function RecipeReviewCard() {
             Set aside off of the heat to let rest for 10 minutes, and then serve.
           </Typography>
         </CardContent>
-      </Collapse>
+      </Collapse> */}
     </Card>
   );
 }

@@ -5,7 +5,7 @@ const {authenticateToken} = require('../utils/utils');
 const questionAnswerService = require('../services/questionAnswerService');
 
 router.post('/question',authenticateToken, async (req, res, next) => {
-    const response = await questionAnswerService.postQuestion(req.body,req.user._id)
+    const response = await questionAnswerService.postQuestion(req.body,req.user)
     res.json(response);
 });
 
@@ -26,7 +26,7 @@ router.get('/questions-for-space',authenticateToken, async (req, res, next) => {
 });
 
 router.post('/answer',authenticateToken, async (req, res, next) => {
-    const response = await questionAnswerService.addAnswer(req.body,req.user._id)
+    const response = await questionAnswerService.addAnswer(req.body,req.user)
     res.json(response);
 });
 
