@@ -6,10 +6,13 @@ const Question = require('../models/Question');
 const User = require('../models/User');
 const Answer = require('../models/Answer');
 const Space = require('../models/Space');
-async function postQuestion(body, _id) {
+async function postQuestion(body, user) {
 	//check that space id is passed in.
+	console.log('user passed',user)
 	const createdBy = {
-		_id: _id
+		_id: user._id,
+		firstname: user.firstName,
+		lastname: user.lastName
 	};
 	body.createdBy = createdBy;
 	const newQuestion = await Question.create(body);
@@ -59,11 +62,13 @@ const getAnswersByQuestionId = async (params) => {
 	}
 };
 
-const addAnswer = async (body, _id) => {
+const addAnswer = async (body, user) => {
 	console.log(`Entering answerService.addAnswer,payload is ${body}`);
 	try {
 		const createdBy = {
-			_id: _id
+			_id: user._id,	
+		firstname: user.firstName,
+		lastname: user.lastName
 		};
 		body.createdBy = createdBy;
 		const answerResponse = await Answer.create(body);
@@ -79,7 +84,7 @@ const addAnswer = async (body, _id) => {
 			return { statusCode: 200, data: { msg: 'Answer added successfully' } }
 		}
 		return {
-			error: {
+			error: { 
 				msg: 'Some error occured while creating answer',
 			},
 			statusCode: 400

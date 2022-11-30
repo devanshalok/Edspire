@@ -20,8 +20,8 @@ async function login(body) {
 		});//.populate('bookmarks');
 		console.log('#### users :', user, emailId);
 		if (user) {
-			delete user.password;
 			const userObj = user;
+			console.log('userobj is',userObj)
 			const isValidPassword = bcrypt.compareSync(password, userObj.password); // true
 			if (isValidPassword == false) {
 				error = {
@@ -33,20 +33,22 @@ async function login(body) {
 					statusCode,
 				};
 			}
-			user.userId = user._id;
+			delete userObj.password;
+			userObj.userId = user._id;
 			const token = jwt.sign({
-				data: user,
+				data: userObj,
 			}, '280-token', {
 				expiresIn: '24h',
 			});
+			userObj.token = token;
 			msg = {
 				token,
 				msg: 'LoggedIn successfully',
-				userDetails: user,
+				userDetails: userObj,
 			};
 			statusCode = 200;
 			return {
-				data:msg,
+				data: msg,
 				statusCode,
 			};
 		}
@@ -65,7 +67,7 @@ async function login(body) {
 		};
 		statusCode = 400;
 		return {
-			error:response,
+			error: response,
 			statusCode,
 		};
 	}

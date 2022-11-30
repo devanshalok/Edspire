@@ -51,7 +51,7 @@ const userSchema = new mongoose.Schema({
 	university: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'University',
-		default: "",
+		// default: "",
 	},
 	backlogs: {
 		type: Number,
@@ -64,12 +64,12 @@ const userSchema = new mongoose.Schema({
 	branch: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Branch',
-		default: "",
+		// default: "",
 	},
 	desiredGraduateBranch: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Branch',
-		default: "",
+		// default: "",
 	},
 	questionsAsked: {
 		type: Number,
