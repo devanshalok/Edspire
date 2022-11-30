@@ -1,6 +1,5 @@
 import { Button } from "@material-ui/core";
 import "./page.css";
-import { Container } from '../components/container';
 import { Link } from "react-router-dom";
 import BasicModal from "../components/basicmodal";
 function Home() {
@@ -16,10 +15,9 @@ function Home() {
         padding: "18px 36px",
         fontSize: "18px"
     }}
- variant="contained" href="#contained-buttons"> Get Started</Button>
+ variant="contained" href="./login"> Get Started</Button>
  <BasicModal/>
  <Button style={{marginTop:20}}variant="contained" ><Link to="./collegefinder"> College Finder</Link></Button>
-
     </div>
   </section>);
 }

@@ -13,6 +13,7 @@ import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import { red } from '@material-ui/core/colors';
 import { Link } from 'react-router-dom';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 
 export default function AccountMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -75,15 +76,20 @@ export default function AccountMenu() {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem>
-          <Avatar /> My account 
-        </MenuItem>
-        <MenuItem>
-          <Link style={{textDecoration:"none", color: "gray",
-    fontSize: "20px",
+          <ManageAccountsIcon style={{marginRight:8}}/> <Link style={{textDecoration:"none", color: "black",
+    fontSize: "18px",
     "&:hover": {
       color: "yellow",
       borderBottom: "1px solid white",
-    },}} to='/profile'><Avatar />Profile</Link>
+    },}} to='/profile'>My account</Link> 
+        </MenuItem>
+        <MenuItem>
+          <Avatar /><Link style={{textDecoration:"none", color: "black",
+    fontSize: "18px",
+    "&:hover": {
+      color: "yellow",
+      borderBottom: "1px solid white",
+    },}} to='/profile'>Profile</Link>
         </MenuItem>
         <Divider />
         <MenuItem>

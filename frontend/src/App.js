@@ -10,6 +10,7 @@ import { Button } from "@material-ui/core";
 import Login from './components/login'
 import SignUp from './components/signup'
 import Answer from "./pages/answer";
+import CollegeFinderForm from "./components/collegefinderform";
 function App() {
   return (
     <Router>
@@ -24,6 +25,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} /> 
         <Route path="/collegefinder" element={<CollegeFinder/>} />
         <Route path="/answer" element={<Answer/>} />
+        <Route path="/collegefinderform" element={<CollegeFinderForm/>} />
       </Routes>
     </Router>
   );

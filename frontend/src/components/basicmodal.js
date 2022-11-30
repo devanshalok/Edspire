@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -13,7 +12,8 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+  width: 600,
+  height: 680,
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -41,8 +41,14 @@ export default function BasicModal() {
       >
         <Box sx={style}>
         <h2 style={{textAlign:"center"}}> Add a Question</h2>
+        <p style={{fontWeight:"bold",marginTop:10,marginBottom:-1}}>Tips on getting good answers quickly:</p>
+        <ul>
+        <li>Make sure your question has not been asked already</li>
+        <li>Keep your question short and to the point</li>
+        <li>Double-check grammar and spelling</li>
+       </ul><br/>
 <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Topic</InputLabel>
+        <InputLabel id="demo-simple-select-label">Space</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
@@ -50,9 +56,9 @@ export default function BasicModal() {
           label="Age"
           onChange={handleChange}
         >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          <MenuItem value={10}>GRE</MenuItem>
+          <MenuItem value={20}>TOEFL</MenuItem>
+          <MenuItem value={30}>College</MenuItem>
         </Select>
       </FormControl>    
 
@@ -63,13 +69,13 @@ export default function BasicModal() {
           </div>
           <div className="form-group">
               <label style={{ marginBottom: "10px", marginTop: "15px" }} htmlFor="name">Ask Question</label>
-              <textarea className="form-control" id="name" />
+              <textarea style={{height:200}}className="form-control" id="name" />
           </div>
           <div className="form-group">
               <button style={{ marginTop: "20px", width: "80px", float: "right" }} className="form-control btn btn-primary" type="submit">
                   Add
               </button>
-              <button style={{ marginRight: "10px", marginTop: "20px", width: "80px", float: "right" }} className="form-control btn btn-primary close" >
+              <button style={{ backgroundColor:"red",marginRight: "10px", marginTop: "20px", width: "80px", float: "right" }} className="form-control btn btn-primary close" >
                   Cancel
               </button>
           </div>

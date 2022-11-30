@@ -46,7 +46,7 @@ function Navbar() {
       <CssBaseline />
       <Toolbar>
         <Typography variant="h4" className={classes.logo}>
-          Edspire 
+        <Link  style={{textDecoration:"none",color:"white"}}to="/">Edspire </Link> 
         </Typography>
         {isMobile ? (
           <DrawerComponent />
