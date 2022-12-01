@@ -8,7 +8,7 @@ const Answer = require('../models/Answer');
 const Space = require('../models/Space');
 async function postQuestion(body, user) {
 	//check that space id is passed in.
-	console.log('user passed',user)
+	console.log('user passed', user)
 	const createdBy = {
 		_id: user._id,
 		firstname: user.firstName,
@@ -23,22 +23,27 @@ async function postQuestion(body, user) {
 	}, {
 		$set: space,
 	}).exec();
+	const userUpdate = await User.updateOne({ _id: user._id }, { $inc: { questionsAsked: 1 } });
 	console.log('newquestion', newQuestion);
 	return { 'statusCode': 200, data: { msg: "Question successfully created" } };
 }
 
 async function getQuestion(_id) {
-	const question = await Question.findOne({ _id }).populate('answers');
-	console.log('question', question);
-	return { 'statusCode': 200, data: { question } };
+	if (_id) {
+		const question = await Question.findOne({ _id }).populate('answers');
+		console.log('question', question);
+		return { 'statusCode': 200, data: { question } };
+	} else {
+		return { 'statusCode': 400, error: { msg: "Bad data" } };
+	}
 }
 
-async function getAllQuestions(space) {
+async function getAllQuestions(space, _id) {
 	let questions;
 	if (space) {
 		questions = await Question.find({ space });
 	} else {
-		questions = await Question.find();
+		questions = await Question.find({ "createdBy._id": { $ne: _id } });
 	}
 	console.log('all questions', questions);
 	return { 'statusCode': 200, data: { questions } };
@@ -66,9 +71,9 @@ const addAnswer = async (body, user) => {
 	console.log(`Entering answerService.addAnswer,payload is ${body}`);
 	try {
 		const createdBy = {
-			_id: user._id,	
-		firstname: user.firstName,
-		lastname: user.lastName
+			_id: user._id,
+			firstname: user.firstName,
+			lastname: user.lastName
 		};
 		body.createdBy = createdBy;
 		const answerResponse = await Answer.create(body);
@@ -81,11 +86,12 @@ const addAnswer = async (body, user) => {
 		}, {
 			$set: question,
 		}).exec();
+		const userUpdate = await User.updateOne({ _id: user._id }, { $inc: { answersGiven: 1 } });
 		if (answerResponse && questionResponse) {
 			return { statusCode: 200, data: { msg: 'Answer added successfully' } }
 		}
 		return {
-			error: { 
+			error: {
 				msg: 'Some error occured while creating answer',
 			},
 			statusCode: 400

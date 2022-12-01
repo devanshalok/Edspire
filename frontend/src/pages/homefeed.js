@@ -35,8 +35,8 @@ function HomeFeed() {
   const [heading, setHeading] = useState("All Questions");
   const [noQuestion, setNoQuestions] = useState(true);
   let profile = useSelector(state => {
+    console.log('useselector state is ', state.userSlice)
     if (state.userSlice.profile && state.userSlice.profile.token) {
-      console.log('useselector state is ', state.userSlice)
       return state.userSlice.profile
     } return undefined
   })

@@ -40,7 +40,7 @@ export default function Signup() {
     }).then(response => {
       if (response.status == 200 && response.data.statusCode == 200) {
         console.log(response.data);
-        dispatch(addProfile({ ...response.data.data.userDetails, token: response.data.data.userDetails.token }));
+        dispatch(addProfile({ ...response.data.data.userDetails, token: response.data.data.token }));
         navigate('/home')
       } else {
         console.log('some exception occurred', response)
