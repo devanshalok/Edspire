@@ -48,7 +48,7 @@ export default function RecipeReviewCard(props) {
     }).catch(error => console.log('some exception occurred', error));
   }
   return (
-    <Card style={{ margin: "10px" }} sx={{ maxWidth: 1000 }}>
+    <Card style={{ margin: "10px" }} >
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
