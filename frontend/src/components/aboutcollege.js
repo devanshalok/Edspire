@@ -68,8 +68,8 @@ export default function AboutCollege(props) {
                     <div style={{display:"flex",flexDirection:"column",width:"200px", 
    maxWidth:"200px",display: "inline-block"}}>
     
-                    <Avatar style={{height:"150px",width:"150px"}} src={collegeMain.headerImageUrl}></Avatar>
-                    <Typography style={{marginTop:15,marginLeft:15}} gutterBottom variant="h5" component="div">
+                    <Avatar style={{marginTop:40,height:"150px",width:"150px"}} src={collegeMain.headerImageUrl}></Avatar>
+                    <Typography style={{marginTop:30,marginLeft:15}} gutterBottom variant="h5" component="div">
                         {collegeMain.name}
                     </Typography>
                     <Typography  variant="body2" color="text.secondary">
@@ -80,7 +80,7 @@ export default function AboutCollege(props) {
                     
                     <div style={{display:"flex",flexDirection:"column"}}>
                     
-                   <h4 style={{marginLeft:200,marginBottom:20,fontWeight:"bold"}}>About {collegeMain.name} </h4>
+                   <h4 style={{marginLeft:200,marginBottom:50,fontWeight:"bold"}}>About {collegeMain.name} </h4>
                     <div style={{display:"flex",flexDirection:"row"}}>
                         <div style={{display:"flex",flexDirection:"column",border:"1px solid black", padding:20,marginLeft:"-9em"}}>
                             <h4>Requirements for the college</h4>
@@ -173,12 +173,13 @@ export default function AboutCollege(props) {
 
                     </List>
                     </div>
-                    <div style={{display:"flex",flexDirection:"column",marginLeft:200}}>
+                    <div style={{display:"flex",flexDirection:"column",marginLeft:150,border:"1px solid black", padding:30,width:500}}>
                         <h4>Under Graduate Courses</h4>
                         
-                    {collegeMain.undergraduateCourses && collegeMain.undergraduateCourses.map(undergraduateCourse =>  <div style={{display:"flex",flexDirection:"column",marginBottom:10}}> <p style={{marginLeft:10}}>{undergraduateCourse && undergraduateCourse.name}</p></div>)}<br/>
+                    {collegeMain.undergraduateCourses && collegeMain.undergraduateCourses.map(undergraduateCourse =>  <div style={{display:"flex",flexDirection:"column"}}> <p style={{marginLeft:10}}>{undergraduateCourse && undergraduateCourse.name}</p></div>)}<br/>
+                    <Divider sx={{ borderBottomWidth: 5,bgcolor: "secondary" }} /><br/>
                     <h4>Graduate Courses</h4>
-                    {collegeMain.graduateCourses && collegeMain.graduateCourses.map(graduateCourse =>  <div style={{display:"flex",flexDirection:"column",marginBottom:10}}> <p style={{marginLeft:10}}>{graduateCourse && graduateCourse.name}</p></div>)}
+                    {collegeMain.graduateCourses && collegeMain.graduateCourses.map(graduateCourse =>  <div style={{display:"flex",flexDirection:"column"}}> <p style={{marginLeft:10}}>{graduateCourse && graduateCourse.name}</p></div>)}
                     </div>
                     </div>
 
