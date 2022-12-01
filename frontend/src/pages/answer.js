@@ -116,7 +116,7 @@ function Answer() {
       }
     }).catch(error => console.log('some exception occurred', error));
   }
-
+  
   function unfollowQuestion() {
     let data = { questionId};
     console.log('unfollow data is',data,questionId)

@@ -102,7 +102,7 @@ function CollegeFinder() {
                 component="img"
                 alt="green iguana"
                 height="140"
-                image={data.image || "https://images.unsplash.com/photo-1622397333309-3056849bc70b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8aGFydmFyZCUyMHVuaXZlcnNpdHl8ZW58MHx8MHx8&w=1000&q=80"} />
+                image={data.headerImageUrl || "https://images.unsplash.com/photo-1622397333309-3056849bc70b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8aGFydmFyZCUyMHVuaXZlcnNpdHl8ZW58MHx8MHx8&w=1000&q=80"} />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
                   {data.name}
