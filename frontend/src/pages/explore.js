@@ -69,7 +69,7 @@ function Explore() {
               </Typography>
             </CardContent>
             <CardActions style={{}}>
-             <Link style={{textDecoration:"none"}} to='../space'> <Button size="small">Go to space</Button></Link>
+             <Link style={{textDecoration:"none"}} to='../space' state={space.name}> <Button size="small">Go to space</Button></Link>
               <Button size="small" id={space.name} onClick={followSpace}>Follow space</Button>
             </CardActions></>
 
