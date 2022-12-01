@@ -37,6 +37,11 @@ router.post('/follow-university',authenticateToken, async (req, res, next) => {
     res.json(response)
 ;});
 
+router.post('/follow-question',authenticateToken, async (req, res, next) => {
+    const response = await userService.followQuestion({...req.body},req.user._id);
+    res.json(response)
+;});
+
 router.get('/universities', authenticateToken, async (req, res, next) => {
     const response = await userService.getUniversities(req.user._id);
     res.json(response)

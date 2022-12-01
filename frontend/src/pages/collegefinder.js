@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as React from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -18,6 +18,8 @@ function CollegeFinder() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const navigate = useNavigate();
+
   const profile = useSelector(state => {
     if (state.userSlice.profile) {
       console.log('state is ', state.userSlice)
@@ -65,6 +67,7 @@ function CollegeFinder() {
   }
   return (
     <>
+    {!profile.greScore && navigate('/profile')}
       <p style={{ textAlign: "center", fontWeight: "bold", fontSize: "30px", marginTop: "20px" }}> These are the top universities based on your credentials</p>
       <p style={{ textAlign: "center", fontSize: "20px", marginTop: "20px" }}>Want to find more universities based on different filters?<Button onClick={handleOpen}>Click here</Button></p>
       <div style={{ maxWidth: "100%", margin: "30px", display: "flex", flexWrap: "wrap" }}>

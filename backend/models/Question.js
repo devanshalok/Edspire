@@ -32,6 +32,10 @@ const questionSchema = new mongoose.Schema({
 		ref: 'Answer',
 		default: [],
 	}],
+	followers:{
+		type:Number,
+		default:0
+	},
 	createdBy: {
 		_id: {
 			type: mongoose.Schema.Types.ObjectId,

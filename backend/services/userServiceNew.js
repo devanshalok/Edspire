@@ -10,6 +10,7 @@ const Space = require('../models/Space');
 const University = require('../models/University');
 const Branch = require('../models/Branch');
 const jwt = require('jsonwebtoken');
+const Question = require('../models/Question');
 
 const updateUserProfile = async (body) => {
     console.log('body is ', body)
@@ -307,6 +308,20 @@ const findCollegesWithParams = async (bldy) => {
         };
     }
 };
+
+async function followQuestion(body, _id) {
+    const user = await User.updateOne({ _id: _id }, {
+        $addToSet: {
+            followedQuestions: body.questionId
+        }
+    });
+    const question = await Question.updateOne({_id:body.questionId},{
+        $inc:{
+            followers:1
+        }
+    })
+    return { statusCode: 200, data: { msg: "Question followed successfully" } };
+}
 module.exports = {
-    updateUserProfile, getUserProfile, followSpace, getUniversities, getBranches, findColleges,getSpaces,followUniversity,findCollegesWithParams
+    updateUserProfile, getUserProfile, followSpace, getUniversities, getBranches, findColleges,getSpaces,followUniversity,findCollegesWithParams,followQuestion
 };

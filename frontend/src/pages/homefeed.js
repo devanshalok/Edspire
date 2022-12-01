@@ -61,7 +61,7 @@ function HomeFeed() {
             <Link style={{ textDecoration: "none", color: "black" }} onClick={() => setHeading("All Questions")}><p style={{ marginLeft: 20 }}>All Questions</p></Link>
           </Item>
           <Item style={{ marginLeft: 10, marginBottom: 5, fontSize: 15 }}>
-            <Link style={{ textDecoration: "none", color: "black" }} onClick={() => setHeading("UnAnswered Questions")}><p style={{ marginLeft: 20 }}>UnAnswered Questions</p></Link>
+            <Link style={{ textDecoration: "none", color: "black" }} onClick={() => setHeading("Un-Answered Questions")}><p style={{ marginLeft: 20 }}>Un-Answered Questions</p></Link>
           </Item>
           <Item style={{ marginLeft: 10, marginBottom: 5, fontSize: 15 }}>
             <Link style={{ textDecoration: "none", color: "black" }} onClick={() => setHeading("Followed Questions")}><p style={{ marginLeft: 20 }}>Followed Questions</p></Link>
@@ -69,11 +69,11 @@ function HomeFeed() {
         </Grid>
         <Grid item xs={7}> <p style={{ marginLeft: "20px", marginTop: "20px", fontSize: 20 }}>{heading}</p>
           {
-            heading === 'UnAnswered Questions' ?
-              (questions.filter(question => question.isUnAnswered).map(question => <RecipeReviewCard key={question._id} question={question} />))
+            heading === 'Un-Answered Questions' ?
+              (questions.filter(question => question.isUnAnswered).map(question => <RecipeReviewCard key={question._id} question={question} token={profile.token}/>))
               : heading == 'Followed Questions' ?
-                (questions.filter(question => profile.followedQuestions.includes(question._id)).map(question => <RecipeReviewCard key={question._id} question={question} />))
-                : (questions.map(question => <RecipeReviewCard key={question._id} question={question} />))
+                (questions.filter(question => profile.followedQuestions.includes(question._id)).map(question => <RecipeReviewCard key={question._id} question={question} token={profile.token} />))
+                : (questions.map(question => <RecipeReviewCard key={question._id} question={question} token={profile.token}/>))
           }
         </Grid>
         <Grid item xs={3}>
