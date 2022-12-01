@@ -11,14 +11,17 @@ import "../App.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-
+import { useLocation } from 'react-router-dom'
 import axios from 'axios';
-import { getAllQuestions } from "../redux/questionSlice";
 import config from "../config";
 
-export default function Space() {
-    const dispatch = useDispatch();
+export default function Space(props) {
+    console.log('props', props)
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+  const space= location.state
+  console.log('space', space)
   const [questions, setQuestions] = useState([]);
   // dispatch(getAllQuestions());
 
@@ -29,7 +32,7 @@ export default function Space() {
     } return undefined
   })
     useEffect(() => {
-        axios.get(config.BASE_URL + '/qa/questions', { headers: { 'Authorization': token } }).then(response => {
+        axios.get(config.BASE_URL + '/qa/questions-for-space?space='+space, { headers: { 'Authorization': token } }).then(response => {
           if (response.status == 200 && response.data.statusCode == 200) {
             console.log(response.data);
             setQuestions(response.data.data.questions)
@@ -47,19 +50,19 @@ export default function Space() {
                 component="img"
                 alt="green iguana"
                 height="200" 
-                img src="https://www.usnews.com/dims4/USNEWS/95badee/17177859217/resize/800x540%3E/quality/85/?url=https%3A%2F%2Fmedia.beam.usnews.com%2F82%2F7bbabaea5b47be61379d37af47e531%2FHowardUniversity-FoundersLibrary.jpg"
+                img src={space.headerImageUrl}
                 />
                 <CardContent>
                    <div style={{marginTop:"40px",marginLeft:"40px",display:"grid", gridTemplateColumns:"1fr 2fr 1fr"}}>
                     <div style={{display:"flex",flexDirection:"column",width:"200px", 
    maxWidth:"200px",display: "inline-block"}}>
     
-                    <Avatar style={{marginLeft:10,height:"150px",width:"150px"}} src="https://www.usnews.com/dims4/USNEWS/95badee/17177859217/resize/800x540%3E/quality/85/?url=https%3A%2F%2Fmedia.beam.usnews.com%2F82%2F7bbabaea5b47be61379d37af47e531%2FHowardUniversity-FoundersLibrary.jpg"></Avatar>
+                    <Avatar style={{marginLeft:10,height:"150px",width:"150px"}} src={space.backgroundImageUrl}></Avatar>
                     <Typography style={{marginTop:20,marginLeft:40}} gutterBottom variant="h4" component="div">
-                        Hello
+                        {space.name}
                     </Typography>
                     <Typography  variant="body2" color="text.secondary">
-                    here are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text
+                    {space.description}
                     </Typography>
                     </div>
                     
