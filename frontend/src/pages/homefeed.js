@@ -15,7 +15,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-
+import Alert from '@mui/material/Alert';
 import axios from 'axios';
 import { getAllQuestions } from "../redux/questionSlice";
 import config from "../config";
@@ -31,6 +31,7 @@ const Item = styled(Paper)(({ theme }) => ({
 function HomeFeed() {
   const [questions, setQuestions] = useState([]);
   const [heading, setHeading] = useState("All Questions");
+  const [alert, setAlert] = useState('');
   let profile = useSelector(state => {
     console.log('useselector state is ', state.userSlice)
     if (state.userSlice.profile && state.userSlice.profile.token) {
@@ -47,6 +48,22 @@ function HomeFeed() {
       }
     }).catch(error => console.log('some exception occurred', error));
   }, [])
+
+  function addAlert(message,error) {
+    let alert;
+    if (error) {
+      alert = (<Alert severity="error">{message}</Alert>);
+      setAlert(alert);
+      setTimeout(() => setAlert(), 3000);
+    } else {
+      alert = (<Alert severity="success">{message}</Alert>)
+      setAlert(alert);
+      setTimeout(() => setAlert(), 3000);
+
+
+    }
+  }
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={9}>
@@ -63,18 +80,19 @@ function HomeFeed() {
           </Item>
         </Grid>
         <Grid item xs={6}> <p style={{ marginLeft: "20px", marginTop: "20px", fontSize: 20 }}>{heading}</p>
+          {alert}
           {
             heading === 'Un-Answered Questions' ?
-              (questions.filter(question => question.isUnAnswered).map(question => <RecipeReviewCard key={question._id} question={question} profile={profile}/>))
+              (questions.filter(question => question.isUnAnswered).map(question => <RecipeReviewCard key={question._id} question={question} profile={profile} addAlert={addAlert} />))
               : heading == 'Followed Questions' ?
-                (questions.filter(question => profile.followedQuestions.includes(question._id)).map(question => <RecipeReviewCard key={question._id} question={question} profile={profile} />))
-                : (questions.map(question => <RecipeReviewCard key={question._id} question={question} profile={profile}/>))
+                (questions.filter(question => profile.followedQuestions.includes(question._id)).map(question => <RecipeReviewCard key={question._id} question={question} profile={profile} addAlert={addAlert} />))
+                : (questions.map(question => <RecipeReviewCard key={question._id} question={question} profile={profile} addAlert={addAlert} />))
           }
         </Grid>
         <Grid item xs={3}>
           <p style={{ marginTop: "20px", fontSize: 20, marginBottom: "20px" }}>Spaces Followed by you</p>
           {profile.followedSpaces.map(space => (<><Item style={{ marginBottom: 5, fontSize: 15, width: 250 }}>
-            <Link style={{ textDecoration: "none", color: "black" }} to='../space' state={space}><p style={{ marginLeft: 20, fontSize: 14 }}><OpenInNewIcon style={{ fontSize: 20,color:"black" }} />{" "+space}</p></Link>
+            <Link style={{ textDecoration: "none", color: "black" }} to='../space' state={space}><p style={{ marginLeft: 20, fontSize: 14 }}><OpenInNewIcon style={{ fontSize: 20, color: "black" }} />{" " + space}</p></Link>
           </Item><Divider light /></>))}
         </Grid>
 

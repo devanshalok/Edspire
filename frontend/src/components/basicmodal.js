@@ -10,6 +10,7 @@ import axios from 'axios';
 import config from '../config';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import Alert from '@mui/material/Alert';
 
 const style = {
   position: 'absolute',
@@ -32,33 +33,37 @@ export default function BasicModal() {
   const [space, setSpace] = React.useState("");
   const [title, setTitle] = React.useState("");
   const [descr, setDescr] = React.useState("");
+  const [alert, setAlert] = React.useState("");
   let token = useSelector(state => {
     if (state.userSlice.profile && state.userSlice.profile.token) {
       console.log('useselector state is ', state.userSlice)
       return state.userSlice.profile.token
     } return undefined
   })
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  // dispatch(getAllQuestions());
-function handleSubmit(){
-  
-  let data = {title,descr,space:spaces.filter(sspace=>sspace.name==space).map(space=>space._id)[0]};
-  console.log('data is',data)
-  axios.post(config.BASE_URL + '/qa/question',data, {
-    headers: {
-      'Authorization': token
-    }
-  }).then(response => {
-    if (response.status == 200 && response.data.statusCode == 200) {
-      console.log('data',response.data);
-      setSpaces(response.data.data.spaces);
-      handleClose();
-    } else {
-      console.log('some exception occurred', response)
-    }
-  }).catch(error => console.log('some exception occurred', error));
-};
+  function handleSubmit() {
+
+    let data = { title, descr, space: spaces.filter(sspace => sspace.name == space).map(space => space._id)[0] };
+    console.log('data is', data)
+    axios.post(config.BASE_URL + '/qa/question', data, {
+      headers: {
+        'Authorization': token
+      }
+    }).then(response => {
+      if (response.status == 200 && response.data.statusCode == 200) {
+        console.log('data', response.data);
+        let alert = (<Alert severity="success">Question Added Successfully!</Alert>);
+        setAlert(alert);
+        // setSpaces(response.data.data.spaces);
+        setTimeout(() => { setAlert();handleClose(); }, 2000)
+      } else {
+        let alert = (<Alert severity="error">Some error occurred whiile adding Question!</Alert>);
+        setAlert(alert);
+        // setSpaces(response.data.data.spaces);
+        setTimeout(() => { setAlert()}, 2000)
+        console.log('some exception occurred', response)
+      }
+    }).catch(error => console.log('some exception occurred', error));
+  };
 
 
   React.useEffect(() => {
@@ -68,7 +73,7 @@ function handleSubmit(){
       }
     }).then(response => {
       if (response.status == 200 && response.data.statusCode == 200) {
-        console.log('data',response.data);
+        console.log('data', response.data);
         setSpaces(response.data.data.spaces);
       } else {
         console.log('some exception occurred', response)
@@ -86,6 +91,7 @@ function handleSubmit(){
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
+          {alert}
           <h2 style={{ textAlign: "center" }}> Add a Question</h2>
           <p style={{ fontWeight: "bold", marginTop: 10, marginBottom: -1 }}>Tips on getting good answers quickly:</p>
           <ul>
@@ -99,9 +105,9 @@ function handleSubmit(){
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               value={space}
-              onChange={(e)=>setSpace(e.target.value)}
+              onChange={(e) => setSpace(e.target.value)}
             >
-              {spaces && spaces.map((space)=>(<MenuItem value={space.name}>{space.name}</MenuItem>))}
+              {spaces && spaces.map((space) => (<MenuItem value={space.name}>{space.name}</MenuItem>))}
               {/* <MenuItem value={10}>GRE</MenuItem>
               <MenuItem value={20}>TOEFL</MenuItem>
               <MenuItem value={30}>College</MenuItem> */}
@@ -111,11 +117,11 @@ function handleSubmit(){
           <form >
             <div className="form-group">
               <label style={{ marginBottom: "10px", marginTop: "15px" }} htmlFor="name">Title</label>
-              <input className="form-control" id="name" value={title} onChange={(e)=>setTitle(e.target.value)}/>
+              <input className="form-control" id="name" value={title} onChange={(e) => setTitle(e.target.value)} />
             </div>
             <div className="form-group">
               <label style={{ marginBottom: "10px", marginTop: "15px" }} htmlFor="name">Detailed Description</label>
-              <textarea style={{ height: 200 }} className="form-control" id="name" value={descr} onChange={(e)=>setDescr(e.target.value)}/>
+              <textarea style={{ height: 200 }} className="form-control" id="name" value={descr} onChange={(e) => setDescr(e.target.value)} />
             </div>
             <div className="form-group">
               <button style={{ marginTop: "20px", width: "80px", float: "right" }} className="form-control btn btn-primary" onClick={handleSubmit}>

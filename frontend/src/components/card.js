@@ -51,6 +51,8 @@ export default function RecipeReviewCard(props) {
         // setSpaces(response.data.data.spaces);
         // handleClose();
         // props.setAlertMessage('Question followed Successfully');
+        props.addAlert('Question Followed Successfully',null);
+
         getProfile(props.profile.token).then(response => {
           console.log('response', response);
           dispatch(refreshProfile(response));
@@ -59,6 +61,7 @@ export default function RecipeReviewCard(props) {
         // dispatch(refreshProfile( ));
         // props.profile.token))
       } else {
+        props.addAlert('Some error occurred while following question',"null");
         console.log('some exception occurred', response)
       }
     }).catch(error => console.log('some exception occurred', error));
@@ -75,14 +78,17 @@ export default function RecipeReviewCard(props) {
         console.log('data', response.data);
         // setSpaces(response.data.data.spaces);
         // handleClose();
+        props.addAlert('Question Un-Followed Successfully',null);
         getProfile(props.profile.token).then(response => {
           console.log('response', response);
           dispatch(refreshProfile(response));
           setFollowers(followers-1);
         })
+
         // dispatch(refreshProfile( ));
         // props.profile.token))
       } else {
+        props.addAlert('Some error occurred while un-following question',"null");
         console.log('some exception occurred', response)
       }
     }).catch(error => console.log('some exception occurred', error));
