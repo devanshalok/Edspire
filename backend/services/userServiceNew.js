@@ -331,6 +331,12 @@ async function getAllUsers(_id) {
     return { statusCode: 200, data: { users } };
 }
 
+async function getUniversity(name) {
+    const university = await University.find({ name }).populate(['graduateCourses','undergraduateCourses']);
+    console.log('university', university);
+    return { statusCode: 200, data: { university } };
+}
+
 module.exports = {
-    updateUserProfile, getUserProfile, followSpace, getUniversities, getBranches, findColleges, getSpaces, followUniversity, findCollegesWithParams, followQuestion, getAllUsers
+    updateUserProfile, getUserProfile, followSpace, getUniversities, getBranches, findColleges, getSpaces, followUniversity, findCollegesWithParams, followQuestion, getAllUsers,getUniversity
 };
