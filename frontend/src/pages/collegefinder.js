@@ -92,7 +92,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';function Col
                 </Typography>
               </CardContent>
               <CardActions style={{ marginTop: 10, display: "flex", flexDirection: "row", width: "100%" }}>
-                <Button size="small"><InfoIcon />About the University</Button>
+              <Link style={{textDecoration:"none"}} to='../aboutcollege' state={data.name}> <Button size="small"><InfoIcon />About the university</Button></Link>
                 {profile.followedUniversities.includes(data.name)?<><FavoriteIcon  id={data.name} /><Button size="small">Following University</Button></>:<Button size="small" id={data.name} onClick={followUniversity}><FavoriteBorderIcon />Follow University</Button>}
               </CardActions></>
 

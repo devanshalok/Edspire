@@ -16,6 +16,7 @@ import store from './redux/store';
 // import {PersistGate} from 'redux-persist/es/integration/react'
 import CollegeFinderForm from "./components/collegefinderform";
 import Space from "./components/space";
+import AboutCollege from "./components/aboutcollege";
 function App() {
   return (
     <Provider store={store}>
@@ -35,6 +36,7 @@ function App() {
         <Route path="/collegefinderform" element={<CollegeFinderForm/>} />
         <Route path="/connect" element={<Connect/>} />
         <Route path="/space" element={<Space/>}></Route>
+        <Route path="/aboutcollege" element={<AboutCollege/>}></Route>
       </Routes>
     </Router>
     {/* </PersistGate> */}
