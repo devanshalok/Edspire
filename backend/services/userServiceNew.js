@@ -121,20 +121,12 @@ async function followSpace(body, _id) {
 }
 
 async function followUniversity(body, _id) {
-    // const space = await Space.updateOne({ _id: body.space }, {
-    //     $inc: {
-    //         followersCount: 1
-    //     },
-    //     $push: {
-    //         followers: _id
-    //     }
-    // });
     const user = await User.updateOne({ _id: _id }, {
         $push: {
             followedUniversities: body.university
         }
     })
-    return { statusCode: 200, data: { msg: "Space followed successfully" } };
+    return { statusCode: 200, data: { msg: "University followed successfully" } };
 }
 
 const getUniversities = async () => {
@@ -193,22 +185,22 @@ const findColleges = async (userId) => {
         const colleges = await University.find({
             $and: [{
                 minGre: {
-                    $lte: userDetails.greScore.overall
+                    $lte: userDetails.greScore
                 }
             },
             {
                 maxGre: {
-                    $gte: userDetails.greScore.overall
+                    $gte: userDetails.greScore
                 }
             },
             {
                 minIelts: {
-                    $lte: userDetails.ieltsScore.overall
+                    $lte: userDetails.ieltsScore
                 }
             },
             {
                 maxIelts: {
-                    $gte: userDetails.ieltsScore.overall
+                    $gte: userDetails.ieltsScore
                 }
             },
             {

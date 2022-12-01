@@ -32,6 +32,11 @@ router.post('/follow-space',authenticateToken, async (req, res, next) => {
     res.json(response)
 ;});
 
+router.post('/follow-university',authenticateToken, async (req, res, next) => {
+    const response = await userService.followUniversity({...req.body},req.user._id);
+    res.json(response)
+;});
+
 router.get('/universities', authenticateToken, async (req, res, next) => {
     const response = await userService.getUniversities(req.user._id);
     res.json(response)
