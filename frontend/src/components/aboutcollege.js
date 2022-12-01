@@ -7,6 +7,12 @@ import { Avatar, Box, Grid } from '@material-ui/core';
 import { Typography } from "@material-ui/core";
 import RecipeReviewCard from "../components/card";
 import "../App.css";
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import Divider from '@mui/material/Divider';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import { palette } from '@mui/system';
 
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -49,7 +55,7 @@ export default function AboutCollege(props) {
         }).catch(error => console.log('some exception occurred', error));
       }, [])
   return (
-    <Card style={{height:"800px"}}sx={{ maxWidth: "100%" }}>   
+    <Card style={{height:"1500px"}}sx={{ maxWidth: "100%" }}>   
       <>
       <CardMedia
                 component="img"
@@ -75,13 +81,107 @@ export default function AboutCollege(props) {
                     <div style={{display:"flex",flexDirection:"column"}}>
                     
                    <h4 style={{marginLeft:200,marginBottom:20,fontWeight:"bold"}}>About {collegeMain.name} </h4>
-                    <h4>Fees Per Semester:{collegeMain.feePerSem}</h4>
-                    <h4>Minimum GRE required:{collegeMain.minGre}</h4>
-                    <h4>Minimum IELTS required:{collegeMain.minIelts}</h4>
-                    <h4>Minimum Percentage required:{collegeMain.minPercent}</h4>
-                    <h4>Minimum Work Experience required:{collegeMain.workExperienceYears}</h4>
-                    <h4>Number of backlogs allowed:{collegeMain.backlogs}</h4>
-                    
+                    <div style={{display:"flex",flexDirection:"row"}}>
+                        <div style={{display:"flex",flexDirection:"column",border:"1px solid black", padding:20,marginLeft:"-9em"}}>
+                            <h4>Requirements for the college</h4>
+                    <List>
+                    <ListItem alignItems="flex-start">
+                        <ListItemText primary="Minimum IELTS Score" secondary={<React.Fragment>
+              <Typography
+                sx={{ display: 'inline',color: "success.main" }}
+                component="span"
+                variant="body2"
+              >
+                {collegeMain.minIelts}
+              </Typography>
+            </React.Fragment>} >
+                </ListItemText>
+                            </ListItem>
+                            <Divider component="li" />
+
+                            <ListItem alignItems="flex-start">
+                        <ListItemText primary="Minimum GRE Score" secondary={<React.Fragment>
+              <Typography
+                sx={{ display: 'inline',color: "success.main" }}
+                component="span"
+                variant="body2"
+              >
+                {collegeMain.minGre}
+              </Typography>
+            </React.Fragment>} >
+                </ListItemText>
+                            </ListItem>
+                            <Divider component="li" />
+
+                            <ListItem alignItems="flex-start">
+                        <ListItemText primary="Minimum Percentage" secondary={<React.Fragment>
+              <Typography
+                sx={{ display: 'inline',color: "success.main" }}
+                component="span"
+                variant="body2"
+              >
+                {collegeMain.minPercent}
+              </Typography>
+            </React.Fragment>} >
+                </ListItemText>
+                            </ListItem>
+                            <Divider component="li" />
+
+                            <ListItem alignItems="flex-start">
+                        <ListItemText primary="Minimum Work Experience" secondary={<React.Fragment>
+              <Typography
+                sx={{ display: 'inline',color: "success.main" }}
+                component="span"
+                variant="body2"
+              >
+                {collegeMain.workExperienceYears}
+              </Typography>
+            </React.Fragment>} >
+                </ListItemText>
+                            </ListItem>
+                            <Divider component="li" />
+
+                            <ListItem alignItems="flex-start">
+                        <ListItemText primary="Backlogs Allowed" secondary={<React.Fragment>
+              <Typography
+                sx={{ display: 'inline',color: "success.main" }}
+                component="span"
+                variant="body2"
+              >
+                {collegeMain.backlogs}
+              </Typography>
+            </React.Fragment>} >
+                </ListItemText>
+                            </ListItem>
+                            <Divider component="li" />
+
+                            <ListItem alignItems="flex-start">
+                        <ListItemText primary="Fees per Semester" secondary={<React.Fragment>
+              <Typography
+                sx={{ display: 'inline',color: "success.main" }}
+                component="span"
+                variant="body2"
+              >
+                {collegeMain.feePerSem}
+              </Typography>
+            </React.Fragment>} >
+                </ListItemText>
+                            </ListItem>
+                            <Divider component="li" />
+
+
+
+                    </List>
+                    </div>
+                    <div style={{display:"flex",flexDirection:"column",marginLeft:200}}>
+                        <h4>Under Graduate Courses</h4>
+                        
+                    {collegeMain.undergraduateCourses && collegeMain.undergraduateCourses.map(undergraduateCourse =>  <div style={{display:"flex",flexDirection:"column",marginBottom:10}}> <p style={{marginLeft:10}}>{undergraduateCourse && undergraduateCourse.name}</p></div>)}<br/>
+                    <h4>Graduate Courses</h4>
+                    {collegeMain.graduateCourses && collegeMain.graduateCourses.map(graduateCourse =>  <div style={{display:"flex",flexDirection:"column",marginBottom:10}}> <p style={{marginLeft:10}}>{graduateCourse && graduateCourse.name}</p></div>)}
+                    </div>
+                    </div>
+
 
 
 
