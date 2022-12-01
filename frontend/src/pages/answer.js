@@ -31,6 +31,10 @@ import FollowTheSignsIcon from '@mui/icons-material/FollowTheSigns';
 import axios from "axios";
 import config from "../config";
 import moment from "moment";
+
+import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import BookmarkTwoToneIcon from '@mui/icons-material/BookmarkTwoTone';
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
@@ -164,7 +168,7 @@ function Answer() {
               },
 
             }}>
-              <FollowTheSignsIcon style={{ fontSize: 20 }} />{question && question.answers && question.answers.length} Answers</Link>
+              <QuestionAnswerIcon style={{ fontSize: 20 }} />{question && question.answers && question.answers.length} Answers</Link>
           </IconButton>
                 <IconButton aria-label="share">
             <Link style={{
@@ -187,7 +191,7 @@ function Answer() {
                 borderBottom: "1px solid white",
               },
             }} to="#">
-              <FollowTheSignsIcon style={{ fontSize: 20 }} />Following</Link>
+              <BookmarkIcon style={{ fontSize: 20 }} />Following</Link>
           </IconButton></>:<>        <IconButton aria-label="share">
             <Link style={{
               textDecoration: "none", color: "black",
@@ -198,7 +202,7 @@ function Answer() {
               },
 
             }} onClick={followQuestion}>
-              <FollowTheSignsIcon style={{ fontSize: 20 }} />Follow</Link>
+              <BookmarkTwoToneIcon style={{ fontSize: 20 }} />Follow</Link>
           </IconButton></>}
                 <ExpandMore
                   expand={expanded}

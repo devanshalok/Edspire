@@ -21,6 +21,9 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { refreshProfile } from '../redux/userSlice';
 import getProfile from '../utils';
+import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import BookmarkTwoToneIcon from '@mui/icons-material/BookmarkTwoTone';
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -96,7 +99,7 @@ export default function RecipeReviewCard(props) {
               },
 
             }}>
-              <FollowTheSignsIcon style={{ fontSize: 20 }} />{props.question && props.question.answers.length} Answers</Link>
+              <QuestionAnswerIcon style={{ fontSize: 20 }} />{props.question && props.question.answers.length} Answers</Link>
           </IconButton>
           <IconButton aria-label="share">
             <Link style={{
@@ -119,7 +122,7 @@ export default function RecipeReviewCard(props) {
                 borderBottom: "1px solid white",
               },
             }} to="#">
-              <FollowTheSignsIcon style={{ fontSize: 20 }} />Following</Link>
+              <BookmarkIcon style={{ fontSize: 20 }} />Following</Link>
           </IconButton></>:<>        <IconButton aria-label="share">
             <Link style={{
               textDecoration: "none", color: "black",
@@ -130,7 +133,7 @@ export default function RecipeReviewCard(props) {
               },
 
             }} onClick={followQuestion}>
-              <FollowTheSignsIcon style={{ fontSize: 20 }} />Follow</Link>
+              <BookmarkTwoToneIcon style={{ fontSize: 20 }} />Follow</Link>
           </IconButton></>}
 
         </div>
