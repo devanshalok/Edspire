@@ -45,7 +45,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
-  return <IconButton {...other} />;
+  return <><p style={{marginLeft:210,fontWeight:'bold'}}>Expand Question</p><IconButton {...other} /></>;
 })(({ theme, expand }) => ({
   transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
   marginLeft: 'auto',
@@ -133,57 +133,6 @@ function Answer() {
       }
     }).catch(error => console.log('some exception occurred', error));
   }
-
-
-  // function followQuestion() {
-  //   let data = { questionId }
-  //   console.log('called follow',data,questionId)
-  //   axios.post(config.BASE_URL + '/follow-question', data, {
-  //     headers: {
-  //       'Authorization': profile.token
-  //     }
-  //   }).then(response => {
-  //     if (response.status == 200 && response.data.statusCode == 200) {
-  //       console.log('data', response.data);
-  //       // setSpaces(response.data.data.spaces);
-  //       getProfile(profile.token).then(response => {
-  //         console.log('response', response);
-  //         dispatch(refreshProfile(response));
-  //         getQuestionData();
-
-  //       })
-  //       // handleClose();
-  //     } else {
-  //       console.log('some exception occurred', response)
-  //     }
-  //   }).catch(error => console.log('some exception occurred', error));
-  // }
-
-  // function unfollowQuestion() {
-
-  //   let data = { questionId }
-  //   console.log('called unfollow',data,questionId)
-
-  //   // console.log
-  //   axios.post(config.BASE_URL + '/unfollow-question', data, {
-  //     headers: {
-  //       'Authorization': profile.token
-  //     }
-  //   }).then(response => {
-  //     if (response.status == 200 && response.data.statusCode == 200) {
-  //       console.log('data', response.data);
-  //       // setSpaces(response.data.data.spaces);
-  //       // handleClose();
-  //       getProfile(profile.token).then(response => {
-  //         console.log('response', response);
-  //         dispatch(refreshProfile(response));
-  //         getQuestionData();
-  //       })
-  //     } else {
-  //       console.log('some exception occurred', response)
-  //     }
-  //   }).catch(error => console.log('some exception occurred', error));
-  // }
 
   function getQuestionData(){
     console.log('questionis',question);
@@ -295,13 +244,13 @@ function Answer() {
             }} onClick={followQuestion}>
               <BookmarkTwoToneIcon style={{ fontSize: 20 }} />Follow</Link>
           </IconButton></>}
+          
                 <ExpandMore
                   expand={expanded}
                   onClick={handleExpandClick}
                   aria-expanded={expanded}
                   aria-label="show more"
-                >
-                  <ExpandMoreIcon />
+                >                  <ExpandMoreIcon />
                 </ExpandMore>
               </div>
             </CardActions>

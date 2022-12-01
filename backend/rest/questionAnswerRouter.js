@@ -30,4 +30,14 @@ router.post('/answer',authenticateToken, async (req, res, next) => {
     res.json(response);
 });
 
+router.post('/upvote',authenticateToken, async (req, res, next) => {
+    const response = await questionAnswerService.upVote(req.query.answerId,req.query.num)
+    res.json(response);
+});
+
+router.post('/downvote',authenticateToken, async (req, res, next) => {
+    const response = await questionAnswerService.downVote(req.query.answerId,req.query.num)
+    res.json(response);
+});
+
 module.exports = router;

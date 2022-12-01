@@ -29,7 +29,7 @@ async function postQuestion(body, user) {
 }
 
 async function getQuestion(_id) {
-	if (_id && _id!='undefined') {
+	if (_id && _id != 'undefined') {
 		const question = await Question.findOne({ _id }).populate('answers');
 		console.log('question', question);
 		return { 'statusCode': 200, data: { question } };
@@ -41,10 +41,10 @@ async function getQuestion(_id) {
 async function getAllQuestions(space, _id) {
 	let questions;
 	if (space) {
-		const spaceR = await Space.find({name:space})
-		.populate(['questions','followers']);
-		console.log('space',spaceR);
-		return { 'statusCode': 200, data: spaceR  };
+		const spaceR = await Space.find({ name: space })
+			.populate(['questions', 'followers']);
+		console.log('space', spaceR);
+		return { 'statusCode': 200, data: spaceR };
 
 		// questions = await Question.find({ space });
 	} else {
@@ -251,4 +251,61 @@ const bestAnswer = async ({
 		};
 	}
 };
-module.exports = { postQuestion, getQuestion, getAllQuestions, getAnswersByQuestionId, addAnswer }
+
+const upVote = async (answerId, num) => {
+	console.log(`Entering answerService.upvote,payload is ${body}`);
+	try {
+		const answer = await Answer.updateOne({ _id: answerId }, {
+			$inc: {
+				upVotes: num
+			}
+		});
+		if (answer) {
+			return { statusCode: 200, data: { msg: 'Answer upvoted successfully' } }
+		}
+		return {
+			error: {
+				msg: 'Some error occured while upvoting answer',
+			},
+			statusCode: 400
+		};
+	} catch (e) {
+		console.error('Exception occurred while upvoting answer', e);
+		return {
+			error: {
+				msg: e.message,
+			},
+			statusCode: 400
+		};
+	}
+};
+
+const downVote = async (answerId, num) => {
+	console.log(`Entering answerService.downVote,payload is ${body}`);
+	try {
+		const answer = await Answer.updateOne({ _id: answerId }, {
+			$inc: {
+				downVote: num
+			}
+		});
+		if (answer) {
+			return { statusCode: 200, data: { msg: 'Answer downvoted successfully' } }
+		}
+		return {
+			error: {
+				msg: 'Some error occured while downvoted answer',
+			},
+			statusCode: 400
+		};
+	} catch (e) {
+		console.error('Exception occurred while downvoted answer', e);
+		return {
+			error: {
+				msg: e.message,
+			},
+			statusCode: 400
+		};
+	}
+};
+
+module.exports = { postQuestion, getQuestion, getAllQuestions, getAnswersByQuestionId, addAnswer, upVote, downVote }

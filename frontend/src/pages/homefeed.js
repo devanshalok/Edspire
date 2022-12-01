@@ -14,6 +14,7 @@ import Grid from '@mui/material/Grid';
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
 import axios from 'axios';
 import { getAllQuestions } from "../redux/questionSlice";
@@ -73,7 +74,7 @@ function HomeFeed() {
         <Grid item xs={3}>
           <p style={{ marginTop: "20px", fontSize: 20, marginBottom: "20px" }}>Spaces Followed by you</p>
           {profile.followedSpaces.map(space => (<><Item style={{ marginBottom: 5, fontSize: 15, width: 250 }}>
-            <Link style={{ textDecoration: "none", color: "black" }}><p style={{ marginLeft: 20, fontSize: 14 }}>{space}</p></Link>
+            <Link style={{ textDecoration: "none", color: "black" }} to='../space' state={space}><p style={{ marginLeft: 20, fontSize: 14 }}><OpenInNewIcon style={{ fontSize: 20,color:"black" }} />{" "+space}</p></Link>
           </Item><Divider light /></>))}
         </Grid>
 
