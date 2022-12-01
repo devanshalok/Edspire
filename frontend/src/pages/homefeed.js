@@ -18,6 +18,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { getAllQuestions } from "../redux/questionSlice";
 import config from "../config";
+import { Divider, List, ListItem, ListItemText } from "@mui/material";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -26,21 +27,21 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-
 function HomeFeed() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [questions, setQuestions] = useState([]);
   // dispatch(getAllQuestions());
-
-  let token = useSelector(state => {
+  const [heading, setHeading] = useState("All Questions");
+  const [noQuestion, setNoQuestions] = useState(true);
+  let profile = useSelector(state => {
+    console.log('useselector state is ', state.userSlice)
     if (state.userSlice.profile && state.userSlice.profile.token) {
-      console.log('useselector state is ', state.userSlice)
-      return state.userSlice.profile.token
+      return state.userSlice.profile
     } return undefined
   })
   useEffect(() => {
-    axios.get(config.BASE_URL + '/qa/questions', { headers: { 'Authorization': token } }).then(response => {
+    axios.get(config.BASE_URL + '/qa/questions', { headers: { 'Authorization': profile.token } }).then(response => {
       if (response.status == 200 && response.data.statusCode == 200) {
         console.log(response.data);
         setQuestions(response.data.data.questions)
@@ -51,40 +52,35 @@ function HomeFeed() {
       }
     }).catch(error => console.log('some exception occurred', error));
   }, [])
-  // let questions = useSelector(state => {
-  //   console.log('hello', state)
-  //   if (state.questionsSlice) {
-  //     console.log('state is ', state.questionsSlice)
-  //     return state.questionsSlice
-  //   } else {
-  //   } return undefined
-  // })
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={2}>
-        <Grid item xs={3}>
+      <Grid container spacing={7}>
+        <Grid item xs={2}>
           <p style={{ fontWeight: "bold", marginTop: "20px", marginLeft: 10, fontSize: 20 }}>Questions</p><br></br>
-          <Item style={{ marginTop: "-18px", marginLeft: 10, fontSize: 15 }}>
-
-            <Link style={{textDecoration:"none",color:"black"}}><p style={{ marginLeft: 20, marginTop: 10 }}>All Questions</p><br></br></Link>
-            <Link style={{textDecoration:"none",color:"black"}}><p style={{ marginLeft: 20 }}>Unanswered Questions</p><br></br></Link>
-            <Link style={{textDecoration:"none",color:"black"}}><p style={{ marginLeft: 20 }}>Followed Questions</p><br></br></Link>
+          <Item style={{ marginLeft: 10, marginBottom: 5, fontSize: 15 }}>
+            <Link style={{ textDecoration: "none", color: "black" }} onClick={() => setHeading("All Questions")}><p style={{ marginLeft: 20 }}>All Questions</p></Link>
+          </Item>
+          <Item style={{ marginLeft: 10, marginBottom: 5, fontSize: 15 }}>
+            <Link style={{ textDecoration: "none", color: "black" }} onClick={() => setHeading("UnAnswered Questions")}><p style={{ marginLeft: 20 }}>UnAnswered Questions</p></Link>
+          </Item>
+          <Item style={{ marginLeft: 10, marginBottom: 5, fontSize: 15 }}>
+            <Link style={{ textDecoration: "none", color: "black" }} onClick={() => setHeading("Followed Questions")}><p style={{ marginLeft: 20 }}>Followed Questions</p></Link>
           </Item>
         </Grid>
-        <Grid item xs={6}> <p style={{ marginLeft:"20px",marginTop: "20px", fontSize: 20 }}>Questions for you</p>
-          {/* <Item style={{ marginTop: "30px" }}><ImageListItem > </ImageListItem>
-            <ImageListItem > <RecipeReviewCard /></ImageListItem>
-            <ImageListItem > <RecipeReviewCard /></ImageListItem></Item> */}
-          {questions.map(question =>  <RecipeReviewCard key={question._id} question={question} />)}
+        <Grid item xs={7}> <p style={{ marginLeft: "20px", marginTop: "20px", fontSize: 20 }}>{heading}</p>
+          {
+            heading === 'UnAnswered Questions' ?
+              (questions.filter(question => question.isUnAnswered).map(question => <RecipeReviewCard key={question._id} question={question} />))
+              : heading == 'Followed Questions' ?
+                (questions.filter(question => profile.followedQuestions.includes(question._id)).map(question => <RecipeReviewCard key={question._id} question={question} />))
+                : (questions.map(question => <RecipeReviewCard key={question._id} question={question} />))
+          }
         </Grid>
         <Grid item xs={3}>
-          <p style={{ marginTop: "20px", marginLeft: 10, fontSize: 20,marginBottom:"22px" }}>Spaces Followed by you</p>
-          <Item style={{ marginTop: "-5px", marginLeft: 10, fontSize: 15 }}>
-
-            <p style={{ marginLeft: 20, marginTop: 10 }}>Housing In USA</p><br></br>
-            <p style={{ marginLeft: 20 }}>GRE help</p><br></br>
-            <p style={{ marginLeft: 20 }}>Scholarship Help</p><br></br>
-          </Item>
+          <p style={{ marginTop: "20px", fontSize: 20, marginBottom: "20px" }}>Spaces Followed by you</p>
+          {profile.followedSpaces.map(space => (<><Item style={{ marginBottom: 5, fontSize: 15, width: 250 }}>
+            <Link style={{ textDecoration: "none", color: "black" }}><p style={{ marginLeft: 20, fontSize: 14 }}>{space}</p></Link>
+          </Item><Divider light /></>))}
         </Grid>
 
       </Grid>

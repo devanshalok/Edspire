@@ -108,12 +108,12 @@ async function followSpace(body, _id) {
         $inc: {
             followersCount: 1
         },
-        $push: {
+        $addToSet: {
             followers: _id
         }
     });
     const user = await User.updateOne({ _id: _id }, {
-        $push: {
+        $addToSet: {
             followedSpaces: body.space
         }
     })
@@ -121,20 +121,12 @@ async function followSpace(body, _id) {
 }
 
 async function followUniversity(body, _id) {
-    // const space = await Space.updateOne({ _id: body.space }, {
-    //     $inc: {
-    //         followersCount: 1
-    //     },
-    //     $push: {
-    //         followers: _id
-    //     }
-    // });
     const user = await User.updateOne({ _id: _id }, {
-        $push: {
+        $addToSet: {
             followedUniversities: body.university
         }
     })
-    return { statusCode: 200, data: { msg: "Space followed successfully" } };
+    return { statusCode: 200, data: { msg: "University followed successfully" } };
 }
 
 const getUniversities = async () => {
@@ -193,22 +185,22 @@ const findColleges = async (userId) => {
         const colleges = await University.find({
             $and: [{
                 minGre: {
-                    $lte: userDetails.greScore.overall
+                    $lte: userDetails.greScore
                 }
             },
             {
                 maxGre: {
-                    $gte: userDetails.greScore.overall
+                    $gte: userDetails.greScore
                 }
             },
             {
                 minIelts: {
-                    $lte: userDetails.ieltsScore.overall
+                    $lte: userDetails.ieltsScore
                 }
             },
             {
                 maxIelts: {
-                    $gte: userDetails.ieltsScore.overall
+                    $gte: userDetails.ieltsScore
                 }
             },
             {
@@ -246,6 +238,75 @@ const findColleges = async (userId) => {
         };
     }
 };
+
+const findCollegesWithParams = async (bldy) => {
+    // console.log("######## IN getUserProfile #######")
+    try {
+        // const userDetails = await User.findOne({
+        //     _id: userId,
+        // }, { password: 0, __v: 0 }).lean();
+        console.log('bldy is',bldy);
+        const colleges = await University.find({
+            $and: [{
+                minGre: {
+                    $lte: bldy.greScore
+                }
+            },
+            {
+                maxGre: {
+                    $gte: bldy.greScore
+                }
+            },
+            {
+                minIelts: {
+                    $lte: bldy.ieltsScore
+                }
+            },
+            {
+                maxIelts: {
+                    $gte: bldy.ieltsScore
+                }
+            },
+            {
+                minPercent: {
+                    $lte: bldy.underGradPercent
+                }
+            },
+            {
+                maxPercent: {
+                    $gte: bldy.underGradPercent
+                }
+            },
+            {
+                workExperienceYears: {
+                    $lte: bldy.workExperienceYears
+                }
+            },
+            {
+                backlogs: {
+                    $gte: bldy.backlogs
+                }
+            },
+            // {
+            //     graduateCourses:{
+
+            //     }
+            // }
+            ]
+        });
+        console.log('colleges are', colleges);
+        // console.log('userdetails are', userDetails);
+        // const branches = await Branch.find().lean();
+        return { statusCode: 200, data: { colleges } };
+    } catch (e) {
+        console.error('Error while fetching getUserProfile', e);
+        return {
+            error: {
+                message: e.message,
+            },
+        };
+    }
+};
 module.exports = {
-    updateUserProfile, getUserProfile, followSpace, getUniversities, getBranches, findColleges,getSpaces,followUniversity
+    updateUserProfile, getUserProfile, followSpace, getUniversities, getBranches, findColleges,getSpaces,followUniversity,findCollegesWithParams
 };

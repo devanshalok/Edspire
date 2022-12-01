@@ -32,6 +32,11 @@ router.post('/follow-space',authenticateToken, async (req, res, next) => {
     res.json(response)
 ;});
 
+router.post('/follow-university',authenticateToken, async (req, res, next) => {
+    const response = await userService.followUniversity({...req.body},req.user._id);
+    res.json(response)
+;});
+
 router.get('/universities', authenticateToken, async (req, res, next) => {
     const response = await userService.getUniversities(req.user._id);
     res.json(response)
@@ -49,6 +54,11 @@ router.get('/spaces', authenticateToken, async (req, res, next) => {
 
 router.get('/find-colleges', authenticateToken, async (req, res, next) => {
     const response = await userService.findColleges(req.user._id);
+    res.json(response)
+;});
+
+router.post('/find-colleges-with-params', authenticateToken, async (req, res, next) => {
+    const response = await userService.findCollegesWithParams(req.body);
     res.json(response)
 ;});
 //get all question, get all answers, update profile, get tags used

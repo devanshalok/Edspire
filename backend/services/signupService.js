@@ -28,15 +28,16 @@ async function signUp(body) {
 
             }
             var newUserCreatedRes = await UserModel.create(newUserObj);
+            var user = await UserModel.findOne({ emailId: email })
             console.log("### newUserCreatedRes :", newUserCreatedRes);
             const token = jwt.sign({
-                data: newUserObj,
+                data: user,
             }, '280-token', {
                 expiresIn: '24h',
             });
             delete newUserObj.password;
             newUserObj.token = token;
-            return { data: { userDetails:newUserObj, msg: 'User Created Successfully' }, statusCode: 200 };
+            return { data: { userDetails:user,token:token, msg: 'User Created Successfully' }, statusCode: 200 };
         }
     } catch (err) {
         console.log("##### err : ", err)

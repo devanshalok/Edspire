@@ -15,13 +15,13 @@ router.get('/question',authenticateToken, async (req, res, next) => {
 });
 
 router.get('/questions',authenticateToken, async (req, res, next) => {
-    const response = await questionAnswerService.getAllQuestions()
+    const response = await questionAnswerService.getAllQuestions(null,req.user._id)
     res.json(response);
 });
 
 router.get('/questions-for-space',authenticateToken, async (req, res, next) => {
     console.log('space is ',req.query.space);
-    const response = await questionAnswerService.getAllQuestions(req.query.space)
+    const response = await questionAnswerService.getAllQuestions(req.query.space,req.user._id)
     res.json(response);
 });
 

@@ -1,27 +1,36 @@
 import { Box, Text, VStack } from '@chakra-ui/react'
+import { useSelector } from 'react-redux';
 
-const list = [
-  {
-    id: 1,
-    name: 'Questions Asked',
-    value: 32,
-    color: 'yellow',
-  },
-  {
-    id: 2,
-    name: 'Answers Given',
-    value: 26,
-    color: 'green',
-  },
-  {
-    id: 3,
-    name: 'Comments Given',
-    value: 6,
-    color: 'cadet',
-  },
-]
+
 
 function Data() {
+  
+  const profile = useSelector(state => {
+    if (state.userSlice.profile) {
+      console.log('state is ', state.userSlice)
+      return state.userSlice.profile
+    } return undefined
+  });
+  const list = [
+    {
+      id: 1,
+      name: 'Questions Asked',
+      value: profile.questionsAsked,
+      color: 'yellow',
+    },
+    {
+      id: 2,
+      name: 'Answers Given',
+      value: profile.answersGiven,
+      color: 'green',
+    },
+    {
+      id: 3,
+      name: 'Comments Given',
+      value: 0,
+      color: 'cadet',
+    },
+  ]
   return (
     <VStack as="ul" spacing={0} listStyleType="none">
       {list.map(item => (
