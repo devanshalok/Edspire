@@ -35,6 +35,8 @@ import moment from "moment";
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import BookmarkTwoToneIcon from '@mui/icons-material/BookmarkTwoTone';
+import getProfile from "../utils";
+import { refreshProfile } from "../redux/userSlice";
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
@@ -60,12 +62,19 @@ function Answer() {
   const navigate = useNavigate();
   const [question, setQuestion] = useState({});
   const [modalOpen, setModalOpen] = useState(false);
+  
+  let profile = useSelector(state => {
+    if (state.userSlice.profile) {
+      console.log('useselector state is ', state.userSlice)
+      return state.userSlice.profile
+    } return undefined
+  })
   function handleModalOpen(state) {
     console.log('handle modal open called',state)
     setModalOpen(state)
   }
   console.log('modal open',modalOpen)
-  const questionId = location.state
+  const [questionId,setQuestionId] = useState(location.state);
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -73,8 +82,10 @@ function Answer() {
     setModalOpen(state);
     getQuestionData();
   }
+  const [followers,setFollowers] = React.useState(0);
   function followQuestion() {
     let data = { questionId }
+    console.log('data is',data,questionId)
     axios.post(config.BASE_URL + '/follow-question', data, {
       headers: {
         'Authorization': profile.token
@@ -84,17 +95,96 @@ function Answer() {
         console.log('data', response.data);
         // setSpaces(response.data.data.spaces);
         // handleClose();
+        getProfile(profile.token).then(response => {
+          console.log('response', response);
+          dispatch(refreshProfile(response));
+        })
+        setFollowers(followers+1);
+        // dispatch(refreshProfile( ));
+        // props.profile.token))
       } else {
         console.log('some exception occurred', response)
       }
     }).catch(error => console.log('some exception occurred', error));
   }
-  let profile = useSelector(state => {
-    if (state.userSlice.profile) {
-      console.log('useselector state is ', state.userSlice)
-      return state.userSlice.profile
-    } return undefined
-  })
+
+  function unfollowQuestion() {
+    let data = { questionId};
+    console.log('unfollow data is',data,questionId)
+
+    axios.post(config.BASE_URL + '/unfollow-question', data, {
+      headers: {
+        'Authorization': profile.token
+      }
+    }).then(response => {
+      if (response.status == 200 && response.data.statusCode == 200) {
+        console.log('data', response.data);
+        // setSpaces(response.data.data.spaces);
+        // handleClose();
+        getProfile(profile.token).then(response => {
+          console.log('response', response);
+          dispatch(refreshProfile(response));
+          setFollowers(followers-1);
+        })
+        // dispatch(refreshProfile( ));
+        // props.profile.token))
+      } else {
+        console.log('some exception occurred', response)
+      }
+    }).catch(error => console.log('some exception occurred', error));
+  }
+
+
+  // function followQuestion() {
+  //   let data = { questionId }
+  //   console.log('called follow',data,questionId)
+  //   axios.post(config.BASE_URL + '/follow-question', data, {
+  //     headers: {
+  //       'Authorization': profile.token
+  //     }
+  //   }).then(response => {
+  //     if (response.status == 200 && response.data.statusCode == 200) {
+  //       console.log('data', response.data);
+  //       // setSpaces(response.data.data.spaces);
+  //       getProfile(profile.token).then(response => {
+  //         console.log('response', response);
+  //         dispatch(refreshProfile(response));
+  //         getQuestionData();
+
+  //       })
+  //       // handleClose();
+  //     } else {
+  //       console.log('some exception occurred', response)
+  //     }
+  //   }).catch(error => console.log('some exception occurred', error));
+  // }
+
+  // function unfollowQuestion() {
+
+  //   let data = { questionId }
+  //   console.log('called unfollow',data,questionId)
+
+  //   // console.log
+  //   axios.post(config.BASE_URL + '/unfollow-question', data, {
+  //     headers: {
+  //       'Authorization': profile.token
+  //     }
+  //   }).then(response => {
+  //     if (response.status == 200 && response.data.statusCode == 200) {
+  //       console.log('data', response.data);
+  //       // setSpaces(response.data.data.spaces);
+  //       // handleClose();
+  //       getProfile(profile.token).then(response => {
+  //         console.log('response', response);
+  //         dispatch(refreshProfile(response));
+  //         getQuestionData();
+  //       })
+  //     } else {
+  //       console.log('some exception occurred', response)
+  //     }
+  //   }).catch(error => console.log('some exception occurred', error));
+  // }
+
   function getQuestionData(){
     console.log('questionis',question);
     console.log('question id is',questionId);
@@ -102,7 +192,8 @@ function Answer() {
     axios.get(config.BASE_URL + '/qa/question?questionId=' + id, { headers: { 'Authorization': profile.token } }).then(response => {
       if (response.status == 200 && response.data.statusCode == 200) {
         console.log(response.data);
-        setQuestion(response.data.data.question)
+        setQuestion(response.data.data.question);
+        setFollowers(response.data.data.question.followers);
         // state.questions = response.data.data.questions;
         // localStorage.setItem('questions', JSON.stringify(response.data.data.questions));
       } else {
@@ -180,7 +271,7 @@ function Answer() {
               },
 
             }}>
-              <FollowTheSignsIcon style={{ fontSize: 20 }} />{question && question.followers} Followers</Link>
+              <FollowTheSignsIcon style={{ fontSize: 20 }} />{followers} Followers</Link>
           </IconButton>
                 {profile && profile.followedQuestions.includes(question._id) ? <>        <IconButton aria-label="share">
             <Link style={{
@@ -190,7 +281,7 @@ function Answer() {
                 color: "yellow",
                 borderBottom: "1px solid white",
               },
-            }} to="#">
+            }} to="#" onClick={unfollowQuestion}>
               <BookmarkIcon style={{ fontSize: 20 }} />Following</Link>
           </IconButton></>:<>        <IconButton aria-label="share">
             <Link style={{

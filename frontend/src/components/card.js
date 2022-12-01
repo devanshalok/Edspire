@@ -38,7 +38,7 @@ const ExpandMore = styled((props) => {
 export default function RecipeReviewCard(props) {
   console.log('props', props);
   const dispatch = useDispatch();
-
+  const [followers,setFollowers] = React.useState(props.question.followers || 0);
   function followQuestion() {
     let data = { questionId: props.question._id }
     axios.post(config.BASE_URL + '/follow-question', data, {
@@ -53,6 +53,31 @@ export default function RecipeReviewCard(props) {
         getProfile(props.profile.token).then(response => {
           console.log('response', response);
           dispatch(refreshProfile(response));
+        })
+        setFollowers(followers+1);
+        // dispatch(refreshProfile( ));
+        // props.profile.token))
+      } else {
+        console.log('some exception occurred', response)
+      }
+    }).catch(error => console.log('some exception occurred', error));
+  }
+
+  function unfollowQuestion() {
+    let data = { questionId: props.question._id }
+    axios.post(config.BASE_URL + '/unfollow-question', data, {
+      headers: {
+        'Authorization': props.profile.token
+      }
+    }).then(response => {
+      if (response.status == 200 && response.data.statusCode == 200) {
+        console.log('data', response.data);
+        // setSpaces(response.data.data.spaces);
+        // handleClose();
+        getProfile(props.profile.token).then(response => {
+          console.log('response', response);
+          dispatch(refreshProfile(response));
+          setFollowers(followers-1);
         })
         // dispatch(refreshProfile( ));
         // props.profile.token))
@@ -99,7 +124,7 @@ export default function RecipeReviewCard(props) {
               },
 
             }}>
-              <QuestionAnswerIcon style={{ fontSize: 20 }} />{props.question && props.question.answers.length} Answers</Link>
+              <QuestionAnswerIcon style={{ fontSize: 20 }} />{props.question.answers.length} Answers</Link>
           </IconButton>
           <IconButton aria-label="share">
             <Link style={{
@@ -111,7 +136,7 @@ export default function RecipeReviewCard(props) {
               },
 
             }}>
-              <FollowTheSignsIcon style={{ fontSize: 20 }} />{props.question && props.question.followers} Followers</Link>
+              <FollowTheSignsIcon style={{ fontSize: 20 }} />{followers} Followers</Link>
           </IconButton>
           {props.profile && props.profile.followedQuestions.includes(props.question._id) ? <>        <IconButton aria-label="share">
             <Link style={{
@@ -121,7 +146,7 @@ export default function RecipeReviewCard(props) {
                 color: "yellow",
                 borderBottom: "1px solid white",
               },
-            }} to="#">
+            }} to="#" onClick={unfollowQuestion}>
               <BookmarkIcon style={{ fontSize: 20 }} />Following</Link>
           </IconButton></> : <>        <IconButton aria-label="share">
             <Link style={{

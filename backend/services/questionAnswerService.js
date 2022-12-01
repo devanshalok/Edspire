@@ -29,7 +29,7 @@ async function postQuestion(body, user) {
 }
 
 async function getQuestion(_id) {
-	if (_id) {
+	if (_id && _id!='undefined') {
 		const question = await Question.findOne({ _id }).populate('answers');
 		console.log('question', question);
 		return { 'statusCode': 200, data: { question } };

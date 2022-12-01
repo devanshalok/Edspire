@@ -123,6 +123,23 @@ async function followSpace(body, _id) {
     return { statusCode: 200, data: { msg: "Space followed successfully" } };
 }
 
+async function unfollowSpace(body, _id) {
+    const space = await Space.updateOne({ name: body.space }, {
+        $inc: {
+            followersCount: -1
+        },
+        $pull: {
+            followers: _id
+        }
+    });
+    const user = await User.updateOne({ _id: _id }, {
+        $pull: {
+            followedSpaces: body.space
+        }
+    })
+    return { statusCode: 200, data: { msg: "Space unfollowed successfully" } };
+}
+
 async function followUniversity(body, _id) {
     const user = await User.updateOne({ _id: _id }, {
         $addToSet: {
@@ -130,6 +147,15 @@ async function followUniversity(body, _id) {
         }
     })
     return { statusCode: 200, data: { msg: "University followed successfully" } };
+}
+
+async function unfollowUniversity(body, _id) {
+    const user = await User.updateOne({ _id: _id }, {
+        $pull: {
+            followedUniversities: body.university
+        }
+    })
+    return { statusCode: 200, data: { msg: "University unfollowed successfully" } };
 }
 
 const getUniversities = async () => {
@@ -325,6 +351,20 @@ async function followQuestion(body, _id) {
     return { statusCode: 200, data: { msg: "Question followed successfully" } };
 }
 
+async function unfollowQuestion(body, _id) {
+    const user = await User.updateOne({ _id: _id }, {
+        $pull: {
+            followedQuestions: body.questionId
+        }
+    });
+    const question = await Question.updateOne({ _id: body.questionId }, {
+        $inc: {
+            followers: -1
+        }
+    })
+    return { statusCode: 200, data: { msg: "Question unfollowed successfully" } };
+}
+
 async function getAllUsers(_id) {
     const users = await User.find({ _id: { $ne: _id } });
     console.log('users', users);
@@ -338,5 +378,5 @@ async function getUniversity(name) {
 }
 
 module.exports = {
-    updateUserProfile, getUserProfile, followSpace, getUniversities, getBranches, findColleges, getSpaces, followUniversity, findCollegesWithParams, followQuestion, getAllUsers,getUniversity
+    updateUserProfile, getUserProfile, followSpace, getUniversities, getBranches, findColleges, getSpaces, followUniversity,unfollowUniversity,unfollowQuestion,unfollowSpace, findCollegesWithParams, followQuestion, getAllUsers,getUniversity
 };

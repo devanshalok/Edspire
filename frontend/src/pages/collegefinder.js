@@ -53,8 +53,25 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';function Col
   }, [])
 
   function followUniversity(e) {
-    console.log(e.target.id);
+    console.log('following',e.target.id);
     axios.post(config.BASE_URL + '/follow-university', { university: e.target.id }, {
+      headers: {
+        'Authorization': profile.token
+      }
+    }).then(response => {
+      if (response.status == 200 && response.data.statusCode == 200) {
+        console.log(response.data);
+        getProfile(profile.token).then(response => dispatch(refreshProfile(response)))
+        // setSpaces(response.data.data);
+      } else {
+        console.log('some exception occurred', response)
+      }
+    }).catch(error => console.log('some exception occurred', error));
+  }
+
+  function unfollowUniversity(e) {
+    console.log(e.target.id);
+    axios.post(config.BASE_URL + '/unfollow-university', { university: e.target.id }, {
       headers: {
         'Authorization': profile.token
       }
@@ -76,7 +93,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';function Col
       <div style={{ maxWidth: "100%", margin: "30px", display: "flex", flexWrap: "wrap" }}>
         <CollegeFinderForm handleClose={handleClose} handleOpen={handleOpen} open={open} handleSubmit={handleCollegeSubmit} token={profile.token} setUniversities={setUniversities}/>
         {universities.map((data) => (
-          <Card style={{ marginLeft: 125, marginTop: 20 }} sx={{ maxWidth: 500 }}>
+          <Card style={{ marginLeft: 125, marginTop: 20 }} sx={{ maxWidth: 450 }}>
             <>
               <CardMedia
                 component="img"
@@ -92,8 +109,8 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';function Col
                 </Typography>
               </CardContent>
               <CardActions style={{ marginTop: 10, display: "flex", flexDirection: "row", width: "100%" }}>
-              <Link style={{textDecoration:"none"}} to='../aboutcollege' state={data.name}> <Button size="small"><InfoIcon />About the university</Button></Link>
-                {profile.followedUniversities.includes(data.name)?<><FavoriteIcon  id={data.name} /><Button size="small">Following University</Button></>:<Button size="small" id={data.name} onClick={followUniversity}><FavoriteBorderIcon />Follow University</Button>}
+              <Link style={{textDecoration:"none"}} to='../aboutcollege' state={data.name}> <Button size="small" style={{color:"black"}}><InfoIcon />About the university</Button></Link>
+                {profile.followedUniversities.includes(data.name)?<><FavoriteIcon  id={data.name} /><Button size="small" id={data.name} style={{color:"black"}} onClick={unfollowUniversity}>Following</Button></>:<Button size="small" style={{color:"black"}} id={data.name} onClick={followUniversity}><FavoriteBorderIcon />Follow</Button>}
               </CardActions></>
 
           </Card>

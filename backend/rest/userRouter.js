@@ -32,13 +32,27 @@ router.post('/follow-space',authenticateToken, async (req, res, next) => {
     res.json(response)
 ;});
 
+router.post('/unfollow-space',authenticateToken, async (req, res, next) => {
+    const response = await userService.unfollowSpace({...req.body},req.user._id);
+    res.json(response)
+;});
+
 router.post('/follow-university',authenticateToken, async (req, res, next) => {
     const response = await userService.followUniversity({...req.body},req.user._id);
     res.json(response)
 ;});
 
+router.post('/unfollow-university',authenticateToken, async (req, res, next) => {
+    const response = await userService.unfollowUniversity({...req.body},req.user._id);
+    res.json(response)
+;});
+
 router.post('/follow-question',authenticateToken, async (req, res, next) => {
     const response = await userService.followQuestion({...req.body},req.user._id);
+    res.json(response)
+;});
+router.post('/unfollow-question',authenticateToken, async (req, res, next) => {
+    const response = await userService.unfollowQuestion({...req.body},req.user._id);
     res.json(response)
 ;});
 
