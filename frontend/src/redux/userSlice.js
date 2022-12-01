@@ -23,19 +23,8 @@ export const userSlice = createSlice({
     },
     refreshProfile: (state, action) => {
       console.log('payload is ', action);
-      console.log('state is ',state.userSlice)
-      axios.get(config.BASE_URL + '/profile', {
-        headers: {
-          'Authorization': state.userSlice.profile.token
-        }
-      }).then(response => {
-        if (response.status == 200 && response.data.statusCode == 200) {
-          console.log('profile', response.data);
-          // setSpaces(response.data.data.spaces);
-        } else {
-          console.log('some exception occurred', response)
-        }
-      }).catch(error => console.log('some exception occurred', error));
+      state.profile = action.payload;
+      localStorage.setItem('profile', JSON.stringify(action.payload));
     }
   },
 });

@@ -28,12 +28,8 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 function HomeFeed() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [questions, setQuestions] = useState([]);
-  // dispatch(getAllQuestions());
   const [heading, setHeading] = useState("All Questions");
-  const [noQuestion, setNoQuestions] = useState(true);
   let profile = useSelector(state => {
     console.log('useselector state is ', state.userSlice)
     if (state.userSlice.profile && state.userSlice.profile.token) {
@@ -45,8 +41,6 @@ function HomeFeed() {
       if (response.status == 200 && response.data.statusCode == 200) {
         console.log(response.data);
         setQuestions(response.data.data.questions)
-        // state.questions = response.data.data.questions;
-        // localStorage.setItem('questions', JSON.stringify(response.data.data.questions));
       } else {
         console.log('some exception occurred', response)
       }
