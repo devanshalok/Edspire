@@ -31,7 +31,7 @@ import FollowTheSignsIcon from '@mui/icons-material/FollowTheSigns';
 import axios from "axios";
 import config from "../config";
 import moment from "moment";
-
+import Alert from '@mui/material/Alert';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import BookmarkTwoToneIcon from '@mui/icons-material/BookmarkTwoTone';
@@ -62,7 +62,8 @@ function Answer() {
   const navigate = useNavigate();
   const [question, setQuestion] = useState({});
   const [modalOpen, setModalOpen] = useState(false);
-  
+  const [alert, setAlert] = React.useState("");
+
   let profile = useSelector(state => {
     if (state.userSlice.profile) {
       console.log('useselector state is ', state.userSlice)
@@ -95,14 +96,22 @@ function Answer() {
         console.log('data', response.data);
         // setSpaces(response.data.data.spaces);
         // handleClose();
+        let alert = (<Alert severity="success">Question followed Successfully</Alert>);
+        setAlert(alert);
+        setTimeout(() => setAlert(), 3000);
+        setFollowers(followers+1);
         getProfile(profile.token).then(response => {
           console.log('response', response);
           dispatch(refreshProfile(response));
+
         })
-        setFollowers(followers+1);
+
         // dispatch(refreshProfile( ));
         // props.profile.token))
       } else {
+        alert = (<Alert severity="error">Some error occurred while following question</Alert>);
+        setAlert(alert);
+        setTimeout(() => setAlert(), 3000);
         console.log('some exception occurred', response)
       }
     }).catch(error => console.log('some exception occurred', error));
@@ -126,9 +135,15 @@ function Answer() {
           dispatch(refreshProfile(response));
           setFollowers(followers-1);
         })
+        let alert = (<Alert severity="success">Question Un-Followed Successfully</Alert>);
+        setAlert(alert);
+        setTimeout(() => setAlert(), 3000);
         // dispatch(refreshProfile( ));
         // props.profile.token))
       } else {
+        alert = (<Alert severity="error">Some error occurred while unfollowing question</Alert>);
+        setAlert(alert);
+        setTimeout(() => setAlert(), 3000);
         console.log('some exception occurred', response)
       }
     }).catch(error => console.log('some exception occurred', error));
@@ -161,6 +176,7 @@ function Answer() {
         <Grid item xs={3}>
         </Grid>
         <Grid item xs={6}>
+        {alert}
           <Card style={{ margin: "10px", marginTop: "40px" }} sx={{ maxWidth: 1000 }}>
             <CardHeader
               avatar={

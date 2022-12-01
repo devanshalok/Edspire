@@ -28,6 +28,7 @@ import axios from 'axios';
 import getProfile from '../utils';
 import { refreshProfile } from '../redux/userSlice';
 import { useDispatch } from 'react-redux';
+import Alert from '@mui/material/Alert';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -46,6 +47,7 @@ export default function RecipeReviewCard(props) {
   const [downVotes, setDownVotes] = React.useState(props.answer.downVotes || 0);
   const [isUpVoted,setIsUpVoted] = React.useState(props.profile.upVotes && props.profile.upVotes.includes(props.answer._id)?true:false);
   const [isDownVoted,setIsDownVoted] = React.useState(props.profile.downVotes && props.profile.downVotes.includes(props.answer._id)?true:false);
+  const [alert, setAlert] = React.useState("");
   const dispatch = useDispatch();
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -66,6 +68,7 @@ export default function RecipeReviewCard(props) {
         console.log('data', response.data);
         // setSpaces(response.data.data.spaces);
         // handleClose();
+        
         getProfile(props.profile.token).then(response => {
           console.log('response', response);
           dispatch(refreshProfile(response));
@@ -114,6 +117,7 @@ export default function RecipeReviewCard(props) {
   }
   return (
     <Card style={{ margin: "10px" }} sx={{ maxWidth: 1000 }}>
+      {alert}
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: blue[500] }} aria-label="recipe">

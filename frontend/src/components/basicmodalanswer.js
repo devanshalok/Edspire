@@ -14,6 +14,8 @@ import { red } from '@mui/material/colors';
 import { Avatar } from '@material-ui/core';
 import axios from 'axios';
 import config from '../config';
+import Alert from '@mui/material/Alert';
+
 const style = {
   position: 'absolute',
   top: '50%',
@@ -34,6 +36,8 @@ export default function BasicModalAnswer({ profile, question,handleModalOpen,mod
   const handleOpen = () => handleModalOpen(true);
   const handleClose = () => handleModalOpen(false);
   const [answer, setAnswer] = React.useState('');
+  const [alert, setAlert] = React.useState("");
+
   console.log('profile is ', profile);
   console.log('question is ', question);
   const handleSubmit = () => {
@@ -47,10 +51,15 @@ export default function BasicModalAnswer({ profile, question,handleModalOpen,mod
     }).then(response => {
       if (response.status == 200 && response.data.statusCode == 200) {
         console.log('data', response.data);
+        let alert = (<Alert severity="success">Answer Added Successfully!</Alert>);
+        setAlert(alert);
         // setSpaces(response.data.data.spaces);
-        handleAnswerAdded(false)
-        // handleClose();
+        setTimeout(() => { setAlert();handleAnswerAdded(false); }, 2000)
       } else {
+        let alert = (<Alert severity="error">Some error occurred whiile adding Answer!</Alert>);
+        setAlert(alert);
+        // setSpaces(response.data.data.spaces);
+        setTimeout(() => { setAlert()}, 2000)
         console.log('some exception occurred', response)
       }
     }).catch(error => console.log('some exception occurred', error));
@@ -67,6 +76,7 @@ export default function BasicModalAnswer({ profile, question,handleModalOpen,mod
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
+                  {alert}
           <h2 style={{ textAlign: "center" }}>Add Answer </h2>
 
           <CardHeader style={{ marginLeft: "-1.2em" }}
