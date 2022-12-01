@@ -13,14 +13,14 @@ const answerSchema = new mongoose.Schema({
 			ref: 'User',
 			required: true,
 		},
-		
-		firstname:{
-			type:String,
-			default:"Anonymous"
+
+		firstname: {
+			type: String,
+			default: "Anonymous"
 		},
-		lastname:{
-			type:String,
-			default:"Mozart"
+		lastname: {
+			type: String,
+			default: "Mozart"
 		},
 		imageUrl: {
 			type: String,
@@ -37,6 +37,15 @@ const answerSchema = new mongoose.Schema({
 		required: true,
 	},
 	votes: {
+		type: Number,
+		default: 0,
+	},
+	upVotes: {
+		type: Number,
+		default: 0,
+	},
+	downVotes:
+	{
 		type: Number,
 		default: 0,
 	},

@@ -15,7 +15,10 @@ import { Box, Modal } from "@mui/material";
 import CollegeFinderForm from "../components/collegefinderform";
 import { refreshProfile } from "../redux/userSlice";
 import getProfile from "../utils";
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';function CollegeFinder() {
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+
+function CollegeFinder() {
   const [universities, setUniversities] = React.useState([]);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -109,8 +112,8 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';function Col
                 </Typography>
               </CardContent>
               <CardActions style={{ marginTop: 10, display: "flex", flexDirection: "row", width: "100%" }}>
-              <Link style={{textDecoration:"none"}} to='../aboutcollege' state={data.name}> <Button size="small" style={{color:"black"}}><InfoIcon />About the university</Button></Link>
-                {profile.followedUniversities.includes(data.name)?<><FavoriteIcon  id={data.name} /><Button size="small" id={data.name} style={{color:"black"}} onClick={unfollowUniversity}>Following</Button></>:<Button size="small" style={{color:"black"}} id={data.name} onClick={followUniversity}><FavoriteBorderIcon />Follow</Button>}
+              <Link style={{textDecoration:"none"}} to='../aboutcollege' state={data.name}> <Button size="small" style={{color:"black"}}><OpenInNewIcon style={{ fontSize: 20,color:"black" }} />{"About the university"}</Button></Link>
+                {profile.followedUniversities.includes(data.name)?<><FavoriteIcon  id={data.name} /><Button size="small" id={data.name} style={{color:"black"}} onClick={unfollowUniversity}>{" Following"}</Button></>:<Button size="small" style={{color:"black"}} id={data.name} onClick={followUniversity}><FavoriteBorderIcon />Follow</Button>}
               </CardActions></>
 
           </Card>
