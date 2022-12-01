@@ -56,9 +56,9 @@ function People() {
               </Typography>
             </CardContent>
             <CardActions style={{marginTop:10,display: "flex", flexDirection: "row", justifyContent: "space-between", width: "100%" }}>
-                    <Button size="small"><MailIcon/><a style={{textDecoration:"none"}} href={"mailto:"+peoples.emailId}>Mail</a></Button>
-                    <Button size="small"><LinkedInIcon/><a style={{textDecoration:"none"}} href={peoples.linkedIn}>LinkedIn</a></Button>
-                    <Button size="small"><TwitterIcon/><a style={{textDecoration:"none"}} href={peoples.twitter}>Twitter</a></Button>
+                    <Button size="small"><MailIcon/><a style={{textDecoration:"none"}} href={"mailto:"+peoples.emailId} target="_blank">Mail</a></Button>
+                    <Button size="small"><LinkedInIcon/><a style={{textDecoration:"none"}} href={peoples.linkedIn} target="_blank">LinkedIn</a></Button>
+                    <Button size="small"><TwitterIcon/><a style={{textDecoration:"none"}} href={peoples.twitter} target="_blank">Twitter</a></Button>
                 </CardActions></>
       
 
