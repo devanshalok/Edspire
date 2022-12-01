@@ -143,7 +143,7 @@ function Answer() {
               </Typography>
             </CardContent>
             <CardActions disableSpacing>
-              <div style={{ margin: "10px", display: "flex", flexDirection: "row", justifyContent: "space-between", width: "100%" }}>
+              <div style={{ margin: "10px", display: "flex", flexDirection: "row", justifyContent: "space-around", width: "100%" }}>
                 <IconButton style={{ marginTop: "-0.2em" }} aria-label="share">
                   <Link style={{
                     textDecoration: "none", color: "black",

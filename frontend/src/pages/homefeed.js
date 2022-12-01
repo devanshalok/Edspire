@@ -48,8 +48,8 @@ function HomeFeed() {
   }, [])
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={7}>
-        <Grid item xs={2}>
+      <Grid container spacing={9}>
+        <Grid item xs={3}>
           <p style={{ fontWeight: "bold", marginTop: "20px", marginLeft: 10, fontSize: 20 }}>Questions</p><br></br>
           <Item style={{ marginLeft: 10, marginBottom: 5, fontSize: 15 }}>
             <Link style={{ textDecoration: "none", color: "black" }} onClick={() => setHeading("All Questions")}><p style={{ marginLeft: 20 }}>All Questions</p></Link>
@@ -61,7 +61,7 @@ function HomeFeed() {
             <Link style={{ textDecoration: "none", color: "black" }} onClick={() => setHeading("Followed Questions")}><p style={{ marginLeft: 20 }}>Followed Questions</p></Link>
           </Item>
         </Grid>
-        <Grid item xs={7}> <p style={{ marginLeft: "20px", marginTop: "20px", fontSize: 20 }}>{heading}</p>
+        <Grid item xs={6}> <p style={{ marginLeft: "20px", marginTop: "20px", fontSize: 20 }}>{heading}</p>
           {
             heading === 'Un-Answered Questions' ?
               (questions.filter(question => question.isUnAnswered).map(question => <RecipeReviewCard key={question._id} question={question} profile={profile}/>))

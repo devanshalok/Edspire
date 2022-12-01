@@ -50,8 +50,8 @@ export default function RecipeReviewCard(props) {
         console.log('data', response.data);
         // setSpaces(response.data.data.spaces);
         // handleClose();
-        getProfile(props.profile.token).then(response =>{
-          console.log('response',response);
+        getProfile(props.profile.token).then(response => {
+          console.log('response', response);
           dispatch(refreshProfile(response));
         })
         // dispatch(refreshProfile( ));
@@ -77,8 +77,8 @@ export default function RecipeReviewCard(props) {
           {props.question.title}
         </Typography>
       </CardContent>
-      <CardActions disableSpacing>
-        <div style={{ margin: "10px", display: "flex", flexDirection: "row", justifyContent: "space-between", width: "100%" }}>
+      <CardActions >
+        <div style={{ margin: "10px",marginLeft:"20px", display: "flex", flexDirection: "row", justifyContent: "space-evenly", width: "100%" }}>
           <IconButton aria-label="add to favorites">
             <Link style={{
               textDecoration: "none", color: "black",
@@ -123,7 +123,7 @@ export default function RecipeReviewCard(props) {
               },
             }} to="#">
               <BookmarkIcon style={{ fontSize: 20 }} />Following</Link>
-          </IconButton></>:<>        <IconButton aria-label="share">
+          </IconButton></> : <>        <IconButton aria-label="share">
             <Link style={{
               textDecoration: "none", color: "black",
               fontSize: "15px",
