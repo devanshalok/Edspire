@@ -102,6 +102,12 @@ const userSchema = new mongoose.Schema({
 		type: String,
 		maxLength: 20,
 	},
+	linkedIn: {
+		type: String,
+	},
+	twitter: {
+		type: String,
+	},
 	isAdmin: {
 		type: Boolean,
 		default: false,

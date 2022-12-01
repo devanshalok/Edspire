@@ -32,7 +32,9 @@ const updateUserProfile = async (body) => {
                 branch: body.branch || undefined,
                 underGradPercent: body.underGradPercent || undefined,
                 backlogs: body.backlogs || undefined,
-                workExperienceYears: body.workExperienceYears || undefined
+                workExperienceYears: body.workExperienceYears || undefined,
+                linkedIn: body.linkedIn || undefined,
+                twitter: body.twitter || undefined
             },
         });
         console.log('userdetails', userDetails);
@@ -41,17 +43,17 @@ const updateUserProfile = async (body) => {
                 "_id": body.userId
             });
             const token = jwt.sign({
-				data: returnDetails,
-			}, '280-token', {
-				expiresIn: '24h',
-			});
+                data: returnDetails,
+            }, '280-token', {
+                expiresIn: '24h',
+            });
             console.log('returnDetails', returnDetails);
             return {
                 statusCode: 200,
                 data: {
                     msg: 'UserProfile updated Successfully',
-                    profile:returnDetails,
-                    token:token
+                    profile: returnDetails,
+                    token: token
                 },
             };
         }
@@ -246,7 +248,7 @@ const findCollegesWithParams = async (bldy) => {
         // const userDetails = await User.findOne({
         //     _id: userId,
         // }, { password: 0, __v: 0 }).lean();
-        console.log('bldy is',bldy);
+        console.log('bldy is', bldy);
         const colleges = await University.find({
             $and: [{
                 minGre: {
@@ -288,11 +290,11 @@ const findCollegesWithParams = async (bldy) => {
                     $gte: bldy.backlogs
                 }
             },
-            // {
-            //     graduateCourses:{
+                // {
+                //     graduateCourses:{
 
-            //     }
-            // }
+                //     }
+                // }
             ]
         });
         console.log('colleges are', colleges);
@@ -315,13 +317,20 @@ async function followQuestion(body, _id) {
             followedQuestions: body.questionId
         }
     });
-    const question = await Question.updateOne({_id:body.questionId},{
-        $inc:{
-            followers:1
+    const question = await Question.updateOne({ _id: body.questionId }, {
+        $inc: {
+            followers: 1
         }
     })
     return { statusCode: 200, data: { msg: "Question followed successfully" } };
 }
+
+async function getAllUsers(_id) {
+    const users = await User.find({ _id: { $ne: _id } });
+    console.log('users', users);
+    return { statusCode: 200, data: { users } };
+}
+
 module.exports = {
-    updateUserProfile, getUserProfile, followSpace, getUniversities, getBranches, findColleges,getSpaces,followUniversity,findCollegesWithParams,followQuestion
+    updateUserProfile, getUserProfile, followSpace, getUniversities, getBranches, findColleges, getSpaces, followUniversity, findCollegesWithParams, followQuestion, getAllUsers
 };
