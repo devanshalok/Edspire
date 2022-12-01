@@ -55,7 +55,12 @@ function Answer() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [question, setQuestion] = useState({});
-
+  const [modalOpen, setModalOpen] = useState(false);
+  function handleModalOpen(state) {
+    console.log('handle modal open called',state)
+    setModalOpen(state)
+  }
+  console.log('modal open',modalOpen)
   const questionId = location.state
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -69,6 +74,7 @@ function Answer() {
   })
 
   useEffect(() => {
+    console.log('questionis', question)
     axios.get(config.BASE_URL + '/qa/question?questionId=' + questionId, { headers: { 'Authorization': profile.token } }).then(response => {
       if (response.status == 200 && response.data.statusCode == 200) {
         console.log(response.data);
@@ -103,34 +109,44 @@ function Answer() {
             />
 
             <CardContent>
-              <Typography variant="body1" color="text.primary" style={{ fontSize: "20px"}}>
+              <Typography variant="body1" color="text.primary" style={{ fontSize: "20px" }}>
                 {question.title}
               </Typography>
             </CardContent>
             <CardActions disableSpacing>
-            <div style={{ margin:"10px",display: "flex", flexDirection: "row", justifyContent: "space-between", width: "100%" }}>
-            <IconButton style={{marginTop:"-0.2em"}} aria-label="share">
-         <BasicModalAnswer profile={profile} question={{title:question.title,id:question._id}}/>
-          </IconButton>
-        <IconButton  aria-label="share">
-          <Link style={{
-            textDecoration: "none", color: "black",
-            fontSize: "15px",
-            "&:hover": {
-              color: "yellow",
-              borderBottom: "1px solid white",
-            },
-          }}>
-          <FollowTheSignsIcon style={{ fontSize: 20 }} /> Follow Question</Link>
-        </IconButton>
-              <ExpandMore
-                expand={expanded}
-                onClick={handleExpandClick}
-                aria-expanded={expanded}
-                aria-label="show more"
-              >
-                <ExpandMoreIcon />
-              </ExpandMore>
+              <div style={{ margin: "10px", display: "flex", flexDirection: "row", justifyContent: "space-between", width: "100%" }}>
+                <IconButton style={{ marginTop: "-0.2em" }} aria-label="share">
+                  <Link style={{
+                    textDecoration: "none", color: "black",
+                    fontSize: "15px",
+                    "&:hover": {
+                      color: "yellow",
+                      borderBottom: "1px solid white",
+                    },
+                  }} onClick={()=>handleModalOpen(true)} >
+                    <ModeEditIcon style={{ fontSize: 20 }} />Answer Question
+                  </Link>
+                  {modalOpen && <BasicModalAnswer profile={profile} question={{ title: question.title, id: question._id }} handleModalOpen={handleModalOpen} modalOpen={modalOpen}/>}
+                </IconButton>
+                <IconButton aria-label="share">
+                  <Link style={{
+                    textDecoration: "none", color: "black",
+                    fontSize: "15px",
+                    "&:hover": {
+                      color: "yellow",
+                      borderBottom: "1px solid white",
+                    },
+                  }}>
+                    <FollowTheSignsIcon style={{ fontSize: 20 }} /> Follow Question</Link>
+                </IconButton>
+                <ExpandMore
+                  expand={expanded}
+                  onClick={handleExpandClick}
+                  aria-expanded={expanded}
+                  aria-label="show more"
+                >
+                  <ExpandMoreIcon />
+                </ExpandMore>
               </div>
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>

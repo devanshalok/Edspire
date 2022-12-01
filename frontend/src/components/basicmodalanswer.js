@@ -28,10 +28,11 @@ const style = {
 };
 
 
-export default function BasicModalAnswer({ profile, question }) {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+export default function BasicModalAnswer({ profile, question,handleModalOpen,modalOpen }) {
+  console.log('handleModalopen ',handleModalOpen)
+  // const [open, setOpen]= React.useState(false);
+  const handleOpen = () => handleModalOpen(true);
+  const handleClose = () => handleModalOpen(false);
   const [answer, setAnswer] = React.useState('');
   console.log('profile is ', profile);
   console.log('question is ', question);
@@ -57,18 +58,9 @@ export default function BasicModalAnswer({ profile, question }) {
   return (
     <div>
 
-      <Link style={{
-        textDecoration: "none", color: "black",
-        fontSize: "15px",
-        "&:hover": {
-          color: "yellow",
-          borderBottom: "1px solid white",
-        },
-      }} onClick={handleOpen} >
-        <ModeEditIcon style={{ fontSize: 20 }} />Answer Question
-      </Link>
+
       <Modal
-        open={open}
+        open={modalOpen}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
@@ -92,7 +84,7 @@ export default function BasicModalAnswer({ profile, question }) {
           // subheader={moment(props.question.modifiedOn,config.DATE_FORMAT).fromNow()}
           />
           <p style={{ fontSize: "25px", fontWeight: "bold" }}>{question && question.title}</p>
-          <form >
+          <form onSubmit={(e)=>e.preventDefault()}>
             <div className="form-group">
               <label style={{ marginBottom: "10px", fontSize: "18px" }} htmlFor="name">Your Answer</label>
               <textarea style={{ height: 200, border: "none", fontSize: "18px" }} className="form-control" id="name" value={answer} on onChange={(e) => setAnswer(e.target.value)} />
