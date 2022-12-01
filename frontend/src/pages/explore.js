@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import config from '../config';
+import { Link } from 'react-router-dom';
 function Explore() {
   // TODO FIX THE DESCRIPTION SIZE, SO THAT DISPLAY IS PREDICTABLE
   const [spaces, setSpaces] = useState([]);
@@ -59,15 +60,16 @@ function Explore() {
               alt="green iguana"
               height="140"
               image={space.headerImageUrl} />
-            <CardContent>
+            <CardContent style={{height:150}}>
               <Typography gutterBottom variant="h5" component="div">
                 {space.name}
               </Typography>
               <Typography variant="body2" color="text.secondary">
                 {space.description}
               </Typography>
-            </CardContent><CardActions>
-              <Button size="small">Go to space</Button>
+            </CardContent>
+            <CardActions style={{}}>
+             <Link style={{textDecoration:"none"}} to='../space'> <Button size="small">Go to space</Button></Link>
               <Button size="small" id={space.name} onClick={followSpace}>Follow space</Button>
             </CardActions></>
 
