@@ -30,16 +30,16 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function RecipeReviewCard(props) {
-  console.log('props',props)
-  function followQuestion(){
-    let data = {questionId:props.question._id}
-    axios.post(config.BASE_URL + '/follow-question',data, {
+  console.log('props', props)
+  function followQuestion() {
+    let data = { questionId: props.question._id }
+    axios.post(config.BASE_URL + '/follow-question', data, {
       headers: {
-        'Authorization': props.token
+        'Authorization': props.profile.token
       }
     }).then(response => {
       if (response.status == 200 && response.data.statusCode == 200) {
-        console.log('data',response.data);
+        console.log('data', response.data);
         // setSpaces(response.data.data.spaces);
         // handleClose();
       } else {
@@ -61,7 +61,7 @@ export default function RecipeReviewCard(props) {
         //   </IconButton>
         // }
         title={props.question.createdBy.firstname + " " + props.question.createdBy.lastname}
-        subheader={moment(props.question.modifiedOn,config.DATE_FORMAT).fromNow()}
+        subheader={moment(props.question.modifiedOn, config.DATE_FORMAT).fromNow()}
       />
       <CardContent>
         <Typography variant="body2" color="text.primary" style={{ fontSize: "20px" }}>
@@ -69,41 +69,64 @@ export default function RecipeReviewCard(props) {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <div style={{margin:"10px",display: "flex", flexDirection: "row", justifyContent: "space-between", width: "100%" }}>
-        <IconButton  aria-label="add to favorites">
-          <Link style={{
-            textDecoration: "none", color: "black", 
-            fontSize: "15px", marginTop:12,
-          }} state={props.question._id} to='/answer'> 
-          <OpenInNewIcon style={{fontSize: 20}} /> Go to question</Link>
-        </IconButton>
-        <IconButton aria-label="share">
-         <BasicModalAnswer/>
+        <div style={{ margin: "10px", display: "flex", flexDirection: "row", justifyContent: "space-between", width: "100%" }}>
+          <IconButton aria-label="add to favorites">
+            <Link style={{
+              textDecoration: "none", color: "black",
+              fontSize: "15px", marginTop: 12,
+            }} state={props.question._id} to='/answer'>
+              <OpenInNewIcon style={{ fontSize: 20 }} /> Go to question</Link>
           </IconButton>
-          <IconButton  aria-label="share">
-          <Link style={{
-            textDecoration: "none", color: "black",
-            fontSize: "15px",
-            "&:hover": {
-              color: "yellow",
-              borderBottom: "1px solid white",
-            },
-          
-          }}>
-          <FollowTheSignsIcon style={{ fontSize: 20 }} />{props.question.followers} Followers</Link>
-        </IconButton>
-        <IconButton  aria-label="share">
-          <Link style={{
-            textDecoration: "none", color: "black",
-            fontSize: "15px",
-            "&:hover": {
-              color: "yellow",
-              borderBottom: "1px solid white",
-            },
-          
-          }} onClick={followQuestion}>
-          <FollowTheSignsIcon style={{ fontSize: 20 }} /> Follow Question</Link>
-        </IconButton>
+          <IconButton aria-label="share">
+            <BasicModalAnswer />
+          </IconButton>
+          <IconButton aria-label="share">
+            <Link style={{
+              textDecoration: "none", color: "black",
+              fontSize: "15px",
+              "&:hover": {
+                color: "yellow",
+                borderBottom: "1px solid white",
+              },
+
+            }}>
+              <FollowTheSignsIcon style={{ fontSize: 20 }} />{props.question && props.question.answers.length} Answers</Link>
+          </IconButton>
+          <IconButton aria-label="share">
+            <Link style={{
+              textDecoration: "none", color: "black",
+              fontSize: "15px",
+              "&:hover": {
+                color: "yellow",
+                borderBottom: "1px solid white",
+              },
+
+            }}>
+              <FollowTheSignsIcon style={{ fontSize: 20 }} />{props.question && props.question.followers} Followers</Link>
+          </IconButton>
+          {props.profile && props.profile.followedQuestions.includes(props.question._id) ? <>        <IconButton aria-label="share">
+            <Link style={{
+              textDecoration: "none", color: "black",
+              fontSize: "15px",
+              "&:hover": {
+                color: "yellow",
+                borderBottom: "1px solid white",
+              },
+            }} to="#">
+              <FollowTheSignsIcon style={{ fontSize: 20 }} />Following</Link>
+          </IconButton></>:<>        <IconButton aria-label="share">
+            <Link style={{
+              textDecoration: "none", color: "black",
+              fontSize: "15px",
+              "&:hover": {
+                color: "yellow",
+                borderBottom: "1px solid white",
+              },
+
+            }} onClick={followQuestion}>
+              <FollowTheSignsIcon style={{ fontSize: 20 }} />Follow</Link>
+          </IconButton></>}
+
         </div>
         {/* <ExpandMore
           expand={expanded}

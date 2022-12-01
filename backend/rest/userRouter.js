@@ -62,6 +62,11 @@ router.get('/find-colleges', authenticateToken, async (req, res, next) => {
     res.json(response)
 ;});
 
+router.get('/users', authenticateToken, async (req, res, next) => {
+    const response = await userService.getAllUsers(req.user._id);
+    res.json(response)
+;});
+
 router.post('/find-colleges-with-params', authenticateToken, async (req, res, next) => {
     const response = await userService.findCollegesWithParams(req.body);
     res.json(response)

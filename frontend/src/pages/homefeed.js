@@ -70,10 +70,10 @@ function HomeFeed() {
         <Grid item xs={7}> <p style={{ marginLeft: "20px", marginTop: "20px", fontSize: 20 }}>{heading}</p>
           {
             heading === 'Un-Answered Questions' ?
-              (questions.filter(question => question.isUnAnswered).map(question => <RecipeReviewCard key={question._id} question={question} token={profile.token}/>))
+              (questions.filter(question => question.isUnAnswered).map(question => <RecipeReviewCard key={question._id} question={question} profile={profile}/>))
               : heading == 'Followed Questions' ?
-                (questions.filter(question => profile.followedQuestions.includes(question._id)).map(question => <RecipeReviewCard key={question._id} question={question} token={profile.token} />))
-                : (questions.map(question => <RecipeReviewCard key={question._id} question={question} token={profile.token}/>))
+                (questions.filter(question => profile.followedQuestions.includes(question._id)).map(question => <RecipeReviewCard key={question._id} question={question} profile={profile} />))
+                : (questions.map(question => <RecipeReviewCard key={question._id} question={question} profile={profile}/>))
           }
         </Grid>
         <Grid item xs={3}>
