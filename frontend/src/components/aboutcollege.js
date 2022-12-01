@@ -15,13 +15,13 @@ import { useLocation } from 'react-router-dom'
 import axios from 'axios';
 import config from "../config";
 
-export default function Space(props) {
+export default function AboutCollege(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const space= location.state
-  console.log('space', space)
-  const [spaceMain, setSpaceMain] = useState([]);
+  const data= location.state
+  console.log('data', data)
+  const [collegeMain, setCollegeMain] = useState([]);
   // dispatch(getAllQuestions());
 
   let profile = useSelector(state => {
@@ -31,12 +31,14 @@ export default function Space(props) {
     } return undefined
   })
     useEffect(() => {
-        axios.get(config.BASE_URL + '/qa/questions-for-space?space='+space, { headers: { 'Authorization': profile.token } }).then(response => {
+        axios.get(config.BASE_URL + '/university?name='+data, { headers: { 'Authorization': profile.token } }).then(response => {
           if (response.status == 200 && response.data.statusCode == 200) {
-            console.log('hell',response.data);
+            console.log('hello',response.data);
             
-            setSpaceMain(response.data.data[0])
-            console.log('spaceMain', spaceMain)
+            setCollegeMain(response.data.data.university[0])
+            console.log('collegeMain', collegeMain.feePerSem)
+            console.log('collegeMainPublic', collegeMain.name)
+            console.log('collegeMainheader', collegeMain.minIelts)
             
             // state.questions = response.data.data.questions;
             // localStorage.setItem('questions', JSON.stringify(response.data.data.questions));
@@ -52,43 +54,41 @@ export default function Space(props) {
                 component="img"
                 alt="green iguana"
                 height="200" 
-                img src={spaceMain.backgroundImageUrl}
+                img src={collegeMain.headerImageUrl}
                 />
                 <CardContent>
                    <div style={{marginTop:"40px",marginLeft:"40px",display:"grid", gridTemplateColumns:"1fr 2fr 1fr"}}>
                     <div style={{display:"flex",flexDirection:"column",width:"200px", 
    maxWidth:"200px",display: "inline-block"}}>
     
-                    <Avatar style={{marginLeft:10,height:"150px",width:"150px"}} src={spaceMain.headerImageUrl}></Avatar>
-                    <Typography style={{marginTop:20,marginLeft:40}} gutterBottom variant="h4" component="div">
-                        {spaceMain.name}
+                    <Avatar style={{height:"150px",width:"150px"}} src={collegeMain.backgroundImageUrl}></Avatar>
+                    <Typography style={{marginTop:15,marginLeft:15}} gutterBottom variant="h5" component="div">
+                        {collegeMain.name}
                     </Typography>
                     <Typography  variant="body2" color="text.secondary">
-                    {spaceMain.description}
+                    {collegeMain.descr}<br/><br/>
+                    {collegeMain.street}, {collegeMain.city}, {collegeMain.state}, {collegeMain.country}
                     </Typography>
                     </div>
                     
                     <div style={{display:"flex",flexDirection:"column"}}>
                     
-                   <h4 style={{marginLeft:200,marginBottom:20,fontWeight:"bold"}}>Questions from {spaceMain.name} space</h4>
-                    {spaceMain.questions && spaceMain.questions.map(question =>  <RecipeReviewCard key={question._id} question={question} profile={profile}/>)}
-                    
+                   <h4 style={{marginLeft:200,marginBottom:20,fontWeight:"bold"}}>About {collegeMain.name} </h4>
+                    <h4>Fees Per Semester:{collegeMain.feePerSem}</h4>
+                    <h4>Is branch change allowed:{collegeMain.isBranchChangeAllowed}</h4>
                     </div>
                     
                     <div style={{marginLeft:90,display:"flex",flexDirection:"column",}}>
                     <h4 style={{fontWeight:"bold",marginBottom:20}}>Followers</h4>
                     <Typography gutterBottom variant="h6" component="div">
                        
-                    {spaceMain.followers && spaceMain.followers.map(follower =>  <div style={{display:"flex",flexDirection:"row",marginBottom:10}}><Avatar style={{marginLeft:10,}} >{follower && follower.firstName[0] + follower.lastName[0]}</Avatar> <p style={{marginLeft:10}}>{follower && follower.firstName +" "+ follower.lastName}</p></div>)}
+                    {collegeMain.followers && collegeMain.followers.map(follower =>  <div style={{display:"flex",flexDirection:"row",marginBottom:10}}><Avatar style={{marginLeft:10,}} >{follower && follower.firstName[0] + follower.lastName[0]}</Avatar> <p style={{marginLeft:10}}>{follower && follower.firstName +" "+ follower.lastName}</p></div>)}
                     </Typography>
                     </div>
-                    </div>
-                    
-                     
+                    </div>     
                 </CardContent>
                 <CardActions style={{marginTop:10,display: "flex", flexDirection: "row", justifyContent: "space-between", width: "100%" }}>
                 </CardActions></>
-      
     </Card>
   );
 }
