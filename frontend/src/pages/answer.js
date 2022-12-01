@@ -263,7 +263,7 @@ function Answer() {
           <Item style={{ marginTop: "30px" }}>
             <p style={{ fontSize: "20px", marginTop: "10px", marginLeft: "20px" }}>Answers</p>
             {question.answers && question.answers.map(answer =>
-              <GridListTile > <RecipeReviewCard key={answer._id} answer={answer} /></GridListTile>
+              <GridListTile > <RecipeReviewCard key={answer._id} answer={answer} profile={profile}/></GridListTile>
             )}
           </Item>
         </Grid>

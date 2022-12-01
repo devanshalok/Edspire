@@ -94,6 +94,16 @@ const userSchema = new mongoose.Schema({
 		type: Number,
 		default: 0,
 	},
+	upVotes:[{
+		type: mongoose.Schema.Types.ObjectId,
+		ref:'Answer',
+		default: [],
+	}],
+	downVotes:[{
+		type: mongoose.Schema.Types.ObjectId,
+		ref:'Answer',
+		default: [],
+	}],
 	lastSeen: {
 		type: Date,
 		default: Date.now,

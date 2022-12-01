@@ -30,13 +30,13 @@ router.post('/answer',authenticateToken, async (req, res, next) => {
     res.json(response);
 });
 
-router.post('/upvote',authenticateToken, async (req, res, next) => {
-    const response = await questionAnswerService.upVote(req.query.answerId,req.query.num)
+router.get('/upvote',authenticateToken, async (req, res, next) => {
+    const response = await questionAnswerService.upVote(req.query.answerId,req.query.num,req.user._id,req.query.isDownVoted)
     res.json(response);
 });
 
-router.post('/downvote',authenticateToken, async (req, res, next) => {
-    const response = await questionAnswerService.downVote(req.query.answerId,req.query.num)
+router.get('/downvote',authenticateToken, async (req, res, next) => {
+    const response = await questionAnswerService.downVote(req.query.answerId,req.query.num,req.user._id,req.query.isUpVoted)
     res.json(response);
 });
 
