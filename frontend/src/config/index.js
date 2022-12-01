@@ -9,6 +9,7 @@ const config = {
       // "http://28e8-2600-1700-65aa-d910-8070-2137-b6b-332f.ngrok.io"
       // "http://28e8-2600-1700-65aa-d910-8070-2137-b6b-332f.ngrok.io"
     // 'http://localhost:3001';
+    
     "http://54.219.183.119:3001"
   }
   
