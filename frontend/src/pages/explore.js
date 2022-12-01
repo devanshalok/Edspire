@@ -70,7 +70,7 @@ function Explore() {
             </CardContent>
             <CardActions style={{}}>
              <Link style={{textDecoration:"none"}} to='../space' state={space.name}> <Button size="small">Go to space</Button></Link>
-              <Button size="small" id={space.name} onClick={followSpace}>Follow space</Button>
+              {profile.followedSpaces.includes(space.name)?<Button size="small" id={space.name} >Following</Button>:<Button size="small" id={space.name} onClick={followSpace}>Follow</Button>}
             </CardActions></>
 
         </Card>

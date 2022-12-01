@@ -18,6 +18,12 @@ import config from '../config';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import BasicModalAnswer from './basicmodalanswer';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { refreshProfile } from '../redux/userSlice';
+import getProfile from '../utils';
+import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import BookmarkTwoToneIcon from '@mui/icons-material/BookmarkTwoTone';
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -30,7 +36,9 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function RecipeReviewCard(props) {
-  console.log('props', props)
+  console.log('props', props);
+  const dispatch = useDispatch();
+
   function followQuestion() {
     let data = { questionId: props.question._id }
     axios.post(config.BASE_URL + '/follow-question', data, {
@@ -42,6 +50,12 @@ export default function RecipeReviewCard(props) {
         console.log('data', response.data);
         // setSpaces(response.data.data.spaces);
         // handleClose();
+        getProfile(props.profile.token).then(response =>{
+          console.log('response',response);
+          dispatch(refreshProfile(response));
+        })
+        // dispatch(refreshProfile( ));
+        // props.profile.token))
       } else {
         console.log('some exception occurred', response)
       }
@@ -55,11 +69,6 @@ export default function RecipeReviewCard(props) {
             {props.question.createdBy.firstname[0] + props.question.createdBy.lastname[0]}
           </Avatar>
         }
-        // action={
-        //   <IconButton aria-label="settings">
-        //     <MoreVertIcon />
-        //   </IconButton>
-        // }
         title={props.question.createdBy.firstname + " " + props.question.createdBy.lastname}
         subheader={moment(props.question.modifiedOn, config.DATE_FORMAT).fromNow()}
       />
@@ -90,7 +99,7 @@ export default function RecipeReviewCard(props) {
               },
 
             }}>
-              <FollowTheSignsIcon style={{ fontSize: 20 }} />{props.question && props.question.answers.length} Answers</Link>
+              <QuestionAnswerIcon style={{ fontSize: 20 }} />{props.question && props.question.answers.length} Answers</Link>
           </IconButton>
           <IconButton aria-label="share">
             <Link style={{
@@ -113,7 +122,7 @@ export default function RecipeReviewCard(props) {
                 borderBottom: "1px solid white",
               },
             }} to="#">
-              <FollowTheSignsIcon style={{ fontSize: 20 }} />Following</Link>
+              <BookmarkIcon style={{ fontSize: 20 }} />Following</Link>
           </IconButton></>:<>        <IconButton aria-label="share">
             <Link style={{
               textDecoration: "none", color: "black",
@@ -124,48 +133,11 @@ export default function RecipeReviewCard(props) {
               },
 
             }} onClick={followQuestion}>
-              <FollowTheSignsIcon style={{ fontSize: 20 }} />Follow</Link>
+              <BookmarkTwoToneIcon style={{ fontSize: 20 }} />Follow</Link>
           </IconButton></>}
 
         </div>
-        {/* <ExpandMore
-          expand={expanded}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        > */}
-        {/* <ExpandMoreIcon /> */}
-        {/* </ExpandMore> */}
       </CardActions>
-      {/* <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography paragraph>Method:</Typography>
-          <Typography paragraph>
-            Heat 1/2 cup of the broth in a pot until simmering, add saffron and set
-            aside for 10 minutes.
-          </Typography>
-          <Typography paragraph>
-            Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet over
-            medium-high heat. Add chicken, shrimp and chorizo, and cook, stirring
-            occasionally until lightly browned, 6 to 8 minutes. Transfer shrimp to a
-            large plate and set aside, leaving chicken and chorizo in the pan. Add
-            pimentón, bay leaves, garlic, tomatoes, onion, salt and pepper, and cook,
-            stirring often until thickened and fragrant, about 10 minutes. Add
-            saffron broth and remaining 4 1/2 cups chicken broth; bring to a boil.
-          </Typography>
-          <Typography paragraph>
-            Add rice and stir very gently to distribute. Top with artichokes and
-            peppers, and cook without stirring, until most of the liquid is absorbed,
-            15 to 18 minutes. Reduce heat to medium-low, add reserved shrimp and
-            mussels, tucking them down into the rice, and cook again without
-            stirring, until mussels have opened and rice is just tender, 5 to 7
-            minutes more. (Discard any mussels that don&apos;t open.)
-          </Typography>
-          <Typography>
-            Set aside off of the heat to let rest for 10 minutes, and then serve.
-          </Typography>
-        </CardContent>
-      </Collapse> */}
     </Card>
   );
 }

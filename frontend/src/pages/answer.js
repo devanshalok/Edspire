@@ -31,6 +31,10 @@ import FollowTheSignsIcon from '@mui/icons-material/FollowTheSigns';
 import axios from "axios";
 import config from "../config";
 import moment from "moment";
+
+import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import BookmarkTwoToneIcon from '@mui/icons-material/BookmarkTwoTone';
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
@@ -65,6 +69,10 @@ function Answer() {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+  function handleAnswerAdded(state){
+    setModalOpen(state);
+    getQuestionData();
+  }
   function followQuestion() {
     let data = { questionId }
     axios.post(config.BASE_URL + '/follow-question', data, {
@@ -87,10 +95,11 @@ function Answer() {
       return state.userSlice.profile
     } return undefined
   })
-
-  useEffect(() => {
-    console.log('questionis', question)
-    axios.get(config.BASE_URL + '/qa/question?questionId=' + questionId, { headers: { 'Authorization': profile.token } }).then(response => {
+  function getQuestionData(){
+    console.log('questionis',question);
+    console.log('question id is',questionId);
+    let id = questionId?questionId:question._id;
+    axios.get(config.BASE_URL + '/qa/question?questionId=' + id, { headers: { 'Authorization': profile.token } }).then(response => {
       if (response.status == 200 && response.data.statusCode == 200) {
         console.log(response.data);
         setQuestion(response.data.data.question)
@@ -100,7 +109,12 @@ function Answer() {
         console.log('some exception occurred', response)
       }
     }).catch(error => console.log('some exception occurred', error));
-  }, [])
+
+  }
+  useEffect(() => {
+    getQuestionData();
+    console.log('questionis', question)
+     }, [])
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
@@ -141,7 +155,7 @@ function Answer() {
                   }} onClick={()=>handleModalOpen(true)} >
                     <ModeEditIcon style={{ fontSize: 20 }} />Answer Question
                   </Link>
-                  {modalOpen && <BasicModalAnswer profile={profile} question={{ title: question.title, id: question._id }} handleModalOpen={handleModalOpen} modalOpen={modalOpen}/>}
+                  {modalOpen && <BasicModalAnswer profile={profile} question={{ title: question.title, id: question._id }} handleModalOpen={handleModalOpen} handleAnswerAdded={handleAnswerAdded} modalOpen={modalOpen}/>}
                 </IconButton>
                 
           <IconButton aria-label="share">
@@ -154,7 +168,7 @@ function Answer() {
               },
 
             }}>
-              <FollowTheSignsIcon style={{ fontSize: 20 }} />{question && question.answers && question.answers.length} Answers</Link>
+              <QuestionAnswerIcon style={{ fontSize: 20 }} />{question && question.answers && question.answers.length} Answers</Link>
           </IconButton>
                 <IconButton aria-label="share">
             <Link style={{
@@ -177,7 +191,7 @@ function Answer() {
                 borderBottom: "1px solid white",
               },
             }} to="#">
-              <FollowTheSignsIcon style={{ fontSize: 20 }} />Following</Link>
+              <BookmarkIcon style={{ fontSize: 20 }} />Following</Link>
           </IconButton></>:<>        <IconButton aria-label="share">
             <Link style={{
               textDecoration: "none", color: "black",
@@ -188,7 +202,7 @@ function Answer() {
               },
 
             }} onClick={followQuestion}>
-              <FollowTheSignsIcon style={{ fontSize: 20 }} />Follow</Link>
+              <BookmarkTwoToneIcon style={{ fontSize: 20 }} />Follow</Link>
           </IconButton></>}
                 <ExpandMore
                   expand={expanded}

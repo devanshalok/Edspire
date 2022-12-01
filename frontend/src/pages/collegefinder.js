@@ -8,18 +8,20 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import InfoIcon from '@mui/icons-material/Info';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import config from "../config";
 import { Box, Modal } from "@mui/material";
 import CollegeFinderForm from "../components/collegefinderform";
-function CollegeFinder() {
+import { refreshProfile } from "../redux/userSlice";
+import getProfile from "../utils";
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';function CollegeFinder() {
   const [universities, setUniversities] = React.useState([]);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const profile = useSelector(state => {
     if (state.userSlice.profile) {
       console.log('state is ', state.userSlice)
@@ -59,6 +61,7 @@ function CollegeFinder() {
     }).then(response => {
       if (response.status == 200 && response.data.statusCode == 200) {
         console.log(response.data);
+        getProfile(profile.token).then(response => dispatch(refreshProfile(response)))
         // setSpaces(response.data.data);
       } else {
         console.log('some exception occurred', response)
@@ -90,7 +93,7 @@ function CollegeFinder() {
               </CardContent>
               <CardActions style={{ marginTop: 10, display: "flex", flexDirection: "row", width: "100%" }}>
                 <Button size="small"><InfoIcon />About the University</Button>
-                <Button size="small" id={data.name} onClick={followUniversity}><FavoriteIcon />Follow University</Button>
+                {profile.followedUniversities.includes(data.name)?<><FavoriteIcon  id={data.name} /><Button size="small">Following University</Button></>:<Button size="small" id={data.name} onClick={followUniversity}><FavoriteBorderIcon />Follow University</Button>}
               </CardActions></>
 
           </Card>

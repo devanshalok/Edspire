@@ -24,14 +24,14 @@ export default function Space(props) {
   const [spaceMain, setSpaceMain] = useState([]);
   // dispatch(getAllQuestions());
 
-  let token = useSelector(state => {
+  let profile = useSelector(state => {
     if (state.userSlice.profile && state.userSlice.profile.token) {
       console.log('useselector state is ', state.userSlice)
-      return state.userSlice.profile.token
+      return state.userSlice.profile
     } return undefined
   })
     useEffect(() => {
-        axios.get(config.BASE_URL + '/qa/questions-for-space?space='+space, { headers: { 'Authorization': token } }).then(response => {
+        axios.get(config.BASE_URL + '/qa/questions-for-space?space='+space, { headers: { 'Authorization': profile.token } }).then(response => {
           if (response.status == 200 && response.data.statusCode == 200) {
             console.log(response.data);
             
@@ -70,22 +70,16 @@ export default function Space(props) {
                     
                     <div style={{display:"flex",flexDirection:"column"}}>
                     
-                   <h4 style={{marginLeft:200,marginBottom:20,fontWeight:"bold"}}>Questions from this space</h4>
-                    {spaceMain.questions && spaceMain.questions.map(question =>  <RecipeReviewCard key={question._id} question={question} />)}
+                   <h4 style={{marginLeft:200,marginBottom:20,fontWeight:"bold"}}>Questions from {spaceMain.name} space</h4>
+                    {spaceMain.questions && spaceMain.questions.map(question =>  <RecipeReviewCard key={question._id} question={question} profile={profile}/>)}
                     
                     </div>
                     
                     <div style={{marginLeft:90,display:"flex",flexDirection:"column",}}>
-                    <h4 style={{fontWeight:"bold",marginBottom:20}}>Contributors</h4>
+                    <h4 style={{fontWeight:"bold",marginBottom:20}}>Followers</h4>
                     <Typography gutterBottom variant="h6" component="div">
                        
                     {spaceMain.followers && spaceMain.followers.map(follower =>  <div style={{display:"flex",flexDirection:"row",marginBottom:10}}><Avatar style={{marginLeft:10,}} >{follower && follower.firstName[0] + follower.lastName[0]}</Avatar> <p style={{marginLeft:10}}>{follower && follower.firstName +" "+ follower.lastName}</p></div>)}
-
-                       {/* <div style={{display:"flex",flexDirection:"row",marginBottom:10}}><Avatar style={{marginLeft:10,}} >{spaceMain.followers && spaceMain.followers.firstName}{spaceMain.followers && spaceMain.followers.lastName}</Avatar> <p style={{marginLeft:10}}></p></div>
-                       <div style={{display:"flex",flexDirection:"row",marginBottom:10}}><Avatar style={{marginLeft:10,}} >B</Avatar> <p style={{marginLeft:10}}>hello</p></div>
-                       <div style={{display:"flex",flexDirection:"row",marginBottom:10}}><Avatar style={{marginLeft:10,}} >C</Avatar> <p style={{marginLeft:10}}>hello</p></div>
-                       <div style={{display:"flex",flexDirection:"row",marginBottom:10}}><Avatar style={{marginLeft:10,}} >D</Avatar> <p style={{marginLeft:10}}>hello</p></div> */}
-                    
                     </Typography>
                     </div>
                     </div>
