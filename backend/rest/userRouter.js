@@ -42,6 +42,11 @@ router.get('/branches', authenticateToken, async (req, res, next) => {
     res.json(response)
 ;});
 
+router.get('/spaces', authenticateToken, async (req, res, next) => {
+    const response = await userService.getSpaces(req.user._id);
+    res.json(response)
+;});
+
 router.get('/find-colleges', authenticateToken, async (req, res, next) => {
     const response = await userService.findColleges(req.user._id);
     res.json(response)

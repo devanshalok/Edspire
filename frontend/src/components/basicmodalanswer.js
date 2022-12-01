@@ -12,6 +12,8 @@ import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import { red } from '@mui/material/colors';
 import { Avatar } from '@material-ui/core';
+import axios from 'axios';
+import config from '../config';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -26,28 +28,44 @@ const style = {
 };
 
 
-export default function BasicModalAnswer() {
+export default function BasicModalAnswer({ profile, question }) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [age, setAge] = React.useState('');
+  const [answer, setAnswer] = React.useState('');
+  console.log('profile is ', profile);
+  console.log('question is ', question);
+  const handleSubmit = () => {
 
-  const handleChange = (event) => {
-    setAge(event.target.value);
+    let data = { questionId: question.id, answer };
+    console.log('data is', data)
+    axios.post(config.BASE_URL + '/qa/answer', data, {
+      headers: {
+        'Authorization': profile.token
+      }
+    }).then(response => {
+      if (response.status == 200 && response.data.statusCode == 200) {
+        console.log('data', response.data);
+        // setSpaces(response.data.data.spaces);
+        handleClose();
+      } else {
+        console.log('some exception occurred', response)
+      }
+    }).catch(error => console.log('some exception occurred', error));
   };
 
   return (
     <div>
-      
-       <Link style={{
-            textDecoration: "none", color: "black",
-            fontSize: "15px",
-            "&:hover": {
-              color: "yellow",
-              borderBottom: "1px solid white",
-            },
-          }} onClick={handleOpen} >
-             <ModeEditIcon  style={{ fontSize: 20}}  />Answer Question
+
+      <Link style={{
+        textDecoration: "none", color: "black",
+        fontSize: "15px",
+        "&:hover": {
+          color: "yellow",
+          borderBottom: "1px solid white",
+        },
+      }} onClick={handleOpen} >
+        <ModeEditIcon style={{ fontSize: 20 }} />Answer Question
       </Link>
       <Modal
         open={open}
@@ -56,38 +74,38 @@ export default function BasicModalAnswer() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-        <h2 style={{textAlign:"center"}}>Answer </h2>
-        
-      <CardHeader style={{marginLeft:"-1.2em"}}
-        avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            AM
-          </Avatar>
-        }
-        // action={
-        //   <IconButton aria-label="settings">
-        //     <MoreVertIcon />
-        //   </IconButton>
-        // }
-        titleTypographyProps={{variant:'subtitle1'}}
-        title ="Abul mohaimin"
-        // subheader={moment(props.question.modifiedOn,config.DATE_FORMAT).fromNow()}
-      />
-      <p style={{fontSize:"25px",fontWeight:"bold"}}>What is the minimum score to get into SJSU?</p>
-    <form >
-          <div className="form-group">
-              <label style={{ marginBottom: "10px",fontSize:"18px" }} htmlFor="name">Your Answer</label>
-              <textarea style={{height:200,border:"none",fontSize:"18px"}}className="form-control" id="name" />
-          </div>
-          <div style={{borderTop:"1px solid gray"}}className="form-group">
-              <button style={{ marginTop: "20px", width: "80px", float: "right" }} className="form-control btn btn-primary" type="submit">
-                  Submit
+          <h2 style={{ textAlign: "center" }}>Add Answer </h2>
+
+          <CardHeader style={{ marginLeft: "-1.2em" }}
+            avatar={
+              <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                AM
+              </Avatar>
+            }
+            // action={
+            //   <IconButton aria-label="settings">
+            //     <MoreVertIcon />
+            //   </IconButton>
+            // }
+            titleTypographyProps={{ variant: 'subtitle1' }}
+            title={profile && profile.firstName + " " + profile.lastName}
+          // subheader={moment(props.question.modifiedOn,config.DATE_FORMAT).fromNow()}
+          />
+          <p style={{ fontSize: "25px", fontWeight: "bold" }}>{question && question.title}</p>
+          <form >
+            <div className="form-group">
+              <label style={{ marginBottom: "10px", fontSize: "18px" }} htmlFor="name">Your Answer</label>
+              <textarea style={{ height: 200, border: "none", fontSize: "18px" }} className="form-control" id="name" value={answer} on onChange={(e) => setAnswer(e.target.value)} />
+            </div>
+            <div style={{ borderTop: "1px solid gray" }} className="form-group">
+              <button style={{ marginTop: "20px", width: "80px", float: "right" }} className="form-control btn btn-primary" onClick={handleSubmit}>
+                Submit
               </button>
-              <button style={{ backgroundColor:"red",marginRight: "10px", marginTop: "20px", width: "80px", float: "right" }} className="form-control btn btn-primary close" >
-                  Cancel
+              <button style={{ backgroundColor: "red", marginRight: "10px", marginTop: "20px", width: "80px", float: "right" }} onClick={handleClose} className="form-control btn btn-primary close" >
+                Cancel
               </button>
-          </div>
-      </form>
+            </div>
+          </form>
         </Box>
       </Modal>
     </div>

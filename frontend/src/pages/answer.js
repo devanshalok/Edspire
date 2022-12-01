@@ -61,15 +61,15 @@ function Answer() {
     setExpanded(!expanded);
   };
 
-  let token = useSelector(state => {
-    if (state.userSlice.profile && state.userSlice.profile.token) {
+  let profile = useSelector(state => {
+    if (state.userSlice.profile) {
       console.log('useselector state is ', state.userSlice)
-      return state.userSlice.profile.token
+      return state.userSlice.profile
     } return undefined
   })
 
   useEffect(() => {
-    axios.get(config.BASE_URL + '/qa/question?questionId=' + questionId, { headers: { 'Authorization': token } }).then(response => {
+    axios.get(config.BASE_URL + '/qa/question?questionId=' + questionId, { headers: { 'Authorization': profile.token } }).then(response => {
       if (response.status == 200 && response.data.statusCode == 200) {
         console.log(response.data);
         setQuestion(response.data.data.question)
@@ -110,7 +110,7 @@ function Answer() {
             <CardActions disableSpacing>
             <div style={{ margin:"10px",display: "flex", flexDirection: "row", justifyContent: "space-between", width: "100%" }}>
             <IconButton style={{marginTop:"-0.2em"}} aria-label="share">
-         <BasicModalAnswer/>
+         <BasicModalAnswer profile={profile} question={{title:question.title,id:question._id}}/>
           </IconButton>
         <IconButton  aria-label="share">
           <Link style={{

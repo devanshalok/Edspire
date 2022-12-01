@@ -76,7 +76,7 @@ function Navbar() {
             </Link>
             <SearchBar style={{ marginBottom: "10px", height: "45px", width: "400px" }} placeholder="Search for a college..." />
             <AccountMenu />
-            <Link to="/home" className={classes.link}>
+            <Link to="#" className={classes.link}>
               <Button style={{marginLeft: "-5.5em",marginTop:"-0.3em", borderRadius: 15, backgroundColor: "#ffa726" }}><BasicModal/></Button> 
             </Link>
           </div>) : (<div className={classes.navlinks}> <Link to="/login" className={classes.link}>

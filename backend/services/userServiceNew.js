@@ -150,6 +150,23 @@ const getBranches = async () => {
     }
 };
 
+
+const getSpaces = async () => {
+    // console.log("######## IN getUserProfile #######")
+    try {
+        const spaces = await Space.find().lean();
+        return { statusCode: 200, data: { spaces } };
+    } catch (e) {
+        console.error('Error while fetching getUserProfile', e);
+        return {
+            error: {
+                msg: e.message,
+            },
+        };
+    }
+};
+
+
 const findColleges = async (userId) => {
     // console.log("######## IN getUserProfile #######")
     try {
@@ -213,5 +230,5 @@ const findColleges = async (userId) => {
     }
 };
 module.exports = {
-    updateUserProfile, getUserProfile, followSpace, getUniversities, getBranches, findColleges
+    updateUserProfile, getUserProfile, followSpace, getUniversities, getBranches, findColleges,getSpaces
 };
