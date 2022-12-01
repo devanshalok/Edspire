@@ -41,7 +41,12 @@ async function getQuestion(_id) {
 async function getAllQuestions(space, _id) {
 	let questions;
 	if (space) {
-		questions = await Question.find({ space });
+		const spaceR = await Space.find({name:space})
+		.populate(['questions','followers']);
+		console.log('space',spaceR);
+		return { 'statusCode': 200, data: spaceR  };
+
+		// questions = await Question.find({ space });
 	} else {
 		questions = await Question.find({ "createdBy._id": { $ne: _id } });
 	}

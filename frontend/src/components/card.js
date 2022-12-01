@@ -17,6 +17,7 @@ import moment from 'moment'
 import config from '../config';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import BasicModalAnswer from './basicmodalanswer';
+import axios from 'axios';
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -29,7 +30,23 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function RecipeReviewCard(props) {
-
+  console.log('props',props)
+  function followQuestion(){
+    let data = {questionId:props.question._id}
+    axios.post(config.BASE_URL + '/follow-question',data, {
+      headers: {
+        'Authorization': props.token
+      }
+    }).then(response => {
+      if (response.status == 200 && response.data.statusCode == 200) {
+        console.log('data',response.data);
+        // setSpaces(response.data.data.spaces);
+        // handleClose();
+      } else {
+        console.log('some exception occurred', response)
+      }
+    }).catch(error => console.log('some exception occurred', error));
+  }
   return (
     <Card style={{ margin: "10px" }} >
       <CardHeader
@@ -63,6 +80,18 @@ export default function RecipeReviewCard(props) {
         <IconButton aria-label="share">
          <BasicModalAnswer/>
           </IconButton>
+          <IconButton  aria-label="share">
+          <Link style={{
+            textDecoration: "none", color: "black",
+            fontSize: "15px",
+            "&:hover": {
+              color: "yellow",
+              borderBottom: "1px solid white",
+            },
+          
+          }}>
+          <FollowTheSignsIcon style={{ fontSize: 20 }} />{props.question.followers} Followers</Link>
+        </IconButton>
         <IconButton  aria-label="share">
           <Link style={{
             textDecoration: "none", color: "black",
@@ -71,7 +100,8 @@ export default function RecipeReviewCard(props) {
               color: "yellow",
               borderBottom: "1px solid white",
             },
-          }}>
+          
+          }} onClick={followQuestion}>
           <FollowTheSignsIcon style={{ fontSize: 20 }} /> Follow Question</Link>
         </IconButton>
         </div>
