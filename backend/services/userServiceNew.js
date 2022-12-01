@@ -104,7 +104,7 @@ const getUserProfile = async (userId) => {
 };
 
 async function followSpace(body, _id) {
-    const space = await Space.updateOne({ _id: body.space }, {
+    const space = await Space.updateOne({ name: body.space }, {
         $inc: {
             followersCount: 1
         },
@@ -115,6 +115,23 @@ async function followSpace(body, _id) {
     const user = await User.updateOne({ _id: _id }, {
         $push: {
             followedSpaces: body.space
+        }
+    })
+    return { statusCode: 200, data: { msg: "Space followed successfully" } };
+}
+
+async function followUniversity(body, _id) {
+    // const space = await Space.updateOne({ _id: body.space }, {
+    //     $inc: {
+    //         followersCount: 1
+    //     },
+    //     $push: {
+    //         followers: _id
+    //     }
+    // });
+    const user = await User.updateOne({ _id: _id }, {
+        $push: {
+            followedUniversities: body.university
         }
     })
     return { statusCode: 200, data: { msg: "Space followed successfully" } };
@@ -230,5 +247,5 @@ const findColleges = async (userId) => {
     }
 };
 module.exports = {
-    updateUserProfile, getUserProfile, followSpace, getUniversities, getBranches, findColleges,getSpaces
+    updateUserProfile, getUserProfile, followSpace, getUniversities, getBranches, findColleges,getSpaces,followUniversity
 };

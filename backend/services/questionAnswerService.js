@@ -75,6 +75,7 @@ const addAnswer = async (body, user) => {
 		console.log(`add answer response :${answerResponse}`);
 		const question = await Question.findById(body.questionId).lean();
 		question.answers.push(answerResponse._id);
+		question.isUnAnswered = false;
 		const questionResponse = await Question.updateOne({
 			_id: body.questionId,
 		}, {

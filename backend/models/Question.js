@@ -23,6 +23,10 @@ const questionSchema = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Space',
 	},
+	isUnAnswered:{
+		type:Boolean,
+		default:true
+	},
 	answers: [{
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Answer',
