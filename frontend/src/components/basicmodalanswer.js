@@ -28,7 +28,7 @@ const style = {
 };
 
 
-export default function BasicModalAnswer({ profile, question,handleModalOpen,modalOpen }) {
+export default function BasicModalAnswer({ profile, question,handleModalOpen,modalOpen,handleAnswerAdded }) {
   console.log('handleModalopen ',handleModalOpen)
   // const [open, setOpen]= React.useState(false);
   const handleOpen = () => handleModalOpen(true);
@@ -48,7 +48,8 @@ export default function BasicModalAnswer({ profile, question,handleModalOpen,mod
       if (response.status == 200 && response.data.statusCode == 200) {
         console.log('data', response.data);
         // setSpaces(response.data.data.spaces);
-        handleClose();
+        handleAnswerAdded(false)
+        // handleClose();
       } else {
         console.log('some exception occurred', response)
       }
