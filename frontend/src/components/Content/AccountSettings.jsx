@@ -22,7 +22,7 @@ function AccountSettings({ profile }) {
 
   const handleUpdate = () => {
     let updateObject = {
-      firstName, lastName, city, state, country
+      firstName, lastName, city, state, country,linkedIn,twitter
     }
     axios.put(config.BASE_URL + '/profile', updateObject, {
       headers: {
