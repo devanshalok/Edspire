@@ -33,10 +33,12 @@ export default function AboutCollege(props) {
     useEffect(() => {
         axios.get(config.BASE_URL + '/university?name='+data, { headers: { 'Authorization': profile.token } }).then(response => {
           if (response.status == 200 && response.data.statusCode == 200) {
-            console.log('fuck',response.data);
+            console.log('hello',response.data);
             
-            setCollegeMain(response.data.data[0])
-            console.log('collegeMain', collegeMain)
+            setCollegeMain(response.data.data.university[0])
+            console.log('collegeMain', collegeMain.feePerSem)
+            console.log('collegeMainPublic', collegeMain.name)
+            console.log('collegeMainheader', collegeMain.minIelts)
             
             // state.questions = response.data.data.questions;
             // localStorage.setItem('questions', JSON.stringify(response.data.data.questions));
@@ -52,27 +54,28 @@ export default function AboutCollege(props) {
                 component="img"
                 alt="green iguana"
                 height="200" 
-                img src={collegeMain.backgroundImageUrl}
+                img src={collegeMain.headerImageUrl}
                 />
                 <CardContent>
                    <div style={{marginTop:"40px",marginLeft:"40px",display:"grid", gridTemplateColumns:"1fr 2fr 1fr"}}>
                     <div style={{display:"flex",flexDirection:"column",width:"200px", 
    maxWidth:"200px",display: "inline-block"}}>
     
-                    <Avatar style={{marginLeft:10,height:"150px",width:"150px"}} src={collegeMain.headerImageUrl}></Avatar>
-                    <Typography style={{marginTop:20,marginLeft:40}} gutterBottom variant="h4" component="div">
+                    <Avatar style={{height:"150px",width:"150px"}} src={collegeMain.backgroundImageUrl}></Avatar>
+                    <Typography style={{marginTop:15,marginLeft:15}} gutterBottom variant="h5" component="div">
                         {collegeMain.name}
                     </Typography>
                     <Typography  variant="body2" color="text.secondary">
-                    {collegeMain.description}
+                    {collegeMain.descr}<br/><br/>
+                    {collegeMain.street}, {collegeMain.city}, {collegeMain.state}, {collegeMain.country}
                     </Typography>
                     </div>
                     
                     <div style={{display:"flex",flexDirection:"column"}}>
                     
-                   <h4 style={{marginLeft:200,marginBottom:20,fontWeight:"bold"}}>Questions from {collegeMain.name} space</h4>
-                    {collegeMain.questions && collegeMain.questions.map(question =>  <RecipeReviewCard key={question._id} question={question} profile={profile}/>)}
-                    
+                   <h4 style={{marginLeft:200,marginBottom:20,fontWeight:"bold"}}>About {collegeMain.name} </h4>
+                    <h4>Fees Per Semester:{collegeMain.feePerSem}</h4>
+                    <h4>Is branch change allowed:{collegeMain.isBranchChangeAllowed}</h4>
                     </div>
                     
                     <div style={{marginLeft:90,display:"flex",flexDirection:"column",}}>

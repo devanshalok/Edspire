@@ -33,7 +33,7 @@ export default function Space(props) {
     useEffect(() => {
         axios.get(config.BASE_URL + '/qa/questions-for-space?space='+space, { headers: { 'Authorization': profile.token } }).then(response => {
           if (response.status == 200 && response.data.statusCode == 200) {
-            console.log(response.data);
+            console.log('hell',response.data);
             
             setSpaceMain(response.data.data[0])
             console.log('spaceMain', spaceMain)
