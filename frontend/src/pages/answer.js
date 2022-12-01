@@ -45,7 +45,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
-  return <><p style={{marginLeft:210,fontWeight:'bold'}}>Expand Question</p><IconButton {...other} /></>;
+  return <><p style={{marginLeft:10,marginTop:14,fontWeight:'bold'}}>Expand Question</p><IconButton {...other} /></>;
 })(({ theme, expand }) => ({
   transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
   marginLeft: 'auto',
@@ -193,7 +193,7 @@ function Answer() {
                       borderBottom: "1px solid white",
                     },
                   }} onClick={()=>handleModalOpen(true)} >
-                    <ModeEditIcon style={{ fontSize: 20 }} />Answer Question
+                    <ModeEditIcon style={{ marginRight:4,fontSize: 20 }} />Answer Question
                   </Link>
                   {modalOpen && <BasicModalAnswer profile={profile} question={{ title: question.title, id: question._id }} handleModalOpen={handleModalOpen} handleAnswerAdded={handleAnswerAdded} modalOpen={modalOpen}/>}
                 </IconButton>
@@ -208,7 +208,7 @@ function Answer() {
               },
 
             }}>
-              <QuestionAnswerIcon style={{ fontSize: 20 }} />{question && question.answers && question.answers.length} Answers</Link>
+              <QuestionAnswerIcon style={{ marginRight:4,fontSize: 20 }} />{question && question.answers && question.answers.length} Answers</Link>
           </IconButton>
                 <IconButton aria-label="share">
             <Link style={{
@@ -220,7 +220,7 @@ function Answer() {
               },
 
             }}>
-              <FollowTheSignsIcon style={{ fontSize: 20 }} />{followers} Followers</Link>
+              <FollowTheSignsIcon style={{ marginRight:4,fontSize: 20 }} />{followers} Followers</Link>
           </IconButton>
                 {profile && profile.followedQuestions.includes(question._id) ? <>        <IconButton aria-label="share">
             <Link style={{
@@ -231,14 +231,14 @@ function Answer() {
                 borderBottom: "1px solid white",
               },
             }} to="#" onClick={unfollowQuestion}>
-              <BookmarkIcon style={{ fontSize: 20 }} />Following</Link>
+              <BookmarkIcon style={{ marginRight:4,fontSize: 20 }} />Following</Link>
           </IconButton></>:<>        <IconButton aria-label="share">
             <Link style={{
               textDecoration: "none", color: "black",
               fontSize: "15px",
               "&:hover": {
                 color: "yellow",
-                borderBottom: "1px solid white",
+                
               },
 
             }} onClick={followQuestion}>
@@ -250,7 +250,7 @@ function Answer() {
                   onClick={handleExpandClick}
                   aria-expanded={expanded}
                   aria-label="show more"
-                >                  <ExpandMoreIcon />
+                ><ExpandMoreIcon />
                 </ExpandMore>
               </div>
             </CardActions>
