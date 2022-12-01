@@ -14,6 +14,12 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import config from '../../config';
 import { addProfile } from '../../redux/userSlice';
+import {
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+} from '@chakra-ui/react';
 
 function CompanySettings({ profile }) {
 
@@ -29,6 +35,7 @@ function CompanySettings({ profile }) {
   const [workExperienceYears, setWorkExperienceYears] = useState(profile.workExperienceYears);
   const [universities, setUniversities] = useState([]);
   const [branches, setBranches] = useState([]);
+  const [alert, setAlert] = useState("");
 
   useEffect(() => {
     axios.get(config.BASE_URL + '/universities', {
@@ -39,6 +46,7 @@ function CompanySettings({ profile }) {
       if (response.status == 200 && response.data.statusCode == 200) {
         console.log(response.data);
         setUniversities(response.data.data.universities);
+
       } else {
         console.log('some exception occurred', response)
       }
@@ -69,16 +77,34 @@ function CompanySettings({ profile }) {
     }).then(response => {
       if (response.status == 200 && response.data.statusCode == 200) {
         console.log(response.data);
-        dispatch(addProfile({ ...response.data.data.profile, token: response.data.data.token }));
+        let alert = <Alert status='info'>
+        <AlertIcon />
+        <AlertTitle>Profile Updated Successfully!</AlertTitle>
+        {/* <AlertDescription>Your Chakra experience may be degraded.</AlertDescription> */}
+      </Alert>
+      dispatch(addProfile({ ...response.data.data.profile, token: response.data.data.token }));
+      // navigate('/home')
+      setAlert(alert);
+      setTimeout(()=>setAlert(),3000);
+
         // navigate('/home')
       } else {
-        console.log('some exception occurred', response)
-      }
+        let alert = <Alert status='error'>
+        <AlertIcon />
+        <AlertTitle>Some error occurred while updating profile !</AlertTitle>
+        {/* <AlertDescription>Your Chakra experience may be degraded.</AlertDescription> */}
+      </Alert>
+      console.log('some exception occurred', response);
+      setAlert(alert);
+      setTimeout(()=>setAlert(),3000);
+    }
     }).catch(error => console.log('some exception occurred', error));
   }
 
   return (
     <>
+    {alert}
+    <br></br>
       <p style={{ marginBottom: "20px", fontSize: "20px", fontFamily: "sans-serif" }}>GRE Score</p>
       <Grid
         templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' }}

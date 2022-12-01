@@ -50,6 +50,7 @@ export default function RecipeReviewCard(props) {
         console.log('data', response.data);
         // setSpaces(response.data.data.spaces);
         // handleClose();
+        // props.setAlertMessage('Question followed Successfully');
         getProfile(props.profile.token).then(response => {
           console.log('response', response);
           dispatch(refreshProfile(response));

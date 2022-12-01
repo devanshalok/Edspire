@@ -6,6 +6,12 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import config from '../../config';
 import { addProfile } from '../../redux/userSlice';
+import {
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+} from '@chakra-ui/react';
 
 function AccountSettings({ profile }) {
   const [firstName, setFirstName] = useState(profile.firstName);
@@ -19,10 +25,12 @@ function AccountSettings({ profile }) {
   const [twitter, settwitter] = useState(profile.twitter);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [alert, setAlert] = useState("");
   const handleUpdate = () => {
     let updateObject = {
-      firstName, lastName, city, state, country,linkedIn,twitter
+      firstName, lastName, city, state, country, linkedIn, twitter
     }
     axios.put(config.BASE_URL + '/profile', updateObject, {
       headers: {
@@ -31,19 +39,37 @@ function AccountSettings({ profile }) {
     }).then(response => {
       if (response.status == 200 && response.data.statusCode == 200) {
         console.log(response.data);
+        let alert = <Alert status='info'>
+          <AlertIcon />
+          <AlertTitle>Profile Updated Successfully!</AlertTitle>
+          {/* <AlertDescription>Your Chakra experience may be degraded.</AlertDescription> */}
+        </Alert>
         dispatch(addProfile({ ...response.data.data.profile, token: response.data.data.token }));
         // navigate('/home')
+        setAlert(alert);
+        setTimeout(()=>setAlert(),3000);
       } else {
-        console.log('some exception occurred', response)
+        let alert = <Alert status='error'>
+          <AlertIcon />
+          <AlertTitle>Some error occurred while updating profile !</AlertTitle>
+          {/* <AlertDescription>Your Chakra experience may be degraded.</AlertDescription> */}
+        </Alert>
+        console.log('some exception occurred', response);
+        setAlert(alert);
+        setTimeout(()=>setAlert(),3000);
+
       }
     }).catch(error => console.log('some exception occurred', error));
   }
   return (
     <>
+      {alert }
+      <br />
       <Grid
         templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' }}
         gap={6}
       >
+        {/* <Alert severity = "error" onClose={() => {}}>{errorMessage}</Alert> */}
         <FormControl id="firstName">
           <FormLabel>First Name</FormLabel>
           <Input focusBorderColor="brand.blue" type="text" placeholder="John" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
@@ -52,24 +78,6 @@ function AccountSettings({ profile }) {
           <FormLabel>Last Name</FormLabel>
           <Input focusBorderColor="brand.blue" type="text" placeholder="Doe" value={lastName} onChange={(e) => setLastName(e.target.value)} />
         </FormControl>
-        {/* <FormControl id="password">
-          <FormLabel>Password</FormLabel>
-          <Input
-            focusBorderColor="brand.blue"
-            type="password"
-            placeholder="**********"
-            value={password} onChange={(e) => setPassword(e.target.value)}
-          />
-        </FormControl>
-        <FormControl id="confirmPassword">
-          <FormLabel>Confirm Password</FormLabel>
-          <Input
-            focusBorderColor="brand.blue"
-            type="password"
-            placeholder="**********"
-            value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
-          />
-        </FormControl> */}
         <FormControl id="emailAddress">
           <FormLabel>Email Address</FormLabel>
           <Input
@@ -79,16 +87,6 @@ function AccountSettings({ profile }) {
             disabled
           />
         </FormControl>
-        {/* <FormControl id="street">
-          <FormLabel>Street</FormLabel>
-          <Input
-            focusBorderColor="brand.blue"
-            type="text"
-            placeholder="1 Washington Square"
-            value={street} onChange={(e) => setStreet(e.target.value)}
-
-          />
-        </FormControl> */}
         <FormControl id="city">
           <FormLabel>City</FormLabel>
           <Input
