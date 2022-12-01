@@ -252,14 +252,46 @@ const bestAnswer = async ({
 	}
 };
 
-const upVote = async (answerId, num) => {
-	console.log(`Entering answerService.upvote,payload is ${body}`);
+const upVote = async (answerId, num, _id, isDownVoted) => {
+	// console.log(`Entering answerService.upvote,payload is ${body}`);
+	console.log('answerId', answerId, 'num', num)
+	let downVoted = isDownVoted=='true' ? -1 : 0;
 	try {
 		const answer = await Answer.updateOne({ _id: answerId }, {
 			$inc: {
-				upVotes: num
+				upVotes: num,
+				downVotes: downVoted
 			}
 		});
+		if (num == -1) {
+			const user = await User.updateOne({ _id }, {
+				$pull: {
+					upVotes: answerId,
+
+				}
+			});
+		} else {
+			if (isDownVoted) {
+
+				const user = await User.updateOne({ _id }, {
+					$addToSet: {
+						upVotes: answerId
+					},
+					$pull: {
+						downVotes: answerId
+					}
+				});
+			} else {
+
+				const user = await User.updateOne({ _id }, {
+					$addToSet: {
+						upVotes: answerId
+					}
+				});
+			}
+		}
+
+
 		if (answer) {
 			return { statusCode: 200, data: { msg: 'Answer upvoted successfully' } }
 		}
@@ -280,14 +312,45 @@ const upVote = async (answerId, num) => {
 	}
 };
 
-const downVote = async (answerId, num) => {
-	console.log(`Entering answerService.downVote,payload is ${body}`);
+const downVote = async (answerId, num, _id,isUpVoted) => {
+	// console.log(`Entering answerService.downVote,payload is ${body}`);
+	console.log('answerId', answerId, 'num', num,'isUpVoted',isUpVoted)
+	let upVoted = isUpVoted=='true' ? -1 : 0;
 	try {
 		const answer = await Answer.updateOne({ _id: answerId }, {
 			$inc: {
-				downVote: num
+				upVotes: upVoted,
+				downVotes: num
 			}
 		});
+		if (num == -1) {
+			const user = await User.updateOne({ _id }, {
+				$pull: {
+					downVotes: answerId,
+
+				}
+			});
+		} else {
+			if (isUpVoted) {
+
+				const user = await User.updateOne({ _id }, {
+					$addToSet: {
+						downVotes: answerId
+					},
+					$pull: {
+						upVotes: answerId
+					}
+				});
+			} else {
+
+				const user = await User.updateOne({ _id }, {
+					$addToSet: {
+						downVotes: answerId
+					}
+				});
+			}
+		}
+
 		if (answer) {
 			return { statusCode: 200, data: { msg: 'Answer downvoted successfully' } }
 		}
