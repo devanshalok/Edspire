@@ -65,7 +65,22 @@ function Answer() {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-
+  function followQuestion() {
+    let data = { questionId }
+    axios.post(config.BASE_URL + '/follow-question', data, {
+      headers: {
+        'Authorization': profile.token
+      }
+    }).then(response => {
+      if (response.status == 200 && response.data.statusCode == 200) {
+        console.log('data', response.data);
+        // setSpaces(response.data.data.spaces);
+        // handleClose();
+      } else {
+        console.log('some exception occurred', response)
+      }
+    }).catch(error => console.log('some exception occurred', error));
+  }
   let profile = useSelector(state => {
     if (state.userSlice.profile) {
       console.log('useselector state is ', state.userSlice)
@@ -129,16 +144,39 @@ function Answer() {
                   {modalOpen && <BasicModalAnswer profile={profile} question={{ title: question.title, id: question._id }} handleModalOpen={handleModalOpen} modalOpen={modalOpen}/>}
                 </IconButton>
                 <IconButton aria-label="share">
-                  <Link style={{
-                    textDecoration: "none", color: "black",
-                    fontSize: "15px",
-                    "&:hover": {
-                      color: "yellow",
-                      borderBottom: "1px solid white",
-                    },
-                  }}>
-                    <FollowTheSignsIcon style={{ fontSize: 20 }} /> Follow Question</Link>
-                </IconButton>
+            <Link style={{
+              textDecoration: "none", color: "black",
+              fontSize: "15px",
+              "&:hover": {
+                color: "yellow",
+                borderBottom: "1px solid white",
+              },
+
+            }}>
+              <FollowTheSignsIcon style={{ fontSize: 20 }} />{question && question.followers} Followers</Link>
+          </IconButton>
+                {profile && profile.followedQuestions.includes(question._id) ? <>        <IconButton aria-label="share">
+            <Link style={{
+              textDecoration: "none", color: "black",
+              fontSize: "15px",
+              "&:hover": {
+                color: "yellow",
+                borderBottom: "1px solid white",
+              },
+            }} to="#">
+              <FollowTheSignsIcon style={{ fontSize: 20 }} />Following</Link>
+          </IconButton></>:<>        <IconButton aria-label="share">
+            <Link style={{
+              textDecoration: "none", color: "black",
+              fontSize: "15px",
+              "&:hover": {
+                color: "yellow",
+                borderBottom: "1px solid white",
+              },
+
+            }} onClick={followQuestion}>
+              <FollowTheSignsIcon style={{ fontSize: 20 }} />Follow</Link>
+          </IconButton></>}
                 <ExpandMore
                   expand={expanded}
                   onClick={handleExpandClick}
