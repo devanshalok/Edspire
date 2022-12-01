@@ -15,6 +15,8 @@ function AccountSettings({ profile }) {
   const [city, setCity] = useState(profile.city);
   const [state, setState] = useState(profile.state);
   const [country, setCountry] = useState(profile.country);
+  const [linkedIn, setlinkedIn] = useState(profile.linkedIn);
+  const [twitter, settwitter] = useState(profile.twitter);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -112,6 +114,24 @@ function AccountSettings({ profile }) {
             type="text"
             placeholder="United States Of America"
             value={country} onChange={(e) => setCountry(e.target.value)}
+          />
+        </FormControl>
+        <FormControl id="linkedIn">
+          <FormLabel>LinkedIn profile</FormLabel>
+          <Input
+            focusBorderColor="brand.blue"
+            type="text"
+            placeholder="Enter full profile link here"
+            value={linkedIn} onChange={(e) => setlinkedIn(e.target.value)}
+          />
+        </FormControl>
+        <FormControl id="twitter">
+          <FormLabel>Twitter</FormLabel>
+          <Input
+            focusBorderColor="brand.blue"
+            type="text"
+            placeholder="Enter Twitter profile link here"
+            value={twitter} onChange={(e) => settwitter(e.target.value)}
           />
         </FormControl>
       </Grid>

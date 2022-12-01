@@ -16,13 +16,12 @@ import axios from 'axios';
 import config from "../config";
 
 export default function Space(props) {
-    console.log('props', props)
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const space= location.state
   console.log('space', space)
-  const [questions, setQuestions] = useState([]);
+  const [spaceMain, setSpaceMain] = useState([]);
   // dispatch(getAllQuestions());
 
   let token = useSelector(state => {
@@ -35,7 +34,10 @@ export default function Space(props) {
         axios.get(config.BASE_URL + '/qa/questions-for-space?space='+space, { headers: { 'Authorization': token } }).then(response => {
           if (response.status == 200 && response.data.statusCode == 200) {
             console.log(response.data);
-            setQuestions(response.data.data.questions)
+            
+            setSpaceMain(response.data.data[0])
+            console.log('spaceMain', spaceMain)
+            
             // state.questions = response.data.data.questions;
             // localStorage.setItem('questions', JSON.stringify(response.data.data.questions));
           } else {
@@ -50,26 +52,26 @@ export default function Space(props) {
                 component="img"
                 alt="green iguana"
                 height="200" 
-                img src={space.headerImageUrl}
+                img src={spaceMain.backgroundImageUrl}
                 />
                 <CardContent>
                    <div style={{marginTop:"40px",marginLeft:"40px",display:"grid", gridTemplateColumns:"1fr 2fr 1fr"}}>
                     <div style={{display:"flex",flexDirection:"column",width:"200px", 
    maxWidth:"200px",display: "inline-block"}}>
     
-                    <Avatar style={{marginLeft:10,height:"150px",width:"150px"}} src={space.backgroundImageUrl}></Avatar>
+                    <Avatar style={{marginLeft:10,height:"150px",width:"150px"}} src={spaceMain.headerImageUrl}></Avatar>
                     <Typography style={{marginTop:20,marginLeft:40}} gutterBottom variant="h4" component="div">
-                        {space.name}
+                        {spaceMain.name}
                     </Typography>
                     <Typography  variant="body2" color="text.secondary">
-                    {space.description}
+                    {spaceMain.description}
                     </Typography>
                     </div>
                     
                     <div style={{display:"flex",flexDirection:"column"}}>
                     
                    <h4 style={{marginLeft:200,marginBottom:20,fontWeight:"bold"}}>Questions from this space</h4>
-                    {questions.map(question =>  <RecipeReviewCard key={question._id} question={question} />)}
+                    {spaceMain.questions && spaceMain.questions.map(question =>  <RecipeReviewCard key={question._id} question={question} />)}
                     
                     </div>
                     
@@ -77,10 +79,12 @@ export default function Space(props) {
                     <h4 style={{fontWeight:"bold",marginBottom:20}}>Contributors</h4>
                     <Typography gutterBottom variant="h6" component="div">
                        
-                       <div style={{display:"flex",flexDirection:"row",marginBottom:10}}><Avatar style={{marginLeft:10,}} >A</Avatar> <p style={{marginLeft:10}}>hello</p></div>
+                    {spaceMain.followers && spaceMain.followers.map(follower =>  <div style={{display:"flex",flexDirection:"row",marginBottom:10}}><Avatar style={{marginLeft:10,}} >{follower && follower.firstName[0] + follower.lastName[0]}</Avatar> <p style={{marginLeft:10}}>{follower && follower.firstName +" "+ follower.lastName}</p></div>)}
+
+                       {/* <div style={{display:"flex",flexDirection:"row",marginBottom:10}}><Avatar style={{marginLeft:10,}} >{spaceMain.followers && spaceMain.followers.firstName}{spaceMain.followers && spaceMain.followers.lastName}</Avatar> <p style={{marginLeft:10}}></p></div>
                        <div style={{display:"flex",flexDirection:"row",marginBottom:10}}><Avatar style={{marginLeft:10,}} >B</Avatar> <p style={{marginLeft:10}}>hello</p></div>
                        <div style={{display:"flex",flexDirection:"row",marginBottom:10}}><Avatar style={{marginLeft:10,}} >C</Avatar> <p style={{marginLeft:10}}>hello</p></div>
-                       <div style={{display:"flex",flexDirection:"row",marginBottom:10}}><Avatar style={{marginLeft:10,}} >D</Avatar> <p style={{marginLeft:10}}>hello</p></div>
+                       <div style={{display:"flex",flexDirection:"row",marginBottom:10}}><Avatar style={{marginLeft:10,}} >D</Avatar> <p style={{marginLeft:10}}>hello</p></div> */}
                     
                     </Typography>
                     </div>
