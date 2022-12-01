@@ -21,7 +21,7 @@ export default function AboutCollege(props) {
   const location = useLocation();
   const data= location.state
   console.log('data', data)
-  const [collegeMain, setCollegeMain] = useState([]);
+  const [collegeMain, setcollegeMain] = useState({});
   // dispatch(getAllQuestions());
 
   let profile = useSelector(state => {
@@ -35,9 +35,10 @@ export default function AboutCollege(props) {
           if (response.status == 200 && response.data.statusCode == 200) {
             console.log('hello',response.data);
             
-            setCollegeMain(response.data.data.university[0])
-            console.log('collegeMain', collegeMain.feePerSem)
-            console.log('collegeMainPublic', collegeMain.name)
+            setcollegeMain(response.data.data.university[0])
+            console.log('helloa',response.data.data.university[0])
+            console.log('collegeMain', collegeMain)
+            console.log('collegeMainPublic', collegeMain.country)
             console.log('collegeMainheader', collegeMain.minIelts)
             
             // state.questions = response.data.data.questions;
@@ -54,14 +55,14 @@ export default function AboutCollege(props) {
                 component="img"
                 alt="green iguana"
                 height="200" 
-                img src={collegeMain.headerImageUrl}
+                img src={collegeMain.backgroundImageUrl}
                 />
                 <CardContent>
-                   <div style={{marginTop:"40px",marginLeft:"40px",display:"grid", gridTemplateColumns:"1fr 2fr 1fr"}}>
+                   <div style={{marginTop:"40px",marginLeft:"40px",display:"grid", gridTemplateColumns:"1fr 2fr"}}>
                     <div style={{display:"flex",flexDirection:"column",width:"200px", 
    maxWidth:"200px",display: "inline-block"}}>
     
-                    <Avatar style={{height:"150px",width:"150px"}} src={collegeMain.backgroundImageUrl}></Avatar>
+                    <Avatar style={{height:"150px",width:"150px"}} src={collegeMain.headerImageUrl}></Avatar>
                     <Typography style={{marginTop:15,marginLeft:15}} gutterBottom variant="h5" component="div">
                         {collegeMain.name}
                     </Typography>
@@ -75,16 +76,18 @@ export default function AboutCollege(props) {
                     
                    <h4 style={{marginLeft:200,marginBottom:20,fontWeight:"bold"}}>About {collegeMain.name} </h4>
                     <h4>Fees Per Semester:{collegeMain.feePerSem}</h4>
-                    <h4>Is branch change allowed:{collegeMain.isBranchChangeAllowed}</h4>
+                    <h4>Minimum GRE required:{collegeMain.minGre}</h4>
+                    <h4>Minimum IELTS required:{collegeMain.minIelts}</h4>
+                    <h4>Minimum Percentage required:{collegeMain.minPercent}</h4>
+                    <h4>Minimum Work Experience required:{collegeMain.workExperienceYears}</h4>
+                    <h4>Number of backlogs allowed:{collegeMain.backlogs}</h4>
+                    
+
+
+
+
                     </div>
                     
-                    <div style={{marginLeft:90,display:"flex",flexDirection:"column",}}>
-                    <h4 style={{fontWeight:"bold",marginBottom:20}}>Followers</h4>
-                    <Typography gutterBottom variant="h6" component="div">
-                       
-                    {collegeMain.followers && collegeMain.followers.map(follower =>  <div style={{display:"flex",flexDirection:"row",marginBottom:10}}><Avatar style={{marginLeft:10,}} >{follower && follower.firstName[0] + follower.lastName[0]}</Avatar> <p style={{marginLeft:10}}>{follower && follower.firstName +" "+ follower.lastName}</p></div>)}
-                    </Typography>
-                    </div>
                     </div>     
                 </CardContent>
                 <CardActions style={{marginTop:10,display: "flex", flexDirection: "row", justifyContent: "space-between", width: "100%" }}>
