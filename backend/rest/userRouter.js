@@ -56,5 +56,10 @@ router.get('/find-colleges', authenticateToken, async (req, res, next) => {
     const response = await userService.findColleges(req.user._id);
     res.json(response)
 ;});
+
+router.post('/find-colleges-with-params', authenticateToken, async (req, res, next) => {
+    const response = await userService.findCollegesWithParams(req.body);
+    res.json(response)
+;});
 //get all question, get all answers, update profile, get tags used
 module.exports = router;
