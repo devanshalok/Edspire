@@ -143,6 +143,19 @@ function Answer() {
                   </Link>
                   {modalOpen && <BasicModalAnswer profile={profile} question={{ title: question.title, id: question._id }} handleModalOpen={handleModalOpen} modalOpen={modalOpen}/>}
                 </IconButton>
+                
+          <IconButton aria-label="share">
+            <Link style={{
+              textDecoration: "none", color: "black",
+              fontSize: "15px",
+              "&:hover": {
+                color: "yellow",
+                borderBottom: "1px solid white",
+              },
+
+            }}>
+              <FollowTheSignsIcon style={{ fontSize: 20 }} />{question && question.answers && question.answers.length} Answers</Link>
+          </IconButton>
                 <IconButton aria-label="share">
             <Link style={{
               textDecoration: "none", color: "black",

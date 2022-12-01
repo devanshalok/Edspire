@@ -90,6 +90,18 @@ export default function RecipeReviewCard(props) {
               },
 
             }}>
+              <FollowTheSignsIcon style={{ fontSize: 20 }} />{props.question && props.question.answers.length} Answers</Link>
+          </IconButton>
+          <IconButton aria-label="share">
+            <Link style={{
+              textDecoration: "none", color: "black",
+              fontSize: "15px",
+              "&:hover": {
+                color: "yellow",
+                borderBottom: "1px solid white",
+              },
+
+            }}>
               <FollowTheSignsIcon style={{ fontSize: 20 }} />{props.question && props.question.followers} Followers</Link>
           </IconButton>
           {props.profile && props.profile.followedQuestions.includes(props.question._id) ? <>        <IconButton aria-label="share">

@@ -73,7 +73,7 @@ function HomeFeed() {
               (questions.filter(question => question.isUnAnswered).map(question => <RecipeReviewCard key={question._id} question={question} profile={profile}/>))
               : heading == 'Followed Questions' ?
                 (questions.filter(question => profile.followedQuestions.includes(question._id)).map(question => <RecipeReviewCard key={question._id} question={question} profile={profile} />))
-                : (questions.map(question => <RecipeReviewCard key={question._id} question={question} token={profile.token}/>))
+                : (questions.map(question => <RecipeReviewCard key={question._id} question={question} profile={profile}/>))
           }
         </Grid>
         <Grid item xs={3}>
