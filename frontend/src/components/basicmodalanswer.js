@@ -82,7 +82,7 @@ export default function BasicModalAnswer({ profile, question,handleModalOpen,mod
           <CardHeader style={{ marginLeft: "-1.2em" }}
             avatar={
               <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                AM
+                {profile && profile.firstName[0] + " " + profile.lastName[0]}
               </Avatar>
             }
             // action={
@@ -102,7 +102,7 @@ export default function BasicModalAnswer({ profile, question,handleModalOpen,mod
             </div>
             <div style={{ borderTop: "1px solid gray" }} className="form-group">
               <button style={{ marginTop: "20px", width: "80px", float: "right" }} className="form-control btn btn-primary" onClick={handleSubmit}>
-                Submit
+                Add Answer
               </button>
               <button style={{ backgroundColor: "red", marginRight: "10px", marginTop: "20px", width: "80px", float: "right" }} onClick={handleClose} className="form-control btn btn-primary close" >
                 Cancel
