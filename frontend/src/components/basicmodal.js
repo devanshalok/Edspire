@@ -18,7 +18,7 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 600,
-  height: 680,
+  height: 780,
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -54,12 +54,15 @@ export default function BasicModal() {
         let alert = (<Alert severity="success">Question Added Successfully!</Alert>);
         setAlert(alert);
         // setSpaces(response.data.data.spaces);
-        setTimeout(() => { setAlert();handleClose(); }, 2000)
+        setTimeout(() => {
+          setAlert(); setTitle("");
+          setDescr(""); handleClose();
+        }, 2000)
       } else {
         let alert = (<Alert severity="error">Some error occurred whiile adding Question!</Alert>);
         setAlert(alert);
         // setSpaces(response.data.data.spaces);
-        setTimeout(() => { setAlert()}, 2000)
+        setTimeout(() => { setAlert() }, 2000)
         console.log('some exception occurred', response)
       }
     }).catch(error => console.log('some exception occurred', error));

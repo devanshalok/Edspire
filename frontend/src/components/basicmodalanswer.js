@@ -22,7 +22,7 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 700,
-  height: 520,
+  height: 600,
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -82,7 +82,7 @@ export default function BasicModalAnswer({ profile, question,handleModalOpen,mod
           <CardHeader style={{ marginLeft: "-1.2em" }}
             avatar={
               <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                AM
+                {profile && profile.firstName[0] + " " + profile.lastName[0]}
               </Avatar>
             }
             // action={
@@ -101,8 +101,8 @@ export default function BasicModalAnswer({ profile, question,handleModalOpen,mod
               <textarea style={{ height: 200, border: "none", fontSize: "18px" }} className="form-control" id="name" value={answer} on onChange={(e) => setAnswer(e.target.value)} />
             </div>
             <div style={{ borderTop: "1px solid gray" }} className="form-group">
-              <button style={{ marginTop: "20px", width: "80px", float: "right" }} className="form-control btn btn-primary" onClick={handleSubmit}>
-                Submit
+              <button style={{ marginTop: "20px", width: "120px", float: "right" }} className="form-control btn btn-primary" onClick={handleSubmit}>
+                Add Answer
               </button>
               <button style={{ backgroundColor: "red", marginRight: "10px", marginTop: "20px", width: "80px", float: "right" }} onClick={handleClose} className="form-control btn btn-primary close" >
                 Cancel

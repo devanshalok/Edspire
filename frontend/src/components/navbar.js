@@ -44,9 +44,9 @@ function Navbar() {
   const theme = useTheme();
   const dispatch = useDispatch();
 
-  const token = useSelector(state => {
+  const profile = useSelector(state => {
     if (state.userSlice.profile && state.userSlice.profile.token) {
-      return state.userSlice.profile.token
+      return state.userSlice.profile
     } return undefined
   })
 
@@ -62,7 +62,7 @@ function Navbar() {
         <Typography variant="h4" className={classes.logo}>
           <Link style={{ textDecoration:"none",color:"white"}} to='./'>Edspire</Link>
         </Typography>
-        {token ?
+        {profile && profile.token ?
           (<div className={classes.navlinks}>
             <Link to="/home" className={classes.link}>
               Home
@@ -77,7 +77,7 @@ function Navbar() {
               College Finder
             </Link>
             <SearchBar style={{ marginBottom: "10px", height: "45px", width: "400px" }} placeholder="Search for a college..." />
-            <AccountMenu />
+            <AccountMenu name={profile.firstName[0]+profile.lastName[0]}/>
             <Link to="#" className={classes.link}>
               <Button style={{marginLeft: "-5.5em",marginTop:"-0.3em", borderRadius: 15, backgroundColor: "#ffa726" }}><BasicModal/></Button> 
             </Link>
