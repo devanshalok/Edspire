@@ -102,7 +102,7 @@ export default function RecipeReviewCard(props) {
           </Avatar>
         }
         title={props.question.createdBy.firstname + " " + props.question.createdBy.lastname}
-        subheader={moment(props.question.modifiedOn, config.DATE_FORMAT).fromNow()}
+        subheader={moment(props.question.modifiedOn, config.DATE_FORMAT).fromNow()+" | "+props.question.answers.length+" Answers "+" | "+followers+" Bookmarks "}
       />
       <CardContent>
         <Typography variant="body2" color="text.primary" style={{ fontSize: "20px" }}>
@@ -110,15 +110,15 @@ export default function RecipeReviewCard(props) {
         </Typography>
       </CardContent>
       <CardActions >
-        <div style={{ margin: "10px",marginLeft:"20px", display: "flex", flexDirection: "row", justifyContent: "space-evenly", width: "100%" }}>
-          <IconButton aria-label="add to favorites">
+        <div style={{ marginTop: "10px", display: "flex", flexDirection: "row", justifyContent: "space-evenly", width: "100%" }}>
+          <IconButton style={{marginTop:"-0.3em"}} aria-label="add to favorites">
             <Link style={{
               textDecoration: "none", color: "black",
               fontSize: "15px", marginTop: 12,
             }} state={props.question._id} to='/answer'>
               <OpenInNewIcon style={{ fontSize: 20 }} /> Go to question</Link>
           </IconButton>
-          <IconButton aria-label="share">
+          {/* <IconButton aria-label="share">
             <BasicModalAnswer />
           </IconButton>
           <IconButton aria-label="share">
@@ -144,7 +144,7 @@ export default function RecipeReviewCard(props) {
 
             }}>
               <FollowTheSignsIcon style={{ fontSize: 20 }} />{followers} Followers</Link>
-          </IconButton>
+          </IconButton> */}
           {props.profile && props.profile.followedQuestions.includes(props.question._id) ? <>        <IconButton aria-label="share">
             <Link style={{
               textDecoration: "none", color: "black",
@@ -165,7 +165,7 @@ export default function RecipeReviewCard(props) {
               },
 
             }} onClick={followQuestion}>
-              <BookmarkTwoToneIcon style={{ fontSize: 20 }} />Follow</Link>
+              <BookmarkTwoToneIcon style={{ fontSize: 20 }} />Bookmark</Link>
           </IconButton></>}
 
         </div>
