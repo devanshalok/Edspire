@@ -71,7 +71,7 @@ function Answer() {
     } return undefined
   })
   function handleModalOpen(state) {
-    if(state.userSlice.profile._id!=question.createdBy._id){
+    if(profile._id!=question.createdBy._id){
       setModalOpen(state)
     }
     console.log('handle modal open called',state)
