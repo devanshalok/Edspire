@@ -101,7 +101,7 @@ export default function BasicModalAnswer({ profile, question,handleModalOpen,mod
               <textarea style={{ height: 200, border: "none", fontSize: "18px" }} className="form-control" id="name" value={answer} on onChange={(e) => setAnswer(e.target.value)} />
             </div>
             <div style={{ borderTop: "1px solid gray" }} className="form-group">
-              <button style={{ marginTop: "20px", width: "80px", float: "right" }} className="form-control btn btn-primary" onClick={handleSubmit}>
+              <button style={{ marginTop: "20px", width: "120px", float: "right" }} className="form-control btn btn-primary" onClick={handleSubmit}>
                 Add Answer
               </button>
               <button style={{ backgroundColor: "red", marginRight: "10px", marginTop: "20px", width: "80px", float: "right" }} onClick={handleClose} className="form-control btn btn-primary close" >
