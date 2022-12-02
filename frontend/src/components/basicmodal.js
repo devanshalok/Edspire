@@ -53,15 +53,16 @@ export default function BasicModal() {
         console.log('data', response.data);
         let alert = (<Alert severity="success">Question Added Successfully!</Alert>);
         setAlert(alert);
-        setTitle("");
-        setDescr("");
         // setSpaces(response.data.data.spaces);
-        setTimeout(() => { setAlert();handleClose(); }, 2000)
+        setTimeout(() => {
+          setAlert(); setTitle("");
+          setDescr(""); handleClose();
+        }, 2000)
       } else {
         let alert = (<Alert severity="error">Some error occurred whiile adding Question!</Alert>);
         setAlert(alert);
         // setSpaces(response.data.data.spaces);
-        setTimeout(() => { setAlert()}, 2000)
+        setTimeout(() => { setAlert() }, 2000)
         console.log('some exception occurred', response)
       }
     }).catch(error => console.log('some exception occurred', error));
