@@ -76,7 +76,7 @@ function HomeFeed() {
             <Link style={{ textDecoration: "none", color: "black" }} onClick={() => setHeading("Un-Answered Questions")}><p style={{ marginLeft: 20 }}>Un-Answered Questions</p></Link>
           </Item>
           <Item style={{ marginLeft: 10, marginBottom: 5, fontSize: 15 }}>
-            <Link style={{ textDecoration: "none", color: "black" }} onClick={() => setHeading("Followed Questions")}><p style={{ marginLeft: 20 }}>Followed Questions</p></Link>
+            <Link style={{ textDecoration: "none", color: "black" }} onClick={() => setHeading("Bookmarked Questions")}><p style={{ marginLeft: 20 }}>Bookmarked Questions</p></Link>
           </Item>
         </Grid>
         <Grid item xs={6}> <p style={{ marginLeft: "20px", marginTop: "20px", fontSize: 20 }}>{heading}</p>
@@ -84,7 +84,7 @@ function HomeFeed() {
           {
             heading === 'Un-Answered Questions' ?
               (questions.filter(question => question.isUnAnswered).map(question => <RecipeReviewCard key={question._id} question={question} profile={profile} addAlert={addAlert} />))
-              : heading == 'Followed Questions' ?
+              : heading == 'Bookmarked Questions' ?
                 (questions.filter(question => profile.followedQuestions.includes(question._id)).map(question => <RecipeReviewCard key={question._id} question={question} profile={profile} addAlert={addAlert} />))
                 : (questions.map(question => <RecipeReviewCard key={question._id} question={question} profile={profile} addAlert={addAlert} />))
           }
