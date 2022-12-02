@@ -154,7 +154,7 @@ export default function RecipeReviewCard(props) {
                 borderBottom: "1px solid white",
               },
             }} to="#" onClick={unfollowQuestion}>
-              <BookmarkIcon style={{ fontSize: 20 }} />Following</Link>
+              <BookmarkIcon style={{ fontSize: 20 }} />Bookmarked</Link>
           </IconButton></> : <>        <IconButton aria-label="share">
             <Link style={{
               textDecoration: "none", color: "black",

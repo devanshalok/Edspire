@@ -45,7 +45,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
-  return <><p style={{marginLeft:10,marginTop:14,fontWeight:'bold'}}>Expand Question</p><IconButton {...other} /></>;
+  return <><p style={{marginLeft:300,marginTop:14,fontWeight:'bold'}}>Expand Question</p><IconButton {...other} /></>;
 })(({ theme, expand }) => ({
   transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
   marginLeft: 'auto',
@@ -84,6 +84,14 @@ function Answer() {
   function handleAnswerAdded(state){
     setModalOpen(state);
     getQuestionData();
+  }
+
+  function getHeaderData(){
+    let retur = moment(question.modifiedOn, config.DATE_FORMAT).fromNow();
+    let answers = question.answers?question.answers.length:0;
+    // let followers = followers?questi;
+    retur = retur + " | " + answers + " Answers | " + followers + " Bookmarks";
+    return retur;
   }
   const [followers,setFollowers] = React.useState(0);
   function followQuestion() {
@@ -192,7 +200,7 @@ function Answer() {
                 </IconButton>
               }
               title={question.createdBy && question.createdBy.firstname + " " + question.createdBy.lastname}
-              subheader={moment(question.modifiedOn, config.DATE_FORMAT).fromNow() || ""}
+              subheader={getHeaderData(question) || ""}
             />
 
             <CardContent>
@@ -201,8 +209,8 @@ function Answer() {
               </Typography>
             </CardContent>
             <CardActions disableSpacing>
-              <div style={{ margin: "10px", display: "flex", flexDirection: "row", justifyContent: "space-around", width: "100%" }}>
-                <IconButton style={{ marginTop: "-0.2em" }} aria-label="share">
+              <div style={{ margin: "10px", display: "flex", flexDirection: "row", width: "100%" }}>
+                <IconButton style={{ }} aria-label="share">
                   <Link style={{
                     textDecoration: "none", color: "black",
                     fontSize: "15px",
@@ -216,7 +224,7 @@ function Answer() {
                   {modalOpen && <BasicModalAnswer profile={profile} question={{ title: question.title, id: question._id }} handleModalOpen={handleModalOpen} handleAnswerAdded={handleAnswerAdded} modalOpen={modalOpen}/>}
                 </IconButton>
                 
-          <IconButton aria-label="share">
+          {/* <IconButton aria-label="share">
             <Link style={{
               textDecoration: "none", color: "black",
               fontSize: "15px",
@@ -239,7 +247,7 @@ function Answer() {
 
             }}>
               <FollowTheSignsIcon style={{ marginRight:4,fontSize: 20 }} />{followers} Followers</Link>
-          </IconButton>
+          </IconButton> */}
                 {profile && profile.followedQuestions.includes(question._id) ? <>        <IconButton aria-label="share">
             <Link style={{
               textDecoration: "none", color: "black",
@@ -249,7 +257,7 @@ function Answer() {
                 borderBottom: "1px solid white",
               },
             }} to="#" onClick={unfollowQuestion}>
-              <BookmarkIcon style={{ marginRight:4,fontSize: 20 }} />Following</Link>
+              <BookmarkIcon style={{ marginLeft:20,fontSize: 20 }} />Bookmarked</Link>
           </IconButton></>:<>        <IconButton aria-label="share">
             <Link style={{
               textDecoration: "none", color: "black",
@@ -260,7 +268,7 @@ function Answer() {
               },
 
             }} onClick={followQuestion}>
-              <BookmarkTwoToneIcon style={{ fontSize: 20 }} />Follow</Link>
+              <BookmarkTwoToneIcon style={{ fontSize: 20 }} />Bookmark</Link>
           </IconButton></>}
           
                 <ExpandMore
