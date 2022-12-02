@@ -71,8 +71,10 @@ function Answer() {
     } return undefined
   })
   function handleModalOpen(state) {
+    if(state.userSlice.profile._id!=question.createdBy._id){
+      setModalOpen(state)
+    }
     console.log('handle modal open called',state)
-    setModalOpen(state)
   }
   console.log('modal open',modalOpen)
   const [questionId,setQuestionId] = useState(location.state);
