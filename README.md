@@ -105,6 +105,7 @@ Contributions are welcome! Please read `CONTRIBUTING.md` for guidelines on code 
 ## Authors
 
 - **Devansh Alok** - Initial work - [devanshalok](https://github.com/devanshalok)
+- **Abul Hasan** - Initial work - [abulhasan](https://github.com/abulhasan)
 
 ## License
 
